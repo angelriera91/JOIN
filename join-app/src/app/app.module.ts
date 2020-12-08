@@ -18,7 +18,7 @@ import { CategoriesComponent } from './pages/categories/categories.component';
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent,
+    FooterComponent,  
     EventsComponent,
     ProfileComponent,
     LoginComponent,

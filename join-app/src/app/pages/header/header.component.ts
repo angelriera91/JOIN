@@ -8,12 +8,16 @@ import  Swal  from 'sweetalert2'
 })
 export class HeaderComponent implements OnInit {
 
+  public mostrar:boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 public async iniciarSesion(){
+
+  this.mostrar = true;
+
   const { value: email } = await Swal.fire({
     imageUrl: '../../../assets/logoNegro.png',
     imageWidth: 100,
