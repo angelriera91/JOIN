@@ -1,0 +1,17 @@
+#navegador{
+    text-align: right;
+    margin-left: 1180px;
+
+}
+li:hover {
+    background-color:#ff9500;
+    border-radius: 7px;
+}
+li{
+    font-size: small;
+}
+@media only screen and (max-width: 600px) {
+    #icono {
+        display: none;
+    }
+}

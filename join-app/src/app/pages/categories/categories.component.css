@@ -1,0 +1,15 @@
+.tamano
+{
+    width: 100px; 
+}
+
+.centrartexto
+{
+   text-align: center; 
+}
+
+#justificar
+{
+display: flex;
+justify-content: space-between;
+}
