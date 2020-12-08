@@ -12,9 +12,8 @@ export class ProfileComponent implements OnInit {
 
   popUpFav(){
     Swal.fire({
-      icon: 'error',
       title: 'Oops...',
-      text: 'Something went wrong!',
+      html: '<label>Titulo: </label> <input></input>',
       footer: '<a href>Why do I have this issue?</a>'
     })
   }
