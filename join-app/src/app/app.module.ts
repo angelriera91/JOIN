@@ -11,7 +11,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CategoriesComponent } from './pages/categories/categories.component';
 
 @NgModule({
@@ -30,8 +29,7 @@ import { CategoriesComponent } from './pages/categories/categories.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule,
-    SweetAlert2Module.forRoot()
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
