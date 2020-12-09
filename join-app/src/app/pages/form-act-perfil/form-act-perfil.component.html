@@ -1,0 +1,20 @@
+<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)"> 
+    <div class="form-group">
+        <label>Nombre:</label>
+        <input type="text" class="form-control" name="name" [(ngModel)]="user.nickname" #name="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" required>
+        <div *ngIf="userForm.submitted && name.invalid" class="invalid-feedback">
+          <p *ngIf="name.errors?.required">El nombre es obligatorio</p>
+        </div>
+      </div>
+    <div class="form-group">
+        <label>Descripcion:</label>
+        <textarea  type="text" name="descripcion" class="form-control" [(ngModel)]="user.descripcion" #descripcion="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && descripcion.invalid }" required></textarea>
+        <div *ngIf="userForm.submitted && descripcion.invalid" class="invalid-feedback">
+            <p *ngIf="descripcion.errors?.required">La descripcion es obligatoria</p>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <button class="btn btn-danger btn-block">Submit</button>
+    </div>
+</form>

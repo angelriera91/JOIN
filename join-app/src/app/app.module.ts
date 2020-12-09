@@ -12,6 +12,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoriesComponent } from './pages/categories/categories.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatInputModule } from '@angular/material/input';
+import { FormActPerfilComponent } from './pages/form-act-perfil/form-act-perfil.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +26,16 @@ import { CategoriesComponent } from './pages/categories/categories.component';
     ProfileComponent,
     LoginComponent,
     RegisterComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    FormActPerfilComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

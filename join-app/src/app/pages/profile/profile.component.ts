@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {MatDialog} from '@angular/material/dialog';
+import { User } from 'src/app/model/user/user';
 
 @Component({
   selector: 'app-profile',
@@ -8,23 +11,35 @@ import Swal from 'sweetalert2';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  closeResult = '';
+  public user:User = new User();
 
-  popUpFav(){
-    Swal.fire({
-      title: 'Oops...',
-      html: '<label>Titulo: </label> <input></input>',
-      footer: '<a href>Why do I have this issue?</a>'
-    })
+  constructor(private modalService: NgbModal) {
+    this.user;
   }
 
-  mouseOver() {
-    document.getElementById("fav").style.color = "red";
+  open(content) {
+    this.modalService.open(content, {backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
-  
-  mouseOut() {
-    document.getElementById("fav").style.color = "black";
+
+  onSubmit(form:any){
+    console.log(form.value);
   }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
 
   ngOnInit(): void {
   }
