@@ -81,7 +81,7 @@
       </div>
       
         <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)"> 
-            <div class="modal-body-">
+            <div class="modal-body">
                 <div class="form-group">
                     <label>Nickname: <a class="text-danger">*</a></label>
                     <input type="text" class="form-control" name="name" [(ngModel)]="user.nickname" #name="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" placeholder="Jfaramir" required>
