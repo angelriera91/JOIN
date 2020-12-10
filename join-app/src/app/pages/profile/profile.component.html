@@ -83,7 +83,7 @@
         <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)"> 
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Nickname: <a class="text-danger">*</a></label>
+                    <label>Nickname: <label class="text-danger">*</label></label>
                     <input type="text" class="form-control" name="name" [(ngModel)]="user.nickname" #name="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" placeholder="Jfaramir" required>
                     <div *ngIf="userForm.submitted && name.invalid" class="invalid-feedback">
                     <p *ngIf="name.errors?.required">El nombre es obligatorio</p>
@@ -99,7 +99,7 @@
 
                 <div class="row" style=" text-align: center;">
                     <div class="col-md-12">
-                        <label >Los elementos con <a class="text-danger">*</a> son obligatorios</label>
+                        <label >Los elementos con <label class="text-danger">*</label> son obligatorios</label>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                                 <button type="button" class="btn btn-block" id="color" (click)="modal.close('Save click')">Cancelar</button>
                             </div>
                             <div class="col-md-6">
-                                <button class="btn btn-block" id="color" (click)="modal.close('Save click')">Submit</button>
+                                <button class="btn btn-block" id="color" (click)="modal.close('Save click')">Modificar</button>
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
 
     <ng-template #favoritos let-modal>
         <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Modificar datos Usuario</h4>
+          <h4 class="modal-title" id="modal-basic-title">Usuarios Favoritos</h4>
           <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -195,9 +195,7 @@
         <div class="modal-footer">
             <div>
                 <div class="form-group">
-                    <div class="row">
-                            <button type="button" class="btn btn-block" id="color" (click)="modal.close('Save click')">Cancelar</button>
-                    </div>
+                    <button type="button" class="btn btn-block" id="color" (click)="modal.close('Save click')">Salir</button>
                 </div>
             </div>
         </div>
