@@ -10,13 +10,19 @@ li:hover {
 li{
     font-size: small;
 }
+#color:hover {
+    background-color: #ff9500;
+}
 @media only screen and (max-width: 600px) {
     #icono {
         display: none;
     }
-}
-
-button:hover{
-    background-color:#FF9500;
+    li{
+        font-size: 10px;
+    }
     
+    #opciones{
+        display:inline-flex;
+        margin-left: 30px;
+    }
 }
