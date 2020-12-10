@@ -7,11 +7,13 @@
     align-items: center;
     flex-direction: column;
     background-image: url('../../../assets/fondo.jpg');
-    background-size: 100% 100%;
+    background-size: cover;
+    background-position: center center;
 }
 #text1{
+    font-size: 120px;
     width: 50%;
-    height: 50px;
+    height: 100px;
     text-align: center;
     /* border: solid red 1px; */
     font-family: Brush Script MT;
@@ -25,8 +27,10 @@
     font-family: Courier New;
     color: whitesmoke;
 }
-/* estilo del input */
 
+
+
+/* estilo del input */
 .form-inline {  
     display: flex;
     flex-flow: row wrap;
@@ -34,16 +38,13 @@
 }
 
 .form-inline input {
-    width: 500px;
+    width: 600px;
     height: 60px;
-    border-radius: 10px;
     vertical-align: middle;
-    /* margin: 5px 10px 5px 0; */
     background-color: #fff;
     border: 1px solid #ddd;
 }
 #select{
-    border-radius: 10px;
     width: 200px;
     height: 60px;
 }
@@ -55,6 +56,7 @@
     border: 1px solid #fc5404;
     color: white;
     cursor: pointer;
+    margin-left: 3px;
 }
   
 .form-inline button:hover {
@@ -65,18 +67,29 @@
     #text2{
         display: none;
     }
+    #text1{
+        margin-bottom: 50px;
+        font-size: 90px;
+        opacity: .7;
+
+    }
     .form-inline input {
       margin: 10px 0;
       width: 240px;
       height: 40px;
+      border-radius: 10px;
   
     }
     #select{
         width: 240px;
         height: 40px;
+        border-color: white;
+        border-radius: 10px;
     }
     .form-inline button {
-        margin-top: 5px;
+        margin-top: 8px;
+        margin-left: 70px;
+        height: 40px;
     }
     
     
@@ -86,3 +99,8 @@
     }
   }
 /* fin estilo del input */
+
+.botonEntrar{
+    background-color: #ff9500;
+    border-radius: 10px;
+}
