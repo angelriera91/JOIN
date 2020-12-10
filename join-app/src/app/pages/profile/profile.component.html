@@ -9,7 +9,7 @@
                 <div class="col-md-4" style="text-align: left;">
                     <strong>Jfaramir</strong>
                 </div>
-                <div class="col-md-3" style="text-align: left; cursor: pointer; color:#0275d8;">
+                <div class="col-md-3" style="text-align: left; cursor: pointer; color:#0275d8;" (click)="openFav(favoritos)">
                     <a >
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bookmark-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
@@ -109,7 +109,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-6">
-                                <button class="btn btn-block" id="color" (click)="modal.close('Save click')">Cancelar</button>
+                                <button type="button" class="btn btn-block" id="color" (click)="modal.close('Save click')">Cancelar</button>
                             </div>
                             <div class="col-md-6">
                                 <button class="btn btn-block" id="color" (click)="modal.close('Save click')">Submit</button>
@@ -120,5 +120,87 @@
             </div>
         </form>
     </ng-template>
+
+
+    <ng-template #favoritos let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Modificar datos Usuario</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-3" style="text-align: center;">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                    <label >Jfaramir</label>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3" style="text-align: center;">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                    <label >Jfaramir</label>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3" style="text-align: center;">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                    <label >Jfaramir</label>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3" style="text-align: center;">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                    <label >Jfaramir</label>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div>
+                <div class="form-group">
+                    <div class="row">
+                            <button type="button" class="btn btn-block" id="color" (click)="modal.close('Save click')">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </ng-template>
 
 </div>
