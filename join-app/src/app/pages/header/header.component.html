@@ -2,11 +2,11 @@
     <nav class="navbar">
         <a class="navbar-brand text-white" routerLink="/"><img src="../../../assets/logo.png" style="height: 50px;"></a>
 
-        <ul class="nav justify-content-end">
+        <ul class="nav justify-content-end" id="opciones">
             <a routerLink="perfil" id="icono"><img src="../../../assets/icono.png" style="height: 30px;"></a>
-            <li class="nav-item"><a class="nav-link text-white" href="#" (click)="iniciarSesion()">Iniciar sesión</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#" (click)="registrarse()">Registrarse</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#" (click)="open(content)">Crear Evento</a></li>
+            <li class="nav-item"><a class="nav-link text-white" (click)="open(login)">Iniciar sesión</a></li>
+            <li class="nav-item"><a class="nav-link text-white" (click)="open(registro)">Registrarse</a></li>
+            <li class="nav-item"><a class="nav-link text-white" (click)="open(content)">Crear Evento</a></li>
         </ul>
     </nav>
 </div>
@@ -16,7 +16,7 @@
 <ng-template #content let-modal>
     <div>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Crear Evento</h4>
+      <h4 class="modal-title" id="modal-basic-title"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Crear <strong style="color: #fc5404;">Evento</strong></h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -81,12 +81,134 @@
     <div class="modal-footer">
       <div class="col-4"></div>  
         <div class="col-4">
-        <button  type="submit" class="btn">Crear Evento</button> 
+          <button class="btn btn-block" id="color" style="border: solid 1px #fc5404;" (click)="modal.close('Save click')">Crear Evento</button>
         </div>
       <div class="col-4"> </div>
     </div>
     
 </form>
-    
       
   </ng-template>
+<!-- fin modal event -->
+
+
+        <!-- modal del login -->
+        <ng-template #login let-modal>
+          <div class="modal-header">
+          <h4 class="modal-title" style="height: 50px; font-family: Arial, Helvetica, sans-serif;"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Iniciar <strong style="color: #fc5404;">sesión</strong> </h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+          </div>
+
+          <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+              <div class="modal-body">
+                  <div class="form-group">
+                      <img src="../../../assets/sobre.png" style="width: 35px; height: 30px;">
+                      <label>Correo</label>
+                      <input type="email" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" [ngClass]="{ 'is-invalid': loginForm.submitted && email.invalid }" email required>
+                  <div *ngIf="loginForm.submitted && email.invalid" class="invalid-feedback"><p *ngIf="email.errors.required">*Campo requerido</p></div>
+                  </div>
+          
+                  <div class="form-group">
+                      <img src="../../../assets/candado.png" style="width: 35px; height: 30px;">
+                      <label>Contraseña</label>
+                      <input type="password" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel"
+                      [ngClass]="{ 'is-invalid': loginForm.submitted && password.invalid }" required>
+                      <div *ngIf="loginForm.submitted && password.invalid" class="invalid-feedback">
+                      <p *ngIf="password.errors.required">*Campo requerido</p>
+                      </div>
+                  </div>
+              </div>
+          
+          <div class="modal-footer">
+                  <div class="form-group">
+                      <button class="btn btn-block" id="color" style="border: solid 1px #fc5404;" (click)="modal.close('Save click')" [disabled]="loginForm.invalid">Entrar</button>
+                    </div>
+                  <div class="form-group">
+                      <button  class="btn btn-block" id="color" style="border: solid 1px #fc5404;" type="button" (click)="modal.close('Close click')">Cancelar</button>    
+                  </div>
+
+              </div>
+          </form>
+      </ng-template>
+      <!-- fin modal del login -->
+
+        <!-- modal de registro -->
+        <ng-template #registro let-modal>
+          <div class="modal-header">
+          <h4 class="modal-title" style="height: 50px; font-family: Arial, Helvetica, sans-serif;"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;"><strong style="color: #fc5404;">Registro</strong> </h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+          </div>
+
+          <form #registroForm="ngForm" (ngSubmit)="onSubmit(registroForm)">
+              <div class="modal-body">
+                  <div class="form-group">
+                      <img src="../../../assets/iconoN.png" style="width: 35px; height: 30px;">
+                      <label>Nickname: </label>
+                      <input type="text" class="form-control" name="nickname" [(ngModel)]="user.nickname" #nickname="ngModel" [ngClass]="{ 'is-invalid': registroForm.submitted && nickname.invalid }" nickname required>
+                  <div *ngIf="registroForm.submitted && nickname.invalid" class="invalid-feedback"><p *ngIf="nickname.errors.required">*Campo requerido</p></div>
+                  </div>
+          
+                  <div class="form-group">
+                      <img src="../../../assets/apellido.png" style="width: 35px; height: 30px;">
+                      <label>Nombre: </label>
+                      <input type="text" class="form-control" name="nombre" [(ngModel)]="user.nombre" #nombre="ngModel"
+                      [ngClass]="{ 'is-invalid': registroForm.submitted && nombre.invalid }" required>
+                      <div *ngIf="registroForm.submitted && nombre.invalid" class="invalid-feedback">
+                      <p *ngIf="nombre.errors.required">*Campo requerido</p>
+                      </div>
+                  </div>
+              
+                  <div class="form-group">
+                      <img src="../../../assets/apellido.png" style="width: 35px; height: 30px;">
+                      <label>Apellidos: </label>
+                      <input type="text" class="form-control" name="apellidos" [(ngModel)]="user.apellidos" #apellidos="ngModel"
+                      [ngClass]="{ 'is-invalid': registroForm.submitted && apellidos.invalid }" required>
+                      <div *ngIf="registroForm.submitted && apellidos.invalid" class="invalid-feedback">
+                      <p *ngIf="apellidos.errors.required">*Campo requerido</p>
+                      </div>
+                  </div>
+              
+                  <div class="form-group">
+                      <img src="../../../assets/ciudad.png" style="width: 35px; height: 30px;">
+                      <label>Ciudad: </label>
+                      <input type="text" class="form-control" name="ciudad" [(ngModel)]="user.ciudad" #ciudad="ngModel"
+                      [ngClass]="{ 'is-invalid': registroForm.submitted && ciudad.invalid }" required>
+                      <div *ngIf="registroForm.submitted && ciudad.invalid" class="invalid-feedback">
+                      <p *ngIf="ciudad.errors.required">*Campo requerido</p>
+                      </div>
+                  </div>
+              
+                  <div class="form-group">
+                      <img src="../../../assets/sobre.png" style="width: 35px; height: 30px;">
+                      <label>Correo</label>
+                      <input type="email" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" [ngClass]="{ 'is-invalid': registroForm.submitted && email.invalid }" email required>
+                  <div *ngIf="registroForm.submitted && email.invalid" class="invalid-feedback"><p *ngIf="email.errors.required">*Campo requerido</p></div>
+                  </div>
+          
+                  <div class="form-group">
+                      <img src="../../../assets/candado.png" style="width: 35px; height: 30px;">
+                      <label>Contraseña</label>
+                      <input type="password" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel"
+                      [ngClass]="{ 'is-invalid': registroForm.submitted && password.invalid }" required>
+                      <div *ngIf="registroForm.submitted && password.invalid" class="invalid-feedback">
+                      <p *ngIf="password.errors.required">*Campo requerido</p>
+                      </div>
+                  </div>
+              
+              </div>
+          
+
+
+              <div class="modal-footer">
+                  <div class="form-group">
+                    <button class="btn btn-block" id="color" style="border: solid 1px #fc5404;" (click)="modal.close('Save click')" [disabled]="registroForm.invalid">Registrarse</button>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-block" id="color" style="border: solid 1px #fc5404;" type="button" (click)="modal.close('Save click')">Cancelar</button>
+                  </div>
+
+              </div>
+          </form>
+      </ng-template>
+      <!-- fin modal de registro -->
+

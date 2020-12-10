@@ -15,6 +15,7 @@ import { CategoriesComponent } from './pages/categories/categories.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatInputModule } from '@angular/material/input';
 import { FormActPerfilComponent } from './pages/form-act-perfil/form-act-perfil.component';
+import { ScoreComponent } from './pages/score/score.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FormActPerfilComponent } from './pages/form-act-perfil/form-act-perfil.
     LoginComponent,
     RegisterComponent,
     CategoriesComponent,
-    FormActPerfilComponent
+    FormActPerfilComponent,
+    ScoreComponent
   ],
   imports: [
     BrowserModule,
