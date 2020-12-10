@@ -1,0 +1,58 @@
+button {
+    background-color:#fc5404;
+    border: 1px solid #fc5404;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #ff9500;
+  }
+  
+  #form {
+  width: 250px;
+  margin: 0 auto;
+  height: 50px;
+  }
+  
+  #form p {
+  text-align: center;
+  }
+  
+  #form label {
+  font-size: 20px;
+  }
+  
+  input[type="radio"] {
+  display: none;
+  }
+  
+  label {
+  color: grey;
+  font-size: 3rem;
+  }
+  
+  .clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  }
+  
+  label:hover,
+  label:hover ~ label {
+  color: orange;
+  }
+  
+  input[type="radio"]:checked ~ label {
+  color: orange;
+  }
+  
+  #imagen {
+  width: 50%;
+  margin: auto;
+  display: block;
+  }
+  
+  .centrar {
+  text-align: center
+  
+  }
