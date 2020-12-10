@@ -7,7 +7,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 const routes: Routes = [
   {path:"perfil", component:ProfileComponent},
   {path:"perfilAct", component:FormActPerfilComponent},
-  {path:"**",component:HomeComponent}
+  {path:"**",component:HomeComponent},  
 ];
 
 @NgModule({

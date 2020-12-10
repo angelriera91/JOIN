@@ -6,6 +6,87 @@
             <a routerLink="perfil" id="icono"><img src="../../../assets/icono.png" style="height: 30px;"></a>
             <li class="nav-item"><a class="nav-link text-white" href="#" (click)="iniciarSesion()">Iniciar sesión</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="#" (click)="registrarse()">Registrarse</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#" (click)="open(content)">Crear Evento</a></li>
         </ul>
     </nav>
 </div>
+
+<!-- create event modal -->
+
+<ng-template #content let-modal>
+    <div>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Crear Evento</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    </div>
+    
+    <form>
+    <div class="modal-body form-group row">
+
+            <div class="col-1"> </div>
+            <div class="form-group col-10">
+              <label for="title-event">Titulo</label>
+              <input type="text" class="form-control" id="title-event" placeholder="Titulo...">              
+            </div>
+            <div class="col-1"> </div>
+
+            <div class="col-1"> </div>
+            <div class="form-group col-10">
+              <label for="categoria-event">Categoria</label>
+              <select class="form-control" id="categoria-event">
+                <option>Cat.1</option>
+                <option>Cat.2</option>
+                <option>Cat.3</option>
+                <option>Cat.4</option>
+                <option>Cat.5</option>
+              </select>
+            </div>
+            <div class="col-1"> </div>
+
+            <div class="col-1"> </div>
+            <div class="form-group col-10">
+              <label for="lugar-event">Lugar</label>
+              <input type="text" class="form-control" id="lugar-event" placeholder="Lugar...">              
+            </div>
+            <div class="col-1"> </div>
+
+            <div class="col-1"> </div>
+            <div class="form-group col-5">
+              <label for="date-event">fecha</label>
+              <input type="date" class="form-control" id="date-event">              
+            </div>          
+            
+            
+            <div class="form-group col-5">
+              <label for="time-event">hora</label>
+              <input type="time" class="form-control" id="time-event">              
+            </div>
+            <div class="col-1"> </div>
+
+
+            <div class="col-1"> </div>
+            <div class="form-group col-10">
+              <label for="description-event">descripcion</label>
+              <textarea class="form-control" id="description-event" placeholder="descripcion"></textarea>         
+            </div>
+            <div class="col-1"> </div>
+     
+    </div>
+
+
+    
+    <div class="modal-footer">
+      <div class="col-4"></div>  
+        <div class="col-4">
+        <button  type="submit" class="btn">Crear Evento</button> 
+        </div>
+      <div class="col-4"> </div>
+    </div>
+    
+</form>
+    
+      
+  </ng-template>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import  Swal  from 'sweetalert2'
+import { from } from 'rxjs';
+import  Swal  from 'sweetalert2';
+import { Event } from 'src/app/model/event/event';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-header',
@@ -8,12 +11,15 @@ import  Swal  from 'sweetalert2'
 })
 export class HeaderComponent implements OnInit {
 
+  closeResult = '';
+  public event: Event = new Event
+  constructor(private modalService: NgbModal) {
+    this.event
+  }
+
   public mostrar:boolean = false;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  
 public async iniciarSesion(){
 
   this.mostrar = true;
@@ -57,7 +63,30 @@ public async registrarse(){
   })
 
 }
-  
 
+// create - event
+
+public open(content) {
+  this.modalService.open(content, {backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+    this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
+}
+
+;
+
+private getDismissReason(reason: any): string {
+  if (reason === ModalDismissReasons.ESC) {
+    return 'by pressing ESC';
+  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    return 'by clicking on a backdrop';
+  } else {
+    return `with: ${reason}`;
+  }
+}
+  
+ngOnInit(): void {
+}
 
 }
