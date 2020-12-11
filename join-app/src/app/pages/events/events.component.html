@@ -1,102 +1,229 @@
+<div class="container">
+  <div class="pt-5"></div>
+  <div class="row justify-content-between">
 
-<div>
-    <div class="container mt-5" >        
-        <div class="card col-3 text-center" (click)="open(eventmodal)">
-            <div class="card-body">
-              <h5 class="card-title">TITULO</h5>
-              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              <p class="card-text">descripcion</p>
-              <p class="card-text">lugar</p>
-              <p class="card-text">fecha</p>
-              <p class="card-text">hora</p>              
-            </div>
-        </div>
+
+
+    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
+      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
+      <hr>
+
+      <div class="card-body">
+        <h5 class="card-title">Partido Futbol Sala</h5>
+        <div class="card-text col-12">Alicante</div>
+        <div class="card-text col-12">28/04/2021</div>
+
+
+      </div>
     </div>
+
+    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
+      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
+      <hr>
+
+      <div class="card-body">
+        <h5 class="card-title">Partido Futbol Sala</h5>
+        <div class="card-text col-12">Alicante</div>
+        <div class="card-text col-12">28/04/2021</div>
+
+
+      </div>
+    </div>
+
+    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
+      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
+      <hr>
+
+      <div class="card-body">
+        <h5 class="card-title">Partido Futbol Sala</h5>
+        <div class="card-text col-12">Alicante</div>
+        <div class="card-text col-12">28/04/2021</div>
+
+
+      </div>
+    </div>
+
+    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
+      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
+      <hr>
+
+      <div class="card-body">
+        <h5 class="card-title">Partido Futbol Sala</h5>
+        <div class="card-text col-12">Alicante</div>
+        <div class="card-text col-12">28/04/2021</div>
+
+
+      </div>
+    </div>
+
+    <div class="col-12 mt-5"></div>
+
+    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
+      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
+      <hr>
+
+      <div class="card-body">
+        <h5 class="card-title">Partido Futbol Sala</h5>
+        <div class="card-text col-12">Alicante</div>
+        <div class="card-text col-12">28/04/2021</div>
+
+
+      </div>
+    </div>
+
+    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
+      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
+      <hr>
+
+      <div class="card-body">
+        <h5 class="card-title">Partido Futbol Sala</h5>
+        <div class="card-text col-12">Alicante</div>
+        <div class="card-text col-12">28/04/2021</div>
+
+
+      </div>
+    </div>
+
+    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
+      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
+      <hr>
+
+      <div class="card-body">
+        <h5 class="card-title">Partido Futbol Sala</h5>
+        <div class="card-text col-12">Alicante</div>
+        <div class="card-text col-12">28/04/2021</div>
+
+
+      </div>
+    </div>
+
+    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
+      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
+      <hr>
+
+      <div class="card-body">
+        <h5 class="card-title">Partido Futbol Sala</h5>
+        <div class="card-text col-12">Alicante</div>
+        <div class="card-text col-12">28/04/2021</div>
+
+
+      </div>
+    </div>
+  </div>
 </div>
+
+
 
 <!-- create event modal -->
 
 <ng-template #eventmodal let-modal>
-    <div>
+  <div>
     <div class="modal-header">
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+
+      <div class="form-group col-10 pb-0 mb-0">
+        <h3>
+          Partido Futbol Sala
+        </h3>
+      </div>
+      <div class="col-2">
+        <button style="outline: none" type="button" class="close bg-white" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
     </div>
-    </div>
-    
-    <form>
+  </div>
+
+  <form>
     <div class="modal-body form-group row text-center">
 
-            <div class="col-1"> </div>
-            <div class="form-group col-10">
-              <label><h1>Titulo</h1></label>
-            </div>
-            <div class="col-1"> </div>
-
-            <div class="col-1"> </div>
-            <div class="form-group col-10">
-              <label for="categoria-event"><h3>Creador</h3></label>
-            </div>
-            <div class="col-1"> </div>
-
-            <div class="col-1"> </div>
-            <div class="form-group col-10">
-              <label for="categoria-event"><h4>Categoria</h4></label>
-            </div>
-            <div class="col-1"> </div>
-
-            <div class="col-1"> </div>
-            <div class="form-group col-10">
-              <label for="lugar-event"><h4>Localizacion</h4></label>
-            </div>
-            <div class="col-1"> </div>
-
-            <div class="col-1"> </div>
-            <div class="form-group col-5">
-              <label for="date-event"><h5>fecha</h5></label>
-            </div>          
-            
-            
-            <div class="form-group col-5">
-              <label for="time-event"><h5>hora</h5></label>
-            </div>
-            <div class="col-1"> </div>
 
 
-            <div class="col-1"> </div>
-            <div class="form-group col-10">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor incidunt sit et similique distinctio illum cum error necessitatibus omnis. 
-                  Inventore perferendis dolores perspiciatis cupiditate expedita atque odio alias temporibus aperiam!</p>         
-            </div>
-            <div class="col-1"> </div>
-     
+      <div class="col-1"> </div>
+      <div class="form-group col-10">
+        <img src="../../../assets/logo.png" class="col-12 bg-dark">
+        <hr>
+        <label for="creador-event">
+          <h3>AngelitoRiera</h3>
+        </label>
+      </div>
+      <div class="col-1"> </div>
+
+      <div class="col-1"> </div>
+      <div class="form-group col-5">
+        <label for="categoria-event">
+          <h4>Deporte</h4>
+        </label>
+      </div>
+
+
+      <div class="form-group col-5">
+        <label for="lugar-event">
+          <h4>Alicante</h4>
+        </label>
+      </div>
+      <div class="col-1"> </div>
+
+      <div class="col-1"> </div>
+      <div class="form-group col-5">
+        <label for="date-event">
+          <h5>24/08/2021</h5>
+        </label>
+      </div>
+
+
+      <div class="form-group col-5">
+        <label for="time-event">
+          <h5>12:00</h5>
+        </label>
+      </div>
+      <div class="col-1"> </div>
+
+
+      <div class="col-1"> </div>
+      <div class="form-group col-10">
+        <p class="text-justify">El partido sera en el polideportivo de Aliacante, Redordad llevar camisetas de color
+          rojo/negro para poder hacer los equipos.</p>
+      </div>
+      <div class="col-1"> </div>
+
+
+      <div class="col-1"> </div>
+      <div class="form-group col-10">
+        <h4 class="text-center">Asistentes: 6/12</h4>
+      </div>
+      <div class="col-1"> </div>
+
     </div>
 
-
     
+  
+
+
+
     <div class="modal-footer justify-content-center">
-       
 
-        
-        
-        <div class="col-3">
-            <button  type="submit" class="btn">Editar</button> 
-        </div>
 
-        <div class="col-3">
-            <button  type="submit" class="btn">Asistir</button> 
-        </div>
-        
-        <div class="col-3">
-            <button  type="submit" class="btn">Eliminar</button> 
-        </div>
-        
-      
+
+
+      <div class="col-3">
+        <button type="submit" class="btn">Editar</button>
+      </div>
+
+      <div class="col-3">
+        <button type="submit" class="btn">Asistir</button>
+      </div>
+
+      <div class="col-3">
+        <button type="submit" class="btn">Eliminar</button>
+      </div>
+
+
     </div>
-    
-    
-</form>
-    
-      
-  </ng-template>
+
+
+  </form>
+
+
+</ng-template>
