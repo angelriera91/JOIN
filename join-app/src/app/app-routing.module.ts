@@ -3,13 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormActPerfilComponent } from './pages/form-act-perfil/form-act-perfil.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { PublicProfileComponent } from './pages/public-profile/public-profile.component';
 import { ScoreComponent } from './pages/score/score.component';
 
 const routes: Routes = [
   {path:"perfil", component:ProfileComponent},
   {path:"perfilAct", component:FormActPerfilComponent},
-  {path:"**",component:HomeComponent},  
-  {path:"score",component:ScoreComponent} 
+  {path:"score",component:ScoreComponent},
+  {path:"perfil/public",component:PublicProfileComponent},
+  {path:"**",component:HomeComponent}
 ];
 
 @NgModule({
