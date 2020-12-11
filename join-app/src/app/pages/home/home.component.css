@@ -11,13 +11,14 @@
     background-position: center center;
 }
 #text1{
-    font-size: 120px;
+    font-size: 90px;
     width: 50%;
     height: 100px;
     text-align: center;
     /* border: solid red 1px; */
     font-family: Brush Script MT;
     color: #fc5404;
+    margin-top: 70px;
 }
 #text2{
     width: 50%;
@@ -30,7 +31,7 @@
 
 
 
-/* estilo del input */
+/* estilo del buscardor */
 .form-inline {  
     display: flex;
     flex-flow: row wrap;
@@ -38,15 +39,24 @@
 }
 
 .form-inline input {
-    width: 600px;
+    width: 550px;
     height: 60px;
     vertical-align: middle;
     background-color: #fff;
-    border: 1px solid #ddd;
+    border: 0;
+    border-radius: 5px;
+    background: #fff;
+    outline:none;
 }
 #select{
-    width: 200px;
+    width: 150px;
     height: 60px;
+    border: 1px solid rgb(155, 153, 153);
+    border-radius: 5px;
+    background: #fff;
+    outline:none;
+    border: 1 0 0 0;
+    z-index: 3;
 }
   
 .form-inline button {
@@ -58,49 +68,62 @@
     cursor: pointer;
     margin-left: 3px;
 }
-  
 .form-inline button:hover {
-    background-color: #ff9500;
+    box-shadow: 0 0 20px rgb(204, 203, 203);
 }
-  
+
+#buscador{
+    width: 40%;
+    background-color: #fff;
+    height: 60px;
+    border-radius: 20px;
+}
+/* fin estilo del buscador */
+
+
+
+
+
+
+
+/*********** MEDIA QUERIS ***********/
+
 @media (max-width: 800px) {
     #text2{
         display: none;
     }
     #text1{
-        margin-bottom: 50px;
         font-size: 90px;
-        opacity: .7;
-
     }
     .form-inline input {
       margin: 10px 0;
       width: 240px;
       height: 40px;
-      border-radius: 10px;
-  
+      border-radius: 5px;
     }
     #select{
         width: 240px;
         height: 40px;
         border-color: white;
-        border-radius: 10px;
+        border-radius: 5px;
     }
     .form-inline button {
+        border-radius: 5px;
+        background-color:#fc5404;
+        border: 0;
+        color: white;
+        outline: none;
+    
         margin-top: 8px;
         margin-left: 70px;
         height: 40px;
     }
-    
-    
+    .form-inline button:hover {
+        box-shadow: 0 0 20px rgb(204, 203, 203);
+    }    
     .form-inline {
       flex-direction: column;
       align-items: stretch;
     }
-  }
-/* fin estilo del input */
-
-.botonEntrar{
-    background-color: #ff9500;
-    border-radius: 10px;
 }
+

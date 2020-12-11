@@ -10,14 +10,13 @@
         </ul>
     </nav>
 </div>
-
 <!-- create event modal -->
 
 <ng-template #content let-modal>
     <div>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Crear <strong style="color: #fc5404;">Evento</strong></h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -96,7 +95,7 @@
         <ng-template #login let-modal>
           <div class="modal-header">
           <h4 class="modal-title" style="height: 50px; font-family: Arial, Helvetica, sans-serif;"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Iniciar <strong style="color: #fc5404;">sesión</strong> </h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+          <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
           </div>
 
           <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
@@ -136,7 +135,7 @@
         <ng-template #registro let-modal>
           <div class="modal-header">
           <h4 class="modal-title" style="height: 50px; font-family: Arial, Helvetica, sans-serif;"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;"><strong style="color: #fc5404;">Registro</strong> </h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+          <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
           </div>
 
           <form #registroForm="ngForm" (ngSubmit)="onSubmit(registroForm)">

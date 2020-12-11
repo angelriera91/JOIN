@@ -8,8 +8,8 @@ import { ScoreComponent } from './pages/score/score.component';
 const routes: Routes = [
   {path:"perfil", component:ProfileComponent},
   {path:"perfilAct", component:FormActPerfilComponent},
+  {path:"score",component:ScoreComponent},
   {path:"**",component:HomeComponent},  
-  {path:"score",component:ScoreComponent} 
 ];
 
 @NgModule({
