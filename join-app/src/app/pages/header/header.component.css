@@ -10,6 +10,11 @@ li:hover {
 li{
     font-size: small;
 }
+
+#color{
+    border: solid 1px #fc5404;
+}
+
 #color:hover {
     background-color: #ff9500;
 }
@@ -25,4 +30,8 @@ li{
         display:inline-flex;
         margin-left: 30px;
     }
+}
+
+#pointer{
+    cursor: pointer;
 }

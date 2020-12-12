@@ -16,6 +16,14 @@
     background-color: #5cb3fd;
   }
 
+  #color{
+    border: solid 1px #fc5404;
+  }
+
   #color:hover {
     background-color: #ff9500;
+  }
+
+  .close{
+    outline: none;
   }

@@ -4,9 +4,9 @@
 
         <ul class="nav justify-content-end" id="opciones">
             <a routerLink="perfil" id="icono"><img src="../../../assets/icono.png" style="height: 30px;"></a>
-            <li class="nav-item"><a class="nav-link text-white" (click)="open(login)">Iniciar sesión</a></li>
-            <li class="nav-item"><a class="nav-link text-white" (click)="open(registro)">Registrarse</a></li>
-            <li class="nav-item"><a class="nav-link text-white" (click)="open(content)">Crear Evento</a></li>
+            <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(login)">Iniciar sesión</a></li>
+            <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(registro)">Registrarse</a></li>
+            <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(content)">Crear Evento</a></li>
         </ul>
     </nav>
 </div>
@@ -80,7 +80,7 @@
     <div class="modal-footer">
       <div class="col-4"></div>  
         <div class="col-4">
-          <button class="btn btn-block" id="color" style="border: solid 1px #fc5404;" (click)="modal.close('Save click')">Crear Evento</button>
+          <button class="btn btn-block" id="color" (click)="modal.close('Save click')">Crear Evento</button>
         </div>
       <div class="col-4"> </div>
     </div>
