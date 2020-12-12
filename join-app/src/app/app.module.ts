@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormActPerfilComponent } from './pages/form-act-perfil/form-act-perfil.component';
 import { ScoreComponent } from './pages/score/score.component';
 import { PublicProfileComponent } from './pages/public-profile/public-profile.component';
+import { ModifyComponent } from './pages/modify/modify.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PublicProfileComponent } from './pages/public-profile/public-profile.co
     CategoriesComponent,
     FormActPerfilComponent,
     ScoreComponent,
-    PublicProfileComponent
+    PublicProfileComponent,
+    ModifyComponent
   ],
   imports: [
     BrowserModule,

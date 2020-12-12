@@ -1,0 +1,19 @@
+/* button {
+    background-color:#fc5404;
+    border: 1px solid #fc5404;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #ff9500;
+  } */
+
+  #color:hover {
+    background-color: #ff9500;
+}
+
+.centrar {
+  justify-content: space-around;
+  display: flex;
+}
