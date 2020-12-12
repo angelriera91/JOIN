@@ -9,24 +9,25 @@
                 <div class="col-md-4" style="text-align: left;">
                     <strong>Jfaramir</strong>
                 </div>
-                <div class="col-md-3" style="text-align: left; cursor: pointer; color:#0275d8;" (click)="openFav(favoritos)">
+                <div class="col-md-3" style="text-align: left; cursor: pointer" (click)="openFav(favoritos)">
                     <a >
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bookmark-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <svg color="#ff9500" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bookmark-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
                             <path fill-rule="evenodd" d="M8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
                         </svg>
-                        <label style="cursor: pointer;">999</label>
+                        <label style="cursor: pointer; color: black;">999</label>
                     </a>
                 </div>
                 <div class="col-md-4" style="text-align: left;">
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <svg color="#ff9500" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
                     </svg>
                     <label>4.9%</label>
                 </div>
                 <div class="col-md-1">
-                    <a style="color:#0275d8; cursor: pointer;" (click)="open(content)">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <!-- <a style="color:#0275d8; cursor: pointer;" (click)="open(content)"> -->
+                    <a routerLink="modify">
+                        <svg color="#ff9500" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                         </svg>
@@ -39,8 +40,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
-            <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+        <div class="col-md-2" style="flex-direction: column;">
+            <div>Categoría Frecuente: </div>
+            <svg class="justify-content-center" color="#ff9500" xmlns="http://www.w3.org/2000/svg" width="30%" height="30%" fill="currentColor" class="bi bi-bicycle" viewBox="0 0 16 16" margin-left=auto margin-right=auto display=block>
+                <path fill-rule="evenodd" d="M4 4.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1v.5h4.14l.386-1.158A.5.5 0 0 1 11 4h1a.5.5 0 0 1 0 1h-.64l-.311.935.807 1.29a3 3 0 1 1-.848.53l-.508-.812-2.076 3.322A.5.5 0 0 1 8 10.5H5.959a3 3 0 1 1-1.815-3.274L5 5.856V5h-.5a.5.5 0 0 1-.5-.5zm1.5 2.443l-.508.814c.5.444.85 1.054.967 1.743h1.139L5.5 6.943zM8 9.057L9.598 6.5H6.402L8 9.057zM4.937 9.5a1.997 1.997 0 0 0-.487-.877l-.548.877h1.035zM3.603 8.092A2 2 0 1 0 4.937 10.5H3a.5.5 0 0 1-.424-.765l1.027-1.643zm7.947.53a2 2 0 1 0 .848-.53l1.026 1.643a.5.5 0 1 1-.848.53L11.55 8.623z"/>
+            </svg>
         </div>
     </div>
     <div class="row">
@@ -49,13 +53,13 @@
     <div class="row">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">Creados</a>
+              <a style="color:#ff9500" class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">Creados</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">Para asistir</a>
+              <a style="color:#ff9500" class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">Para asistir</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Terminados</a>
+              <a style="color:#ff9500" class="nav-link" id="contact-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Terminados</a>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
@@ -70,37 +74,86 @@
         </div>
     </div>
 
-    <ng-template #content let-modal>
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Modificar <strong style="color: #fc5404;">Usuario</strong></h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+    
+<!-- Model Modificar
+    <ng-template #registro let-modal>
+          <div class="modal-header">
+          <h4 class="modal-title" style="height: 50px; font-family: Arial, Helvetica, sans-serif;"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;"><strong style="color: #fc5404;">Registro</strong> </h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+          </div>
       
         <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)"> 
+
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Nickname: <label class="text-danger">*</label></label>
-                    <input type="text" class="form-control" name="name" [(ngModel)]="user.nickname" #name="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" placeholder="Jfaramir" required>
-                    <div *ngIf="userForm.submitted && name.invalid" class="invalid-feedback">
-                    <p *ngIf="name.errors?.required">El nombre es obligatorio</p>
+                    <label>Nickname: </label>
+                    <input type="text" class="form-control" name="nickname" [(ngModel)]="user.nickname" #nickname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && nickname.invalid }" placeholder="Jfaramir" required>
+                    <div *ngIf="userForm.submitted && nickname.invalid" class="invalid-feedback">
+                    <p *ngIf="nickname.errors?.required">El nickname es obligatorio</p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Descripcion:</label>
+                    <label>Descripción:</label>
                     <textarea  type="text" name="descripcion" class="form-control" [(ngModel)]="user.descripcion" #descripcion="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && descripcion.invalid }" required>Vivo en ...</textarea>
                     <div *ngIf="userForm.submitted && descripcion.invalid" class="invalid-feedback">
                         <p *ngIf="descripcion.errors?.required">La descripcion es obligatoria</p>
                     </div>
                 </div>
 
-                <div class="row" style=" text-align: center;">
+                <form class="md-form">
+                <div class="file-field">
+                    <div class="btn btn-primary btn-sm float-left">
+                    <span>Choose file</span>
+                    <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Upload your file">
+                    </div>
+                </div>
+                </form>
+                
+                <div class="form-group">
+                    <label>Nombre:</label>
+                    <input type="text" class="form-control" name="name" [(ngModel)]="user.nombre" #name="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" placeholder="Nombre" required>
+                    <div *ngIf="userForm.submitted && name.invalid" class="invalid-feedback">
+                    <p *ngIf="name.errors?.required">El nombre es obligatorio</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Apellidos:</label>
+                    <input type="text" class="form-control" name="lastname" [(ngModel)]="user.apellido" #lastname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" placeholder="Apellidos" required>
+                    <div *ngIf="userForm.submitted && apellido.invalid" class="invalid-feedback">
+                    <p *ngIf="apellido.errors?.required">Los apellidos son obligatorios</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Ciudad:</label>
+                    <input type="text" class="form-control" name="city" [(ngModel)]="user.ciudad" #city="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && city.invalid }" placeholder="Ciudad" required>
+                    <div *ngIf="userForm.submitted && name.invalid" class="invalid-feedback">
+                    <p *ngIf="city.errors?.required">La ciudad es obligatoria</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Correo:</label>
+                    <input type="text" class="form-control" name="mail" [(ngModel)]="user.email" #mail="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && mail.invalid }" placeholder="Correo electrónico" required>
+                    <div *ngIf="userForm.submitted && mail.invalid" class="invalid-feedback">
+                    <p *ngIf="mail.errors?.required">El correo electrónico es obligatorio</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña:</label>
+                    <input type="text" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && password.invalid }" placeholder="Contraseña" required>
+                    <div *ngIf="userForm.submitted && password.invalid" class="invalid-feedback">
+                    <p *ngIf="password.errors?.required">La contraseña es obligatoria</p>
+                    </div>
+                </div>
+                </div>
+Terminan Inputs Modificar-->
+                <!-- <div class="row" style=" text-align: center;">
                     <div class="col-md-12">
                         <label >Los elementos con <label class="text-danger">*</label> son obligatorios</label>
                     </div>
                 </div>
-            </div>
 
             <div class="modal-footer">
                 <div>
@@ -119,7 +172,13 @@
         </form>
     </ng-template>
 
+Termina Model Modificar -->
 
+
+
+
+
+<!-- Empieza Model Favoritos -->
     <ng-template #favoritos let-modal>
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Usuarios <strong style="color: #fc5404;">Favoritos</strong></h4>

@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content);
+    this.modalService.open(content, { size: 'lg', scrollable: true });
   }
 
   openFav(content) {
