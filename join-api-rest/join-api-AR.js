@@ -96,10 +96,10 @@ app.put("/put/event",function(request, response){
 
     let event_id = request.body.event_id
     let evento =
-    [request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen, request.body.id_creador
+    [request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen,
     ]
 
-let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?, id_creador = ? where id_event ="' + event_id + '"'
+let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?  where id_event ="' + event_id + '"'
 
 connection.query(put_event, evento, function (err, result){
 
