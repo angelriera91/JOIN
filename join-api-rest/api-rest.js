@@ -280,56 +280,65 @@ app.delete("/usuario",
 );
 
 
-// CREATE EVENT -AR
-app.post("/create/event",function(request, response){
+// CREATE EVENT //
 
-    let evento =[request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen, request.body.id_creador
-    ]
+app.post("/create/event", function (request, response) {
 
-let post_event = 'INSERT INTO eventos (titulo,lugar,fecha,hora,descripcion,categoria,imagen,id_creador) VALUES (?,?,?,?,?,?,?,?)'
+    let evento =
+        [request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen, request.body.id_creador
+        ]
 
-    connection.query(post_event, evento, function (err, result){
-        if(err){
+    let post_event = 'INSERT INTO eventos (titulo,lugar,fecha,hora,descripcion,categoria,imagen,id_creador) VALUES (?,?,?,?,?,?,?,?)'
+
+    connection.query(post_event, evento, function (err, result) {
+
+        if (err) {
             console.log(err)
         }
-        else{
+        else {
             console.log("insertado correctamente")
             console.log(result)
         }
         response.send(result)
-        })
+    })
+
 })
 
+// ASSIST EVENTO //
 
-// ASSIST EVENTO --AR
-app.post("/create/assist",function(request, response){
+app.post("/create/assist", function (request, response) {
 
-    let user = request.body.user_id
-    let event = request.body.event_id
 
-let post_event = 'INSERT INTO usuario_eventos (id_evento, id_usuario) VALUES ('+ event +','+ user +')'
 
-    connection.query(post_event, function (err, result){
-        if(err){
+    let user_Event = [request.body.event_id, request.body.user_id]
+
+    let post_event = 'INSERT INTO usuario_eventos (id_evento, id_usuario) VALUES (?,?)'
+
+    connection.query(post_event, user_Event, function (err, result) {
+
+        if (err) {
             console.log(err)
         }
-        else{
+
+        else {
             console.log("asistencia confirmada")
             console.log(result)
         }
+
         response.send(result)
-        })
+    })
+
 })
 
+// GET- EVENT - MAIN //
 
-// GET- EVENT - MAIN -AR
-app.get("/eventos/", function(request, response){
+app.get("/eventos/", function (request, response) {
     let evento = "SELECT * FROM eventos WHERE fecha > date"
-    
-    connection.query(evento, function(err,result){
-        if(err)
+
+    connection.query(evento, function (err, result) {
+        if (err)
             console.log(err)
-        else{
+        else {
             console.log("select correctamente");
             console.log(result)
         }
@@ -337,56 +346,51 @@ app.get("/eventos/", function(request, response){
     })
 });
 
+// EDITAR EVENTO //
 
-// EDITAR EVENTO -AR
-app.put("/put/event",function(request, response){
+app.put("/put/event", function (request, response) {
 
     let event_id = request.body.event_id
-    let evento =[request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen,
-    ]
+    let evento =
+        [request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen,
+            event_id]
 
-let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?  where id_event ="' + event_id + '"'
+    let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?  where id_event = ? '
 
-    connection.query(put_event, evento, function (err, result){
-        if(err){
+    connection.query(put_event, evento, function (err, result) {
+
+        if (err) {
             console.log(err)
         }
-        else{
+        else {
             console.log("modificado correctamente")
             console.log(result)
         }
         response.send(result)
-        })
+    })
+
 })
 
+// ELIMINAR EVENTO //
 
-// ELIMINAR EVENTO -AR
-app.delete("/delete/event",function(request, response){
+app.delete("/delete/event", function (request, response) {
 
     let event_id = request.body.event_id
-    
-let delete_event = 'DELETE FROM eventos where id_event ="' + event_id + '"'
 
-    connection.query(delete_event, function (err, result){
+    let delete_event = 'DELETE FROM eventos where id_event = ? '
 
-        if(err){
+    connection.query(delete_event, event_id, function (err, result) {
+
+        if (err) {
             console.log(err)
         }
-        else{
+        else {
             console.log("eliminado correctamente")
             console.log(result)
         }
         response.send(result)
-        })
+    })
+
 })
-
-
-
-
-
-
-
-
-
 
 app.listen(3000);
