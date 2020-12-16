@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {MatDialog} from '@angular/material/dialog';
 import { User } from 'src/app/model/user/user';
+import { ProfileServiceService } from 'src/app/shared/profile-service.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,12 +14,8 @@ export class ProfileComponent implements OnInit {
 
   public user:User = new User();
 
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal, public userService: ProfileServiceService) {
     this.user;
-  }
-
-  open(content) {
-    this.modalService.open(content, { size: 'lg', scrollable: true });
   }
 
   openFav(content) {

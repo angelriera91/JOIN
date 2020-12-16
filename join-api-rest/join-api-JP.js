@@ -37,7 +37,7 @@ app.get("/event/bycreator"/* /event/bycreator/:id */, function(request,response)
 
     let sql = 'SELECT * FROM eventos WHERE id_creador = ? AND fecha >= "?"';
     
-    connection.query(sql,function(err,result){
+    connection.query(sql,params,function(err,result){
         if (err) {
             console.log(err);
         } else {
@@ -56,7 +56,7 @@ app.get("/user/favorito"/* /user/favorito/:id */,function(request,response) {
     
     console.log(sql);
     
-    connection.query(sql,function(err,result){
+    connection.query(sql,params,function(err,result){
         if (err) {
             console.log(err);
         } else {
@@ -80,7 +80,7 @@ app.get("/event/pasados"/* /event/pasados/:id */, function(request,response) {
     
     console.log(sql);
 
-    connection.query(sql,function(err,result){
+    connection.query(sql,params,function(err,result){
         if (err) {
             console.log(err);
         } else {
