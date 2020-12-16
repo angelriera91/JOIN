@@ -18,6 +18,7 @@ import { FormActPerfilComponent } from './pages/form-act-perfil/form-act-perfil.
 import { ScoreComponent } from './pages/score/score.component';
 import { PublicProfileComponent } from './pages/public-profile/public-profile.component';
 import { ModifyComponent } from './pages/modify/modify.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ModifyComponent } from './pages/modify/modify.component';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
