@@ -56,12 +56,13 @@ app.post("/create/event", function (request, response) {
 
 app.post("/create/assist", function (request, response) {
 
-    let user = request.body.user_id
-    let event = request.body.event_id
 
-    let post_event = 'INSERT INTO usuario_eventos (id_evento, id_usuario) VALUES (' + event + ',' + user + ')'
 
-    connection.query(post_event, function (err, result) {
+    let user_Event = [request.body.event_id, request.body.user_id]
+
+    let post_event = 'INSERT INTO usuario_eventos (id_evento, id_usuario) VALUES (?,?)'
+
+    connection.query(post_event, user_Event, function (err, result) {
 
         if (err) {
             console.log(err)
@@ -100,9 +101,9 @@ app.put("/put/event", function (request, response) {
     let event_id = request.body.event_id
     let evento =
         [request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen,
-        ]
+            event_id]
 
-    let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?  where id_event ="' + event_id + '"'
+    let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?  where id_event = ? '
 
     connection.query(put_event, evento, function (err, result) {
 
@@ -124,9 +125,9 @@ app.delete("/delete/event", function (request, response) {
 
     let event_id = request.body.event_id
 
-    let delete_event = 'DELETE FROM eventos where id_event ="' + event_id + '"'
+    let delete_event = 'DELETE FROM eventos where id_event = ? '
 
-    connection.query(delete_event, function (err, result) {
+    connection.query(delete_event, event_id, function (err, result) {
 
         if (err) {
             console.log(err)
@@ -141,26 +142,4 @@ app.delete("/delete/event", function (request, response) {
 })
 
 
-
-
 app.listen(3000);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
