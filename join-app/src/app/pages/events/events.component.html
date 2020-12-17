@@ -2,119 +2,21 @@
   <div class="pt-5"></div>
   <div class="row justify-content-between">
 
-
-
-    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
+    <div class="card text-center" (click)="open(eventmodal)" style="width: 14rem" *ngFor="let eventos of events">
       <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
       <hr>
 
       <div class="card-body">
-        <h5 class="card-title">Partido Futbol Sala</h5>
-        <div class="card-text col-12">Alicante</div>
-        <div class="card-text col-12">28/04/2021</div>
+        <h5 class="card-title"> {{eventos.titulo}} </h5>
+        <div class="card-text col-12">{{eventos.lugar}}</div>
+        <div class="card-text col-12">{{eventos.fecha}}</div>
 
 
       </div>
     </div>
 
-    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
-      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
-      <hr>
 
-      <div class="card-body">
-        <h5 class="card-title">Partido Futbol Sala</h5>
-        <div class="card-text col-12">Alicante</div>
-        <div class="card-text col-12">28/04/2021</div>
-
-
-      </div>
-    </div>
-
-    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
-      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
-      <hr>
-
-      <div class="card-body">
-        <h5 class="card-title">Partido Futbol Sala</h5>
-        <div class="card-text col-12">Alicante</div>
-        <div class="card-text col-12">28/04/2021</div>
-
-
-      </div>
-    </div>
-
-    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
-      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
-      <hr>
-
-      <div class="card-body">
-        <h5 class="card-title">Partido Futbol Sala</h5>
-        <div class="card-text col-12">Alicante</div>
-        <div class="card-text col-12">28/04/2021</div>
-
-
-      </div>
-    </div>
-
-    <div class="col-12 mt-5"></div>
-
-    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
-      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
-      <hr>
-
-      <div class="card-body">
-        <h5 class="card-title">Partido Futbol Sala</h5>
-        <div class="card-text col-12">Alicante</div>
-        <div class="card-text col-12">28/04/2021</div>
-
-
-      </div>
-    </div>
-
-    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
-      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
-      <hr>
-
-      <div class="card-body">
-        <h5 class="card-title">Partido Futbol Sala</h5>
-        <div class="card-text col-12">Alicante</div>
-        <div class="card-text col-12">28/04/2021</div>
-
-
-      </div>
-    </div>
-
-    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
-      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
-      <hr>
-
-      <div class="card-body">
-        <h5 class="card-title">Partido Futbol Sala</h5>
-        <div class="card-text col-12">Alicante</div>
-        <div class="card-text col-12">28/04/2021</div>
-
-
-      </div>
-    </div>
-
-    <div class="card text-center" (click)="open(eventmodal)" style="width: 15rem">
-      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
-      <hr>
-
-      <div class="card-body">
-        <h5 class="card-title">Partido Futbol Sala</h5>
-        <div class="card-text col-12">Alicante</div>
-        <div class="card-text col-12">28/04/2021</div>
-
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- create event modal -->
+<!-- visualizar event modal -->
 
 <ng-template #eventmodal let-modal>
   <div>
