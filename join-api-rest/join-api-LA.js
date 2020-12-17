@@ -92,10 +92,10 @@ connection.query(delete_favorito, usuario, function (err, result){
 // Puntuar evento (listo con ?)
 app.put("/evento/puntuacion",function(request, response){
 
-    let evento_id = request.body.id_evento
+    let id_evento = request.body.id_evento
     let puntuacion = [request.body.puntuacion]
 
-let put_evento = 'UPDATE usuario_eventos SET puntuacion = ? WHERE id_evento ="' + evento_id + '"'
+let put_evento = 'UPDATE usuario_eventos SET puntuacion = ? WHERE id_evento ="' + id_evento + '"'
 
 connection.query(put_evento, puntuacion, function (err, result){
 
