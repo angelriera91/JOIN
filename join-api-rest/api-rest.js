@@ -1,10 +1,12 @@
 // conexcion con BBDD
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cors());
 
 let mysql = require("mysql");
 let connection = mysql.createConnection({
@@ -13,6 +15,7 @@ let connection = mysql.createConnection({
     password: null,
     database: "join"
 });
+
 connection.connect(function(error){
     if(error){
         console.log(error);
@@ -42,9 +45,11 @@ app.post("/user/register", function(request, response){
 });
 
 //validacion de usuario para login - MG
-app.get("/user/login/email", function(request, response){
-    let user = "SELECT * FROM usuarios WHERE correo = ? and password = ?"
+app.post("/login", function(request, response){
+    //let user = "SELECT * FROM usuarios WHERE correo = ? and password = ?"
+    let user = "SELECT u.*, COUNT(uu.id_usuario) as favoritos, (e.total_valoracion/e.numero_valoracion) as media FROM usuarios AS u INNER JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario INNER JOIN eventos AS e ON uu.id_usuario = e.id_creador WHERE correo = ? and password = ?";
     let array = [request.body.correo, request.body.password]
+
     connection.query(user, array, function(err,result){
         if(err)
             console.log(err)
