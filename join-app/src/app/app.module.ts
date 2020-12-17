@@ -34,7 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormActPerfilComponent,
     ScoreComponent,
     PublicProfileComponent,
-    ModifyComponent
+    ModifyComponent,
   ],
   imports: [
     BrowserModule,

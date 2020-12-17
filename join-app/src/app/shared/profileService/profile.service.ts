@@ -8,20 +8,22 @@ import { User } from 'src/app/model/user/user';
 export class ProfileService {
 
   public user:User;
+  public users:User[];
 
 
   private urlEvent = "http://localhost:3000/event"
   private urlLogin  = "http://localhost:3000/login"
+  private urlUserFav = "http://localhost:3000/user/favoritos";
 
   constructor(private http: HttpClient) {
     this.user;
    }
 
-/*   getdatosUser(datos:any){
-    console.log(datos);
+  getdatosUserFav(id:any){
+    console.log(id);
 
-    return this.http.post(this.urlLogin, datos)
-  } */
+    return this.http.get(this.urlUserFav + "/" + id);
+  }
 
   
 }

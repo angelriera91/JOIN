@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { from } from 'rxjs';
 import { User } from 'src/app/model/user/user';
 import { Event } from 'src/app/model/event/event';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -33,20 +32,24 @@ onLogin(email:string,password:string){
     console.log(data);
 
     if(data[0] != undefined){
-      if(data[0].id_usuario != null){
+      if (data[0].id_usuario != null){
       this.headerService.user = data[0];
       this.user = data[0];
       this.onSubmit("");
       this.mostrar = false;
       this.router.navigate(["/**"]);
     }
+
     else{
       this.mostrarError = true;
     }
-  }
-  else{
-    this.mostrarError = true;
-  }
+    
+    }
+    else{
+      this.mostrarError = true;
+    }
+    
+  
   },
   error => console.log(error)
 

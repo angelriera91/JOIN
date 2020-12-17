@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/model/user/user';
+import { HeaderService } from 'src/app/shared/headerService/header.service';
 import { ProfileService } from 'src/app/shared/profileService/profile.service';
 import { HeaderComponent } from '../header/header.component';
 
@@ -13,29 +14,27 @@ import { HeaderComponent } from '../header/header.component';
 export class ProfileComponent implements OnInit {
 
   public user:User;
+  public users:User[];
   public header:HeaderComponent;
 
-  constructor(private modalService: NgbModal, public apiService: ProfileService) {
-    this.user = new User();
-    this.mostrarDatosUser();
+  constructor(private modalService: NgbModal, public profileService: ProfileService, public headerService:HeaderService) {
+    this.user = headerService.user;
   }
 
   openFav(content) {
+    this.mostrarDatosUser();
     this.modalService.open(content, { size: 'lg', scrollable: true });
   }
 
   mostrarDatosUser(){
+    let user_id = this.headerService.user.id_usuario;
 
-    //this.user = this.header.user;
+    this.profileService.getdatosUserFav(user_id).subscribe((data:any) => {
+      this.profileService.users = data;
+      this.users = this.profileService.users;
 
-    //this.user = new User(1, "Juan Pablo", "Carpio Guzman", "Madrid", "Jfaramir", "emmaaaaail", "contraseña", "imagen.jpg o url", "yo tengo un moco, lo saco poco a poco, lo redondeo, lo miro con deseo, luego lo como y si me sabe a poco, saco otro moco y volvemos a empezar",9,4);
-
-    let user:User = new User(0,"","","","","jpcarpio233@gmail.com","12345678");
-
-    /* this.apiService.getdatosUser(user).subscribe((data:any) => {
-      this.user = data[0];
-    }); */
-
+      console.log(this.users);
+    });
   }
 
   ngOnInit(): void {

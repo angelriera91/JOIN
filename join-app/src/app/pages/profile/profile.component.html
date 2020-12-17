@@ -1,7 +1,7 @@
 <div class="container" style="width: 100%;">
     <div class="row">
-        <div class="col-md-2">
-            <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+        <div class="col-md-2" style="margin-top: 10px; max-height: 10rem;">
+            <img class="img-fluid rounded" src="{{user.imagen}}" style="height: 10rem; ">
         </div>
         <div class="col-md-8">
             <div class="row" style="height: 15px;"></div>
@@ -84,65 +84,15 @@
         </div>
         
         <div class="modal-body">
-            <div class="row">
-                <div class="col-md-3" style="text-align: center;" routerLink="public" (click)="modal.close('go to public')">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
-                    <label >Jfaramir</label>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
+          <div class="row">
+            <div class="col-md-3" style="text-align: center; margin-top: 10px;" routerLink="public" *ngFor="let usuario of users" (click)="modal.close('go to public')">
+                <div class="col-md-12" style=" background-color: blue;">
+                    <img class="img-fluid rounded" src="{{usuario.imagen}}" style="height: 11rem;">
+                    <label >{{usuario.nickname}}</label>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-3" style="text-align: center;">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
-                    <label >Jfaramir</label>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3" style="text-align: center;">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
-                    <label >Jfaramir</label>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3" style="text-align: center;">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
-                    <label >Jfaramir</label>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <img src="https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg" width="100%">
-                </div>
-            </div>
+            <div class="col-md-1"></div>
+          </div>
         </div>
 
         <div class="modal-footer">
