@@ -6,16 +6,19 @@ import { Event } from '../model/event/event';
 @Injectable({
   providedIn: 'root'
 })
-export class EventServiceService {
+export class EventService {
 
-  public evento : Event
-
-  constructor(private http: HttpClient) { }
+  public event : Event;
+  public events : Event[];
 
   private get_events = "http://localhost:3000/eventos"
 
+  constructor(private http: HttpClient) { }
 
-  getEvents(events:[Event]){
+  
+
+
+  getEvents(){
 
     return this.http.get(this.get_events)
 
