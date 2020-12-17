@@ -33,6 +33,7 @@ onLogin(email:string,password:string){
     console.log(data);
 
     if(data[0] != undefined){
+      if(data[0].id_usuario != null){
       this.headerService.user = data[0];
       this.user = data[0];
       this.onSubmit("");
@@ -42,7 +43,10 @@ onLogin(email:string,password:string){
     else{
       this.mostrarError = true;
     }
-  
+  }
+  else{
+    this.mostrarError = true;
+  }
   },
   error => console.log(error)
 
