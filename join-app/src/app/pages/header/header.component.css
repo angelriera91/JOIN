@@ -3,12 +3,9 @@
     margin-left: 1180px;
 
 }
-li:hover {
-    background-color:#ff9500;
-    border-radius: 7px;
-}
 li{
     font-size: small;
+    color: white;
 }
 
 #color{
@@ -31,7 +28,10 @@ li{
         margin-left: 30px;
     }
 }
-
 #pointer{
     cursor: pointer;
+}
+#pointer:hover {
+    background-color:#ff9500;
+    border-radius: 7px;
 }

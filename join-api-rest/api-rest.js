@@ -1,5 +1,6 @@
 // conexcion con BBDD
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
@@ -56,8 +57,8 @@ app.post("/login", function(request, response){
         else{
             console.log("Accion realizada correctamente");
             console.log(result)
+            response.send(result)
         }
-        response.send(result)
     })
 });
 
