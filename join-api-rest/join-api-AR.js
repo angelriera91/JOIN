@@ -81,7 +81,7 @@ app.post("/create/assist", function (request, response) {
 // GET- EVENT - MAIN //
 
 app.get("/eventos/", function (request, response) {
-    let evento = "SELECT * FROM eventos WHERE fecha > date"
+    let evento = "SELECT e.id_event, e.titulo, e.lugar, e.fecha, e.hora, e.descripcion, n.nickname FROM eventos e LEFT JOIN usuario_eventos ue ON ue.id_evento = e.id_event LEFT JOIN usuarios u ON u.id_usuario = ue.id_usuario LEFT JOIN (SELECT u.nickname, u.id_usuario from eventos e INNER JOIN usuarios u ON u.id_usuario = e.id_creador) as n ON n.id_usuario = e.id_creador GROUP BY e.id_event"
 
     connection.query(evento, function (err, result) {
         if (err)

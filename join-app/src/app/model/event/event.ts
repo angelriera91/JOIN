@@ -1,6 +1,7 @@
 export class Event {
 
-    constructor(public title?:string, public location?:string, public creator?:string, public time?:string,public date?:Date, public assistants?:number, description?:string){
+    constructor(public id_event?: number, public titulo?:string, public lugar?:string, public fecha?:Date, public hora?:string,public description?:string, public creator?:string,  
+         public total_asistentes?:number, public max_assist?:number){
 
     }
 }
