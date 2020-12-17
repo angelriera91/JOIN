@@ -26,21 +26,15 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Modificar usuario (funciona)
+// Modificar usuario (listo con ?)
 app.put("/usuario",
         function(request, response)
         {
-            let sql = "UPDATE usuarios SET nombre = '" + request.body.nombre +
-                        "', apellidos = '" + request.body.apellidos +
-                        "', ciudad = '" + request.body.ciudad +
-                        "', nickname = '" + request.body.nickname +
-                        "', correo = '" + request.body.correo +
-                        "', password = '" + request.body.password +
-                        "', imagen = '" + request.body.imagen +
-                        "', descripcion = '" + request.body.descripcion + "'" +
-                        "WHERE id_usuario = " + request.body.id_usuario;
+            let usuario = [request.body.nombre, request.body.apellidos, request.body.ciudad, request.body.nickname, request.body.correo, request.body.password,
+                           request.body.imagen, request.body.descripcion, request.body.id_usuario]
+            let sql = "UPDATE usuarios SET nombre = ? , apellidos = ?, ciudad = ?, nickname = ?, correo = ?, password = ?, imagen = ?, descripcion = ? WHERE id_usuario = ? "
             console.log(sql);
-            connection.query(sql, function (err, result)
+            connection.query(sql, usuario, function (err, result)
             {
                 if (err)
                     console.log(err);
@@ -52,7 +46,7 @@ app.put("/usuario",
     }
 );
 
-// Seguir favorito (funciona, ya tiene ?)
+// Seguir favorito (listo con ?)
 app.post("/usuario/favorito",function(request, response){
 
     let usuario =
@@ -74,26 +68,28 @@ connection.query(post_usuario, usuario, function (err, result){
 
 });
 
-// Dejar de seguir favorito (funciona)
-app.delete("/usuario/favoritos",
-    function(request, response)
-    {
-        const id = request.query.id;
-        let sql = "DELETE FROM usuario_usuario WHERE id_usuario = '" + id_usuario + "'";
-        console.log(sql);
-            connection.query(sql, function (err, result)
-            {
-                if (err)
-                    console.log(err);
-                else
-            {
-                response.send(result);
-            }
-        })
-    }
-);
+// Dejar de seguir favorito (listo con ?)
+app.delete("/usuario/favorito",function(request, response){
 
-// Puntuar evento (funciona, ya tiene ?)
+    let usuario = [request.body.id_usuario]
+    
+let delete_favorito = 'DELETE FROM usuario_usuario WHERE id_usuario =?'
+
+connection.query(delete_favorito, usuario, function (err, result){
+
+    if(err){
+        console.log(err)
+    }
+    else{
+        console.log("Eliminado correctamente")
+        console.log(result)
+    }
+    response.send(result)
+    })
+
+});
+
+// Puntuar evento (listo con ?)
 app.put("/evento/puntuacion",function(request, response){
 
     let evento_id = request.body.id_evento
@@ -115,23 +111,26 @@ connection.query(put_evento, puntuacion, function (err, result){
 
 });
 
-// Borrar cuenta (funciona)
-app.delete("/usuario",
-    function(request, response)
-    {
-        let sql = "DELETE FROM usuarios WHERE id_usuario = " + request.body.id_usuario;
-        console.log(sql);
-            connection.query(sql, function (err, result)
-            {
-                if (err)
-                    console.log(err);
-                else
-            {
-                response.send(result);
-            }
-        })
+// Borrar cuenta (listo con ?)
+app.delete("/usuario",function(request, response){
+
+    let id_usuario = request.body.id_usuario
+    
+let delete_usuario = 'DELETE FROM usuarios WHERE id_usuario ="' + id_usuario + '"'
+
+connection.query(delete_usuario, function (err, result){
+
+    if(err){
+        console.log(err)
     }
-);
+    else{
+        console.log("Eliminado correctamente")
+        console.log(result)
+    }
+    response.send(result)
+    })
+
+});
 
 
 
