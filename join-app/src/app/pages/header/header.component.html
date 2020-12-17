@@ -3,9 +3,9 @@
         <a class="navbar-brand text-white" routerLink="/"><img src="../../../assets/logo.png" style="height: 50px;"></a>
 
         <ul class="nav justify-content-end" id="opciones">
-            <a routerLink="perfil" id="icono"><img src="../../../assets/icono.png" style="height: 30px;"></a>
-            <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(login)">Iniciar sesión</a></li>
-            <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(registro)">Registrarse</a></li>
+            <li class="nav-link" *ngIf="mostrar===false;" routerLink="perfil" id="pointer"><a  id="icono"><img src="../../../assets/icono.png" style="height: 30px;"></a>Hola, {{ user.nickname }}</li>
+            <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(login)" *ngIf="mostrar===true;">Iniciar sesión</a></li>
+            <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(registro)" *ngIf="mostrar===true;">Registrarse</a></li>
             <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(content)">Crear Evento</a></li>
         </ul>
     </nav>
@@ -103,27 +103,30 @@
                   <div class="form-group">
                       <img src="../../../assets/sobre.png" style="width: 35px; height: 30px;">
                       <label>Correo</label>
-                      <input type="email" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" [ngClass]="{ 'is-invalid': loginForm.submitted && email.invalid }" email required>
-                  <div *ngIf="loginForm.submitted && email.invalid" class="invalid-feedback"><p *ngIf="email.errors.required">*Campo requerido</p></div>
+                      <input #email type="email" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" [ngClass]="{ 'is-invalid': email.invalid }" email required>
+                  <div *ngIf=" email.invalid" class="invalid-feedback"><p *ngIf="email.errors.required">*Campo requerido</p></div>
                   </div>
           
                   <div class="form-group">
                       <img src="../../../assets/candado.png" style="width: 35px; height: 30px;">
                       <label>Contraseña</label>
-                      <input type="password" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel"
-                      [ngClass]="{ 'is-invalid': loginForm.submitted && password.invalid }" required>
-                      <div *ngIf="loginForm.submitted && password.invalid" class="invalid-feedback">
+                      <input #password type="password" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel"
+                      [ngClass]="{ 'is-invalid': password.invalid }" required>
+                      <div *ngIf="password.invalid" class="invalid-feedback">
                       <p *ngIf="password.errors.required">*Campo requerido</p>
                       </div>
+                  </div>
+                  <div class="form-group" style="color: red; text-align: center;" *ngIf="mostrarError===true"> 
+                    Email o contraseña incorrecto
                   </div>
               </div>
           
           <div class="modal-footer">
                   <div class="form-group">
-                      <button class="btn btn-block" id="color" style="border: solid 1px #fc5404;" (click)="modal.close('Save click')" [disabled]="loginForm.invalid">Entrar</button>
+                      <button class="btn btn-block" #color style="border: solid 1px #fc5404;" (click)="onLogin(email.value, password.value)" [disabled]="loginForm.invalid" type="button">Entrar</button>
                     </div>
                   <div class="form-group">
-                      <button  class="btn btn-block" id="color" style="border: solid 1px #fc5404;" type="button" (click)="modal.close('Close click')">Cancelar</button>    
+                      <button  class="btn btn-block" #color style="border: solid 1px #fc5404;" type="button" (click)="modal.close('Close click')">Cancelar</button>    
                   </div>
 
               </div>

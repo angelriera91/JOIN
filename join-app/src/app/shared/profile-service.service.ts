@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../model/user/user';
 
@@ -6,8 +7,12 @@ import { User } from '../model/user/user';
 })
 export class ProfileServiceService {
 
-  private url = "http://localhost/"
+  private url = "http://localhost:3000/login"
 
   public user:User;
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  loginUser(usuario:User){
+    return this.http.post(this.url, usuario);
+  }
 }

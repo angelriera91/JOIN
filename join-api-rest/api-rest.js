@@ -1,10 +1,12 @@
 // conexcion con BBDD
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 let mysql = require("mysql");
 let connection = mysql.createConnection({
@@ -42,17 +44,17 @@ app.post("/user/register", function(request, response){
 });
 
 //validacion de usuario para login - MG
-app.get("/user/login/email", function(request, response){
-    let user = "SELECT * FROM usuarios WHERE correo = ? and password = ?"
-    let array = [request.body.correo, request.body.password]
+app.post("/login", function(request, response){
+    let user = "SELECT * FROM usuarios WHERE email = ? and password = ?"
+    let array = [request.body.email, request.body.password]
     connection.query(user, array, function(err,result){
         if(err)
             console.log(err)
         else{
             console.log("Accion realizada correctamente");
             console.log(result)
+            response.send(result)
         }
-        response.send(result)
     })
 });
 
