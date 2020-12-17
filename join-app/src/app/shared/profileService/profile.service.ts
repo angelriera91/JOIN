@@ -17,11 +17,11 @@ export class ProfileService {
     this.user;
    }
 
-/*   getdatosUser(datos:any){
+  getdatosUser(datos:any){
     console.log(datos);
 
     return this.http.post(this.urlLogin, datos)
-  } */
+  }
 
   
 }

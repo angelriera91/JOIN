@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
   public user:User;
   public header:HeaderComponent;
 
-  constructor(private modalService: NgbModal, public apiService: ProfileService) {
+  constructor(private modalService: NgbModal, public profileService: ProfileService) {
     this.user = new User();
     this.mostrarDatosUser();
   }
@@ -30,11 +30,14 @@ export class ProfileComponent implements OnInit {
 
     //this.user = new User(1, "Juan Pablo", "Carpio Guzman", "Madrid", "Jfaramir", "emmaaaaail", "contraseña", "imagen.jpg o url", "yo tengo un moco, lo saco poco a poco, lo redondeo, lo miro con deseo, luego lo como y si me sabe a poco, saco otro moco y volvemos a empezar",9,4);
 
-    let user:User = new User(0,"","","","","jpcarpio233@gmail.com","12345678");
+    let user:User = new User(0,"Juanan","Karas","Madrid","Jfaramor","jpcarpio233@gmail.com","12345678","asdsad.png","sasdasd",3,3.3);
 
-    /* this.apiService.getdatosUser(user).subscribe((data:any) => {
+    this.profileService.getdatosUser(user).subscribe((data:any) => {
       this.user = data[0];
-    }); */
+      this.profileService.user = data[0]
+      console.log(this.user.id_usuario);
+      console.log(this.profileService.user.id_usuario);
+    });
 
   }
 
