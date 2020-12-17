@@ -26,7 +26,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Modificar usuario
+// Modificar usuario (funciona)
 app.put("/usuario",
         function(request, response)
         {
@@ -52,31 +52,29 @@ app.put("/usuario",
     }
 );
 
-// Seguir favorito
-app.post("/usuario/favoritos",
-        function(request, response)
-        {
-            console.log(request.body);
-            let sql = "INSERT INTO usuario_usuario (id_usuario, id_seguidor) " + 
-                    "VALUES ('" + request.body.id_usuario + "', '" +
-                                request.body.id_seguidor + "')";
-            console.log(sql)
-            connection.query(sql, function (err, result)
-            {
-                if (err)
-                    console.log(err);
-                else
-            {
-                if (result.insertId)
-                    response.send(String(result.insertId));
-                else
-                    response.send("-1");
-            }
-        })
-    }
-);
+// Seguir favorito (funciona, ya tiene ?)
+app.post("/usuario/favorito",function(request, response){
 
-// Dejar de seguir favorito
+    let usuario =
+    [request.body.id_usuario, request.body.id_seguidor]
+
+let post_usuario = 'INSERT INTO usuario_usuario (id_usuario, id_seguidor) VALUES (?,?)'
+
+connection.query(post_usuario, usuario, function (err, result){
+
+    if(err){
+        console.log(err)
+    }
+    else{
+        console.log("insertado correctamente")
+        console.log(result)
+    }
+    response.send(result)
+    })
+
+});
+
+// Dejar de seguir favorito (funciona)
 app.delete("/usuario/favoritos",
     function(request, response)
     {
@@ -95,31 +93,33 @@ app.delete("/usuario/favoritos",
     }
 );
 
-// Puntuar evento
-app.put("/evento/puntuacion",
-        function(request, response)
-        {
-            let sql = "UPDATE eventos SET numero_valoracion = '" + request.body.numero_valoracion +
-                        "WHERE id_evento = " + request.body.id_evento;
-            console.log(sql);
-            connection.query(sql, function (err, result)
-            {
-                if (err)
-                    console.log(err);
-                else
-            {
-                response.send(result);
-            }
-        })
-    }
-);
+// Puntuar evento (funciona, ya tiene ?)
+app.put("/evento/puntuacion",function(request, response){
 
-// Borrar cuenta
+    let evento_id = request.body.id_evento
+    let puntuacion = [request.body.puntuacion]
+
+let put_evento = 'UPDATE usuario_eventos SET puntuacion = ? WHERE id_evento ="' + evento_id + '"'
+
+connection.query(put_evento, puntuacion, function (err, result){
+
+    if(err){
+        console.log(err)
+    }
+    else{
+        console.log("Puntuación añadida")
+        console.log(result)
+    }
+    response.send(result)
+    })
+
+});
+
+// Borrar cuenta (funciona)
 app.delete("/usuario",
     function(request, response)
     {
-        const id = request.query.id;
-        let sql = "DELETE FROM usuarios WHERE id_usuario = '" + id_usuario + "'";
+        let sql = "DELETE FROM usuarios WHERE id_usuario = " + request.body.id_usuario;
         console.log(sql);
             connection.query(sql, function (err, result)
             {

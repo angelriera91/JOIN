@@ -206,28 +206,26 @@ app.put("/usuario",
 );
 
 // Seguir favorito - LA
-app.post("/usuario/favoritos",
-        function(request, response)
-        {
-            console.log(request.body);
-            let sql = "INSERT INTO usuario_usuario (id_usuario, id_seguidor) " + 
-                    "VALUES ('" + request.body.id_usuario + "', '" +
-                                request.body.id_seguidor + "')";
-            console.log(sql)
-            connection.query(sql, function (err, result)
-            {
-                if (err)
-                    console.log(err);
-                else
-            {
-                if (result.insertId)
-                    response.send(String(result.insertId));
-                else
-                    response.send("-1");
-            }
-        })
+app.post("/usuario/favorito",function(request, response){
+
+    let usuario =
+    [request.body.id_usuario, request.body.id_seguidor]
+
+let post_usuario = 'INSERT INTO usuario_usuario (id_usuario, id_seguidor) VALUES (?,?)'
+
+connection.query(post_usuario, usuario, function (err, result){
+
+    if(err){
+        console.log(err)
     }
-);
+    else{
+        console.log("insertado correctamente")
+        console.log(result)
+    }
+    response.send(result)
+    })
+
+});
 
 // Dejar de seguir favorito - LA
 app.delete("/usuario/favoritos",
@@ -249,23 +247,26 @@ app.delete("/usuario/favoritos",
 );
 
 // Puntuar evento -LA
-app.put("/evento/puntuacion",
-        function(request, response)
-        {
-            let sql = "UPDATE eventos SET numero_valoracion = '" + request.body.numero_valoracion +
-                        "WHERE id_evento = " + request.body.id_evento;
-            console.log(sql);
-            connection.query(sql, function (err, result)
-            {
-                if (err)
-                    console.log(err);
-                else
-            {
-                response.send(result);
-            }
-        })
+app.put("/evento/puntuacion",function(request, response){
+
+    let evento_id = request.body.id_evento
+    let puntuacion = [request.body.puntuacion]
+
+let put_evento = 'UPDATE usuario_eventos SET puntuacion = ? WHERE id_evento ="' + evento_id + '"'
+
+connection.query(put_evento, puntuacion, function (err, result){
+
+    if(err){
+        console.log(err)
     }
-);
+    else{
+        console.log("Puntuación añadida")
+        console.log(result)
+    }
+    response.send(result)
+    })
+
+});
 
 // Borrar cuenta -LA
 app.delete("/usuario",
