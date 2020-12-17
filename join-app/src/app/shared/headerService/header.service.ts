@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../model/user/user';
+import { User } from 'src/app/model/user/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileServiceService {
+export class HeaderService {
 
   private url = "http://localhost:3000/login"
 
@@ -15,4 +15,5 @@ export class ProfileServiceService {
   loginUser(usuario:User){
     return this.http.post(this.url, usuario);
   }
+  
 }

@@ -1,32 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {MatDialog} from '@angular/material/dialog';
 import { User } from 'src/app/model/user/user';
-import { ProfileServiceService } from 'src/app/shared/profile-service.service';
+import { ProfileService } from 'src/app/shared/profileService/profile.service';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent implements OnInit {
 
-  public user:User = new User();
+  public user:User;
+  public header:HeaderComponent;
 
-  constructor(private modalService: NgbModal, public userService: ProfileServiceService) {
-    this.user;
+  constructor(private modalService: NgbModal, public apiService: ProfileService) {
+    this.user = new User();
+    this.mostrarDatosUser();
   }
 
   openFav(content) {
     this.modalService.open(content, { size: 'lg', scrollable: true });
   }
 
-  onSubmit(form:any){
-    console.log(form.value);
+  mostrarDatosUser(){
+
+    //this.user = this.header.user;
+
+    //this.user = new User(1, "Juan Pablo", "Carpio Guzman", "Madrid", "Jfaramir", "emmaaaaail", "contraseña", "imagen.jpg o url", "yo tengo un moco, lo saco poco a poco, lo redondeo, lo miro con deseo, luego lo como y si me sabe a poco, saco otro moco y volvemos a empezar",9,4);
+
+    let user:User = new User(0,"","","","","jpcarpio233@gmail.com","12345678");
+
+    /* this.apiService.getdatosUser(user).subscribe((data:any) => {
+      this.user = data[0];
+    }); */
+
   }
 
   ngOnInit(): void {
   }
 
 }
+ 

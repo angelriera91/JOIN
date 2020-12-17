@@ -3,9 +3,8 @@ import { from } from 'rxjs';
 import { User } from 'src/app/model/user/user';
 import { Event } from 'src/app/model/event/event';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ProfileServiceService } from 'src/app/shared/profile-service.service';
 import { Router } from '@angular/router';
-import { $ } from 'protractor';
+import { HeaderService } from 'src/app/shared/headerService/header.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +19,7 @@ export class HeaderComponent implements OnInit {
   public user:User = new User();
   public mostrarError = false;
 
-  constructor(private modalService: NgbModal, private profileservice:ProfileServiceService, private router: Router) {
+  constructor(private modalService: NgbModal, private headerService:HeaderService, private router: Router) {
     this.event;
     this.user;
   }
@@ -28,13 +27,13 @@ export class HeaderComponent implements OnInit {
 
 //16-12-20 -MG
 onLogin(email:string,password:string){
-  let usuario = new User("","",email,password);
+  let usuario = new User(0,"","","","",email,password);
 
-  this.profileservice.loginUser(usuario).subscribe(data => {
+  this.headerService.loginUser(usuario).subscribe(data => {
     console.log(data);
 
     if(data[0] != undefined){
-      this.profileservice.user = data[0];
+      this.headerService.user = data[0];
       this.user = data[0];
       this.onSubmit("");
       this.mostrar = false;

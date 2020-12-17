@@ -55,7 +55,7 @@
             </div>
             <div class="form-group">
                 <label>Correo:</label>
-                <input type="text" class="form-control" name="mail" [(ngModel)]="user.email" #mail="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && mail.invalid }" placeholder="Correo electrónico" required>
+                <input type="text" class="form-control" name="mail" [(ngModel)]="user.correo" #mail="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && mail.invalid }" placeholder="Correo electrónico" required>
                 <div *ngIf="userForm.submitted && mail.invalid" class="invalid-feedback">
                 <p *ngIf="mail.errors?.required">El correo electrónico es obligatorio</p>
                 </div>

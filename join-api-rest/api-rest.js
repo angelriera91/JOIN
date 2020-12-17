@@ -2,9 +2,10 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -15,6 +16,7 @@ let connection = mysql.createConnection({
     password: null,
     database: "join"
 });
+
 connection.connect(function(error){
     if(error){
         console.log(error);
@@ -45,8 +47,10 @@ app.post("/user/register", function(request, response){
 
 //validacion de usuario para login - MG
 app.post("/login", function(request, response){
-    let user = "SELECT * FROM usuarios WHERE email = ? and password = ?"
-    let array = [request.body.email, request.body.password]
+    //let user = "SELECT * FROM usuarios WHERE correo = ? and password = ?"
+    let user = "SELECT u.*, COUNT(uu.id_usuario) as favoritos, (e.total_valoracion/e.numero_valoracion) as media FROM usuarios AS u INNER JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario INNER JOIN eventos AS e ON uu.id_usuario = e.id_creador WHERE correo = ? and password = ?";
+    let array = [request.body.correo, request.body.password]
+
     connection.query(user, array, function(err,result){
         if(err)
             console.log(err)
@@ -97,35 +101,37 @@ app.get("/event/bycreator"/* /event/bycreator/:id */, function(request,response)
     var f = new Date();
     var fecha = f.getFullYear() + '-' + (f.getMonth() + 1) + '-' + f.getDate();
     var params = [request.body.id_creador,fecha]
-    console.log(fecha);
 
     let sql = 'SELECT * FROM eventos WHERE id_creador = ? AND fecha >= "?"';
     
-    connection.query(sql,function(err,result){
+    connection.query(sql,params,function(err,result){
         if (err) {
+            response.send(err);
             console.log(err);
         } else {
             response.send(result);
-            console.log(result);    
+            console.log(result);
         }
     })
+
 });
 
 // usuarios favoritos -JP
 app.get("/user/favorito"/* /user/favorito/:id */,function(request,response) {
-    var params = [request.body.id_usuario]
 
+    var params = [request.body.id_usuario]
     let sql = 'SELECT us.* FROM usuarios AS u INNER JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario INNER JOIN usuarios AS us ON uu.id_seguidor = us.id_usuario WHERE uu.id_usuario = ? ORDER BY us.id_usuario'
-    console.log(sql);
     
-    connection.query(sql,function(err,result){
+    connection.query(sql,params,function(err,result){
         if (err) {
+            response.send(err);
             console.log(err);
         } else {
             console.log(result);
             response.send(result);
         }
     })
+
 });
 
 
@@ -134,20 +140,20 @@ app.get("/user/favorito"/* /user/favorito/:id */,function(request,response) {
 app.get("/event/pasados"/* /event/pasados/:id */, function(request,response) {
     var f = new Date();
     var fecha = f.getFullYear() + '-' + (f.getMonth() + 1) + '-' + f.getDate();
-    var params = [request.body.id_usuario,fecha]
-    console.log(fecha);
+    var params = [request.body.id_usuario,fecha];
 
     let sql = 'SELECT e.* FROM usuarios AS u INNER JOIN usuario_eventos AS ue ON u.id_usuario = ue.id_usuario INNER JOIN eventos AS e ON ue.id_evento = e.id_event WHERE ue.id_usuario = ? AND e.fecha <= "?" ORDER BY e.fecha DESC';
-    console.log(sql);
 
-    connection.query(sql,function(err,result){
+    connection.query(sql,params,function(err,result){
         if (err) {
+            response.send(err);
             console.log(err);
         } else {
             response.send(result);
             console.log(result);
         }
     })
+
 });
 
 
@@ -156,20 +162,20 @@ app.get("/event/pasados"/* /event/pasados/:id */, function(request,response) {
 app.get("/event/asistir"/* /event/asistir/:id */, function(request,response) {
     var f = new Date();
     var fecha = f.getFullYear() + '-' + (f.getMonth() + 1) + '-' + f.getDate();
-    var params = [request.body.id_usuario,fecha]
-    console.log(fecha);
+    var params = [request.body.id_usuario,fecha];
 
     let sql = 'SELECT e.* FROM usuarios AS u INNER JOIN usuario_eventos AS ue ON u.id_usuario = ue.id_usuario INNER JOIN eventos AS e ON ue.id_evento = e.id_event WHERE ue.id_usuario = ? AND e.fecha >= "?" ORDER BY e.fecha ASC';
-    console.log(sql);
 
     connection.query(sql,params,function(err,result){
         if (err) {
+            response.send(err);
             console.log(err);
         } else {
             response.send(result);
             console.log(result);
         }
     })
+
 });
 
 
@@ -282,56 +288,65 @@ app.delete("/usuario",
 );
 
 
-// CREATE EVENT -AR
-app.post("/create/event",function(request, response){
+// CREATE EVENT //
 
-    let evento =[request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen, request.body.id_creador
-    ]
+app.post("/create/event", function (request, response) {
 
-let post_event = 'INSERT INTO eventos (titulo,lugar,fecha,hora,descripcion,categoria,imagen,id_creador) VALUES (?,?,?,?,?,?,?,?)'
+    let evento =
+        [request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen, request.body.id_creador
+        ]
 
-    connection.query(post_event, evento, function (err, result){
-        if(err){
+    let post_event = 'INSERT INTO eventos (titulo,lugar,fecha,hora,descripcion,categoria,imagen,id_creador) VALUES (?,?,?,?,?,?,?,?)'
+
+    connection.query(post_event, evento, function (err, result) {
+
+        if (err) {
             console.log(err)
         }
-        else{
+        else {
             console.log("insertado correctamente")
             console.log(result)
         }
         response.send(result)
-        })
+    })
+
 })
 
+// ASSIST EVENTO //
 
-// ASSIST EVENTO --AR
-app.post("/create/assist",function(request, response){
+app.post("/create/assist", function (request, response) {
 
-    let user = request.body.user_id
-    let event = request.body.event_id
 
-let post_event = 'INSERT INTO usuario_eventos (id_evento, id_usuario) VALUES ('+ event +','+ user +')'
 
-    connection.query(post_event, function (err, result){
-        if(err){
+    let user_Event = [request.body.event_id, request.body.user_id]
+
+    let post_event = 'INSERT INTO usuario_eventos (id_evento, id_usuario) VALUES (?,?)'
+
+    connection.query(post_event, user_Event, function (err, result) {
+
+        if (err) {
             console.log(err)
         }
-        else{
+
+        else {
             console.log("asistencia confirmada")
             console.log(result)
         }
+
         response.send(result)
-        })
+    })
+
 })
 
+// GET- EVENT - MAIN //
 
-// GET- EVENT - MAIN -AR
-app.get("/eventos/", function(request, response){
+app.get("/eventos/", function (request, response) {
     let evento = "SELECT * FROM eventos WHERE fecha > date"
-    
-    connection.query(evento, function(err,result){
-        if(err)
+
+    connection.query(evento, function (err, result) {
+        if (err)
             console.log(err)
-        else{
+        else {
             console.log("select correctamente");
             console.log(result)
         }
@@ -339,56 +354,51 @@ app.get("/eventos/", function(request, response){
     })
 });
 
+// EDITAR EVENTO //
 
-// EDITAR EVENTO -AR
-app.put("/put/event",function(request, response){
+app.put("/put/event", function (request, response) {
 
     let event_id = request.body.event_id
-    let evento =[request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen,
-    ]
+    let evento =
+        [request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen,
+            event_id]
 
-let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?  where id_event ="' + event_id + '"'
+    let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?  where id_event = ? '
 
-    connection.query(put_event, evento, function (err, result){
-        if(err){
+    connection.query(put_event, evento, function (err, result) {
+
+        if (err) {
             console.log(err)
         }
-        else{
+        else {
             console.log("modificado correctamente")
             console.log(result)
         }
         response.send(result)
-        })
+    })
+
 })
 
+// ELIMINAR EVENTO //
 
-// ELIMINAR EVENTO -AR
-app.delete("/delete/event",function(request, response){
+app.delete("/delete/event", function (request, response) {
 
     let event_id = request.body.event_id
-    
-let delete_event = 'DELETE FROM eventos where id_event ="' + event_id + '"'
 
-    connection.query(delete_event, function (err, result){
+    let delete_event = 'DELETE FROM eventos where id_event = ? '
 
-        if(err){
+    connection.query(delete_event, event_id, function (err, result) {
+
+        if (err) {
             console.log(err)
         }
-        else{
+        else {
             console.log("eliminado correctamente")
             console.log(result)
         }
         response.send(result)
-        })
+    })
+
 })
-
-
-
-
-
-
-
-
-
 
 app.listen(3000);
