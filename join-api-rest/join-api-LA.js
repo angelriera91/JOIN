@@ -30,17 +30,15 @@ app.use(bodyParser.json());
 app.put("/usuario",
         function(request, response)
         {
-            let sql = "UPDATE usuarios SET nombre = '" + request.body.nombre +
-                        "', apellidos = '" + request.body.apellidos +
-                        "', ciudad = '" + request.body.ciudad +
-                        "', nickname = '" + request.body.nickname +
-                        "', correo = '" + request.body.correo +
-                        "', password = '" + request.body.password +
-                        "', imagen = '" + request.body.imagen +
-                        "', descripcion = '" + request.body.descripcion + "'" +
-                        "WHERE id_usuario = " + request.body.id_usuario;
+
+            let usuario = [request.body.nombre, request.body.apellidos, request.body.ciudad, request.body.nickname, request.body.correo, request.body.password,
+                           request.body.imagen, request.body.descripcion, request.body.id_usuario]
+
+            let sql = "UPDATE usuarios SET nombre = ? , apellidos = ?, ciudad = ?, nickname = ?, correo = ?, password = ?, imagen = ?, descripcion = ? WHERE id_usuario = ? "
+                        
+
             console.log(sql);
-            connection.query(sql, function (err, result)
+            connection.query(sql, usuario, function (err, result)
             {
                 if (err)
                     console.log(err);
