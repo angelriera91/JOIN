@@ -2,7 +2,6 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -117,9 +116,9 @@ app.get("/event/bycreator"/* /event/bycreator/:id */, function(request,response)
 });
 
 // usuarios favoritos -JP
-app.get("/user/favorito"/* /user/favorito/:id */,function(request,response) {
+app.get("/user/favoritos/:id_usuario"/* /user/favorito/:id */,function(request,response) {
 
-    var params = [request.body.id_usuario]
+    var params = [request.params.id_usuario]
     let sql = 'SELECT us.* FROM usuarios AS u INNER JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario INNER JOIN usuarios AS us ON uu.id_seguidor = us.id_usuario WHERE uu.id_usuario = ? ORDER BY us.id_usuario'
     
     connection.query(sql,params,function(err,result){
