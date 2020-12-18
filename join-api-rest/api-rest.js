@@ -30,17 +30,19 @@ connection.connect(function(error){
 
 
 //registro usuario - MG
-app.post("/user/register", function(request, response){
+app.post("/register", function(request, response){
     let user = "INSERT INTO usuarios (nickname, nombre, apellidos, ciudad, correo, password) VALUES (?,?,?,?,?,?);"
-    let array = [request.body.nickname, request.body.nombre, request.body.apellidos, request.body.ciudad, request.body.correo, request.body.password, request.body.descripcion]
+    let array = [request.body.nickname, request.body.nombre, request.body.apellido, request.body.ciudad, request.body.correo, request.body.password, request.body.descripcion]
     connection.query(user, array, function(err,result){
-        if(err)
-            console.log(err)
+        if(err){
+            console.log(err);
+            response.send(err);
+        }
         else{
             console.log("Accion realizada correctamente");
-            console.log(result)
+            console.log(result);
+            response.send(result);
         }
-        response.send(result)
     })
 });
 
