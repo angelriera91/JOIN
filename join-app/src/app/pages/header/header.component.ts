@@ -5,6 +5,7 @@ import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-boo
 import { Router } from '@angular/router';
 import { HeaderService } from 'src/app/shared/headerService/header.service';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,10 +14,11 @@ import { HeaderService } from 'src/app/shared/headerService/header.service';
 export class HeaderComponent implements OnInit {
 
   closeResult = '';
-  public event: Event = new Event
+  public event:Event = new Event();
   public mostrar:boolean = true;
   public user:User = new User();
   public mostrarError = false;
+  
 
   constructor(private modalService: NgbModal, private headerService:HeaderService, private router: Router) {
     this.event;
@@ -58,24 +60,68 @@ onLogin(email:string,password:string){
 
 }
 
+// create - event
+
+crearEvento (titulo: string, lugar:string, fecha:string, hora:string, description:string, categoria:string, imagen: string, max_assist:number){
+  
+  
+
+  let evento = {"titulo": titulo, "lugar":lugar, "fecha":fecha, "hora":hora, "descripcion":description, "categoria":categoria, "imagen":imagen, "id_creador":this.user.id_usuario, "max_assist": max_assist}
+  
+  this.headerService.crearEvento(evento).subscribe(data =>{
+
+    
+      if (this.user.id_usuario != null){
+      this.headerService.event = data;      
+      this.event = data;
+      this.onSubmit2("");
+      this.router.navigate(["/**"]);
+
+      console.log("Evento Creado")
+      }
+
+      else{
+      this.mostrarError = true;
+      }
+    
+    })  
+
+    // let id = {"id_creador": this.user.id_usuario}
+
+    // this.headerService.recuperarEvent(id).subscribe(data =>{
+    
+    //   let event2 = data
+  
+    //   console.log(event2)
+  
+    
+  
+  // })
+}
+
+  
+
+
+  
+
+alerta(){
+  alert("Hola")
+  this.onSubmit2("");
+  this.router.navigate(["/**"]);
+}
+
 onSubmit(loginForm){
   console.log(loginForm);
   this.modalService.dismissAll('Dismissed after saving data');
 
 }
 
+onSubmit2(createForm){
+  console.log(createForm);
+  this.modalService.dismissAll('Dismissed after saving data');
 
+}
 
-
-
-
-
-
-
-
-
-
-// create - event
 
 public open(content) {
   this.modalService.open(content, {backdropClass: 'light-blue-backdrop'}).result.then((result) => {
