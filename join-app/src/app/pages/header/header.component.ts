@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit {
   public mostrar:boolean = true;
   public user:User = new User();
   public mostrarError = false;
+  public hasError:boolean = true;
+
 
   constructor(private modalService: NgbModal, private headerService:HeaderService, private router: Router) {
     this.event;
@@ -74,6 +76,12 @@ register(nombre:string,apellido:string,ciudad:string,nickname:string,correo:stri
 
   );
 }
+
+//funcion salir
+salir(){
+  this.hasError = false;
+}
+
 
 
 

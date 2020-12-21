@@ -1,3 +1,8 @@
+.container-fluid{
+    position: absolute;
+    z-index: 3;
+}
+
 #navegador{
     text-align: right;
     margin-left: 1180px;
@@ -15,6 +20,18 @@ li{
 #color:hover {
     background-color: #ff9500;
 }
+#pointer{
+    cursor: pointer;
+    outline: none;
+}
+#pointer:hover {
+    background-color:#ff9500;
+    border-radius: 7px;
+}
+
+
+
+
 @media only screen and (max-width: 600px) {
     #icono {
         display: none;
@@ -27,11 +44,4 @@ li{
         display:inline-flex;
         margin-left: 30px;
     }
-}
-#pointer{
-    cursor: pointer;
-}
-#pointer:hover {
-    background-color:#ff9500;
-    border-radius: 7px;
 }
