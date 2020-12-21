@@ -4,6 +4,8 @@ import { Event } from 'src/app/model/event/event';
 import { ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { HeaderService } from 'src/app/shared/headerService/header.service';
+import { ProfileService } from 'src/app/shared/profileService/profile.service';
+import { EventService } from 'src/app/shared/event.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -21,10 +23,17 @@ export class HeaderComponent implements OnInit {
   public hasError:boolean = true;
 
 
-  constructor(private modalService: NgbModal, private headerService:HeaderService, private router: Router) {
+  constructor(private modalService: NgbModal, private headerService:HeaderService, private profileService:ProfileService, private eventService:EventService, private router: Router) {
     this.event;
     this.user;
   }
+
+//18-12-2020 -JP
+home(){
+  this.eventService.creados = false;
+  this.eventService.paraAsistir = false;
+  this.eventService.terminados = false;
+}
 
 
 //funcion para hacer login -MG
@@ -37,10 +46,18 @@ onLogin(email:string,password:string){
     if(data[0] != undefined){
       if (data[0].id_usuario != null){
       this.headerService.user = data[0];
+      this.profileService.user = data[0];
       this.user = data[0];
       this.onSubmit("");
       this.mostrar = false;
       this.router.navigate(["/**"]);
+
+      //llamada a bbdd para capturar numero favs --- by JP
+      let user_id = this.headerService.user.id_usuario;
+      this.headerService.getTotFavs(user_id).subscribe((data:any) => {
+        this.headerService.totFavs = data[0].favoritos;
+      })
+      
     }
     else{
       this.mostrarError = true;

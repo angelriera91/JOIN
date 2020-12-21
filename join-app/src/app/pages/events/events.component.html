@@ -1,9 +1,9 @@
 <div class="container">
-  <div class="pt-5"></div>
+  <div></div>
   <div class="row justify-content-between">
 
-    <div class="card text-center" (click)="open(eventmodal)" style="width: 14rem" *ngFor="let eventos of events">
-      <img class="card-img-top bg-dark" src="../../../assets/icono.png" alt="Card image cap">
+    <div class="card text-center mt-4" (click)="open(eventmodal)" style="width: 14rem" *ngFor="let eventos of events">
+      <img class="card-img-top " src="{{eventos.imagen}}" alt="Imagen no encontrada" style="height: 10rem; width: auto;">
       <hr>
 
       <div class="card-body">
@@ -13,119 +13,122 @@
 
 
       </div>
-    </div>
 
+      <!-- visualizar event modal -->
 
-<!-- visualizar event modal -->
-
-<ng-template #eventmodal let-modal>
-  <div>
-    <div class="modal-header">
-
-      <div class="form-group col-10 pb-0 mb-0">
-        <h3>
-          Partido Futbol Sala
-        </h3>
-      </div>
-      <div class="col-2">
-        <button style="outline: none" type="button" class="close bg-white" aria-label="Close"
-          (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
+      <ng-template #eventmodal let-modal>
+        <div>
+          <div class="modal-header">
+      
+            <div class="form-group col-10 pb-0 mb-0">
+              <h3>
+                {{eventos.titulo}}
+              </h3>
+            </div>
+            <div class="col-2">
+              <button style="outline: none" type="button" class="close bg-white" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+      
+          </div>
+        </div>
+      
+        <form>
+          <div class="modal-body form-group row text-center">
+      
+      
+      
+            <div class="col-1"> </div>
+            <div class="form-group col-10">
+              <img src={{eventos.imagen}} class="col-12 bg-white" style="height: 15rem; width: auto">
+              <hr>
+              <label for="creador-event">
+                <h3> {{eventos.nickname}}</h3>
+              </label>
+            </div>
+            <div class="col-1"> </div>
+      
+            <div class="col-1"> </div>
+            <div class="form-group col-5">
+              <label for="categoria-event">
+                <h4>{{eventos.categoria}}</h4>
+              </label>
+            </div>
+      
+      
+            <div class="form-group col-5">
+              <label for="lugar-event">
+                <h4>{{eventos.lugar}}</h4>
+              </label>
+            </div>
+            <div class="col-1"> </div>
+      
+            <div class="col-1"> </div>
+            <div class="form-group col-5">
+              <label for="date-event">
+                <h5>{{eventos.fecha}}</h5>
+              </label>
+            </div>
+      
+      
+            <div class="form-group col-5">
+              <label for="time-event">
+                <h5>{{eventos.hora}}</h5>
+              </label>
+            </div>
+            <div class="col-1"> </div>
+      
+      
+            <div class="col-1"> </div>
+            <div class="form-group col-10">
+              <p class="text-justify-center">{{eventos.descripcion}}</p>
+            </div>
+            <div class="col-1"> </div>
+      
+      
+            <div class="col-1"> </div>
+            <div class="form-group col-10">
+              <h4 class="text-center">Asistentes: {{eventos.total_asist}}/{{eventos.max_assist}}</h4>
+            </div>
+            <div class="col-1"> </div>
+      
+          </div>
+      
+          
+        
+      
+      
+      
+          <div class="modal-footer justify-content-center">
+      
+      
+      
+      
+            <div class="col-3">
+              <button type="submit" class="btn">Editar</button>
+            </div>
+      
+            <div class="col-3">
+              <button type="submit" class="btn">Asistir</button>
+            </div>
+      
+            <div class="col-3">
+              <button type="submit" class="btn">Eliminar</button>
+            </div>
+      
+      
+          </div>
+      
+      
+        </form>
+      
+      
+      </ng-template>
     </div>
   </div>
-
-  <form>
-    <div class="modal-body form-group row text-center">
+</div>
 
 
 
-      <div class="col-1"> </div>
-      <div class="form-group col-10">
-        <img src="../../../assets/logo.png" class="col-12 bg-dark">
-        <hr>
-        <label for="creador-event">
-          <h3>AngelitoRiera</h3>
-        </label>
-      </div>
-      <div class="col-1"> </div>
-
-      <div class="col-1"> </div>
-      <div class="form-group col-5">
-        <label for="categoria-event">
-          <h4>Deporte</h4>
-        </label>
-      </div>
-
-
-      <div class="form-group col-5">
-        <label for="lugar-event">
-          <h4>Alicante</h4>
-        </label>
-      </div>
-      <div class="col-1"> </div>
-
-      <div class="col-1"> </div>
-      <div class="form-group col-5">
-        <label for="date-event">
-          <h5>24/08/2021</h5>
-        </label>
-      </div>
-
-
-      <div class="form-group col-5">
-        <label for="time-event">
-          <h5>12:00</h5>
-        </label>
-      </div>
-      <div class="col-1"> </div>
-
-
-      <div class="col-1"> </div>
-      <div class="form-group col-10">
-        <p class="text-justify">El partido sera en el polideportivo de Aliacante, Redordad llevar camisetas de color
-          rojo/negro para poder hacer los equipos.</p>
-      </div>
-      <div class="col-1"> </div>
-
-
-      <div class="col-1"> </div>
-      <div class="form-group col-10">
-        <h4 class="text-center">Asistentes: 6/12</h4>
-      </div>
-      <div class="col-1"> </div>
-
-    </div>
-
-    
-  
-
-
-
-    <div class="modal-footer justify-content-center">
-
-
-
-
-      <div class="col-3">
-        <button type="submit" class="btn">Editar</button>
-      </div>
-
-      <div class="col-3">
-        <button type="submit" class="btn">Asistir</button>
-      </div>
-
-      <div class="col-3">
-        <button type="submit" class="btn">Eliminar</button>
-      </div>
-
-
-    </div>
-
-
-  </form>
-
-
-</ng-template>

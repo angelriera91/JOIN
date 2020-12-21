@@ -11,8 +11,8 @@ export class ProfileService {
   public users:User[];
 
 
-  private urlEvent = "http://localhost:3000/event"
-  private urlLogin  = "http://localhost:3000/login"
+  private urlEvent = "http://localhost:3000/event";
+  private urlLogin  = "http://localhost:3000/login";
   private urlUserFav = "http://localhost:3000/user/favoritos";
 
   constructor(private http: HttpClient) {
