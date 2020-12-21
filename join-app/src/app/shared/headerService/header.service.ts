@@ -8,8 +8,9 @@ import { User } from 'src/app/model/user/user';
 export class HeaderService {
 
   private urlUserTotFavs = "http://localhost:3000/user/totFavs";
-  private url = "http://localhost:3000/login"
-
+  private urlLogin = "http://localhost:3000/login";
+  private urlRegister = "http://localhost:3000/register";
+  
   public totFavs:number;
   public user:User;
   constructor(private http: HttpClient) { }
@@ -21,7 +22,9 @@ export class HeaderService {
   }
 
   loginUser(usuario:User){
-    return this.http.post(this.url, usuario);
+    return this.http.post(this.urlLogin, usuario);
   }
-  
+  registerUser(usuario:User){
+    return this.http.post(this.urlRegister, usuario);
+  }
 }

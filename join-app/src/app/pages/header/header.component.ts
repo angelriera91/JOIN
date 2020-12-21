@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/model/user/user';
 import { Event } from 'src/app/model/event/event';
-import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { HeaderService } from 'src/app/shared/headerService/header.service';
 import { ProfileService } from 'src/app/shared/profileService/profile.service';
 import { EventService } from 'src/app/shared/event.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -33,7 +34,7 @@ home(){
 }
 
 
-//16-12-20 -MG
+//funcion para hacer login -MG
 onLogin(email:string,password:string){
   let usuario = new User(0,"","","","",email,password);
 
@@ -56,44 +57,46 @@ onLogin(email:string,password:string){
       })
       
     }
-
     else{
       this.mostrarError = true;
     }
-    
     }
     else{
       this.mostrarError = true;
     }
-    
-  
   },
   error => console.log(error)
-
   )
-
-
 }
 
-onSubmit(loginForm){
+//funcion para evitar errores de submit y quitar modal al enviar -MG
+onSubmit(loginForm: string){
   console.log(loginForm);
   this.modalService.dismissAll('Dismissed after saving data');
+}
 
+
+
+//funcion para registrarse
+register(nombre:string,apellido:string,ciudad:string,nickname:string,correo:string,password:string){
+  let usuario = new User(0,nombre,apellido,ciudad,nickname,correo,password);
+  console.log(usuario);
+
+  this.headerService.registerUser(usuario).subscribe((data:any) => {
+    console.log(data);
+  },
+  (error)=>{
+    console.log("erroooorrr", error)
+  }
+
+  );
 }
 
 
 
 
 
-
-
-
-
-
-
-
-// create - event
-
+// create - event -AR
 public open(content) {
   this.modalService.open(content, {backdropClass: 'light-blue-backdrop'}).result.then((result) => {
     this.closeResult = `Closed with: ${result}`;
