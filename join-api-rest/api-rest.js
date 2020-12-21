@@ -316,22 +316,45 @@ connection.query(delete_usuario, function (err, result){
 app.post("/create/event", function (request, response) {
 
     let evento =
-        [request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen, request.body.id_creador
+        [request.body.titulo, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen, 
+         request.body.id_creador, request.body.max_assist
         ]
 
-    let post_event = 'INSERT INTO eventos (titulo,lugar,fecha,hora,descripcion,categoria,imagen,id_creador) VALUES (?,?,?,?,?,?,?,?)'
-
+    let post_event = 'INSERT INTO eventos (titulo, lugar, fecha, hora, descripcion, categoria, imagen, id_creador, max_assist) VALUES (?,?,?,?,?,?,?,?,?) '
+    
     connection.query(post_event, evento, function (err, result) {
 
         if (err) {
             console.log(err)
         }
         else {
-            console.log("insertado correctamente")
+            console.log("evento insertado")
             console.log(result)
-        }
+            }
         response.send(result)
     })
+
+});
+
+app.get("/get/lastevent/:id_event", function (request, response){
+
+let id_creador = request.params.id_creador
+
+let last_event = ' SELECT id_event FROM eventos WHERE id_creador = ? ORDER BY id_event DESC LIMIT 1 '
+
+connection.query(last_event, id_creador, function (err, result) {
+
+    if (err) {
+        console.log(err)
+    }
+
+    else {
+        console.log("ultimo evento recuperado")
+        console.log(result)
+    }
+
+    response.send(result)
+})
 
 })
 

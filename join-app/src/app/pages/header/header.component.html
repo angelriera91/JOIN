@@ -8,7 +8,7 @@
             <li class="nav-link" *ngIf="mostrar===false;" routerLink="perfil" id="pointer" (click)="salir()">Hola, {{ user.nickname }}</li>
             <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(login)" *ngIf="mostrar===true;">Iniciar sesión</a></li>
             <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(registro)" *ngIf="mostrar===true;">Registrarse</a></li>
-            <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(content)">Crear Evento</a></li>
+            <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(createEvent)">Crear Evento</a></li>
         </ul>
     </nav>
   </div>
@@ -17,6 +17,7 @@
 
 <!-- create event modal -AR-->
 <ng-template #content let-modal>
+<ng-template #createEvent let-modal>
     <div>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Crear <strong style="color: #fc5404;">Evento</strong></h4>
@@ -26,25 +27,25 @@
     </div>
     </div>
     
+    <!-- <form  #createForm="ngForm" (ngSubmit)="onSubmit2(createForm)"> -->
     <form>
     <div class="modal-body form-group row">
 
             <div class="col-1"> </div>
             <div class="form-group col-10">
               <label for="title-event">Titulo</label>
-              <input type="text" class="form-control" id="title-event" placeholder="Titulo...">              
+              <input #titulo type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo...">              
             </div>
             <div class="col-1"> </div>
 
             <div class="col-1"> </div>
             <div class="form-group col-10">
               <label for="categoria-event">Categoria</label>
-              <select class="form-control" id="categoria-event">
-                <option>Cat.1</option>
-                <option>Cat.2</option>
-                <option>Cat.3</option>
-                <option>Cat.4</option>
-                <option>Cat.5</option>
+              <select #categoria class="form-control" id="categoria-event">
+                <option value="Deportes">Deportes</option>
+                <option value="Conocimiento">Conocimiento</option>
+                <option value="Idiomas">Idiomas</option>
+                <option value="Salir">Salir</option>                
               </select>
             </div>
             <div class="col-1"> </div>
@@ -52,20 +53,28 @@
             <div class="col-1"> </div>
             <div class="form-group col-10">
               <label for="lugar-event">Lugar</label>
-              <input type="text" class="form-control" id="lugar-event" placeholder="Lugar...">              
+              <input #lugar type="text" class="form-control" id="lugar" placeholder="Lugar..." name="lugar">              
+            </div>
+            <div class="col-1"> </div>
+
+            <div class="col-1"> </div>
+            <div class="col-10 pb-3 pt-1">
+                  <label for="insert-img">Seleccionar imagen</label>
+                  <input #imagen type="file" name="imagen" id="imagen" accept="image/*" id="imagen">
+                
             </div>
             <div class="col-1"> </div>
 
             <div class="col-1"> </div>
             <div class="form-group col-5">
               <label for="date-event">fecha</label>
-              <input type="date" class="form-control" id="date-event">              
+              <input #fecha type="date" class="form-control" id="fecha" name="fecha">              
             </div>          
             
             
             <div class="form-group col-5">
               <label for="time-event">hora</label>
-              <input type="time" class="form-control" id="time-event">              
+              <input #hora type="time" class="form-control" id="hora" name="hora">              
             </div>
             <div class="col-1"> </div>
 
@@ -73,24 +82,30 @@
             <div class="col-1"> </div>
             <div class="form-group col-10">
               <label for="description-event">descripcion</label>
-              <textarea class="form-control" id="description-event" placeholder="descripcion"></textarea>         
+              <textarea #descripcion class="form-control" id="description-event" placeholder="descripcion"></textarea>         
             </div>
             <div class="col-1"> </div>
-     
+
+            <div class="col-4"> </div>
+            <div class="form-group col-4">
+              <label for="max-assist">Asistentes</label>
+              <input #assist type="text" class="form-control" id="max-assist" placeholder="Max Asistentes">              
+            </div>
+            <div class="col-4"> </div>
     </div>
 
     
     <div class="modal-footer">
       <div class="col-4"></div>  
-        <div class="col-4">
-          <button class="btn btn-block" id="color" (click)="modal.close('Save click')">Crear Evento</button>
+        <div class="col-4 form-group">
+          <button class="btn btn-block" id="color" (click)="crearEvento(titulo.value, lugar.value, fecha.value, hora.value, descripcion.value, categoria.value, imagen.value, assist.value)" type="button"> Crear Evento </button>
         </div>
       <div class="col-4"> </div>
     </div>
     
 </form>
       
-  </ng-template>
+</ng-template>
 <!-- fin modal event -->
 
 

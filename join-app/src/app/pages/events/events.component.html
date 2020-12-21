@@ -11,7 +11,6 @@
         <div class="card-text col-12">{{eventos.lugar}}</div>
         <div class="card-text col-12">{{eventos.fecha}}</div>
 
-
       </div>
 
       <!-- visualizar event modal -->
@@ -37,9 +36,7 @@
       
         <form>
           <div class="modal-body form-group row text-center">
-      
-      
-      
+            
             <div class="col-1"> </div>
             <div class="form-group col-10">
               <img src={{eventos.imagen}} class="col-12 bg-white" style="height: 15rem; width: auto">
@@ -56,8 +53,7 @@
                 <h4>{{eventos.categoria}}</h4>
               </label>
             </div>
-      
-      
+            
             <div class="form-group col-5">
               <label for="lugar-event">
                 <h4>{{eventos.lugar}}</h4>
@@ -71,23 +67,20 @@
                 <h5>{{eventos.fecha}}</h5>
               </label>
             </div>
-      
-      
+            
             <div class="form-group col-5">
               <label for="time-event">
                 <h5>{{eventos.hora}}</h5>
               </label>
             </div>
             <div class="col-1"> </div>
-      
-      
+            
             <div class="col-1"> </div>
             <div class="form-group col-10">
               <p class="text-justify-center">{{eventos.descripcion}}</p>
             </div>
             <div class="col-1"> </div>
-      
-      
+            
             <div class="col-1"> </div>
             <div class="form-group col-10">
               <h4 class="text-center">Asistentes: {{eventos.total_asist}}/{{eventos.max_assist}}</h4>
@@ -95,16 +88,8 @@
             <div class="col-1"> </div>
       
           </div>
-      
-          
-        
-      
-      
-      
+
           <div class="modal-footer justify-content-center">
-      
-      
-      
       
             <div class="col-3">
               <button type="submit" class="btn">Editar</button>
@@ -117,14 +102,11 @@
             <div class="col-3">
               <button type="submit" class="btn">Eliminar</button>
             </div>
-      
-      
+            
           </div>
-      
-      
+            
         </form>
-      
-      
+            
       </ng-template>
     </div>
   </div>

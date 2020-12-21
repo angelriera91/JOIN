@@ -83,8 +83,6 @@ export class EventsComponent implements OnInit {
   }
 
 
-
-
   public open(eventmodal) {
 
     
