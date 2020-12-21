@@ -47,7 +47,7 @@ app.post("/user/register", function(request, response){
 //validacion de usuario para login - MG
 app.post("/login", function(request, response){
     //let user = "SELECT * FROM usuarios WHERE correo = ? and password = ?"
-    let user = "SELECT u.*, COUNT(uu.id_usuario) as favoritos, (e.total_valoracion/e.numero_valoracion) as media FROM usuarios AS u INNER JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario INNER JOIN eventos AS e ON uu.id_usuario = e.id_creador WHERE correo = ? and password = ?";
+    let user = "SELECT u.*, (e.total_valoracion/e.numero_valoracion) as media FROM usuarios AS u INNER JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario INNER JOIN eventos AS e ON uu.id_usuario = e.id_creador WHERE correo = ? and password = ? GROUP BY uu.id_usuario";
     let array = [request.body.correo, request.body.password]
 
     connection.query(user, array, function(err,result){
@@ -96,13 +96,13 @@ app.get("/eventos/categoria", function(request, response){
 
 
 // evento por creador -JP
-app.get("/event/bycreator"/* /event/bycreator/:id */, function(request,response) {
-    var f = new Date();
-    var fecha = f.getFullYear() + '-' + (f.getMonth() + 1) + '-' + f.getDate();
-    var params = [request.body.id_creador,fecha]
-
-    let sql = 'SELECT * FROM eventos WHERE id_creador = ? AND fecha >= "?"';
+app.get("/eventos/creados/:id_creador"/* /event/bycreator/:id */, function(request,response) {
     
+    var params = [request.params.id_creador]
+
+    let sql = 'SELECT * FROM eventos WHERE id_creador = ? ' + 
+                'AND CURRENT_DATE <= fecha ';
+
     connection.query(sql,params,function(err,result){
         if (err) {
             response.send(err);
@@ -136,12 +136,13 @@ app.get("/user/favoritos/:id_usuario"/* /user/favorito/:id */,function(request,r
 
 
 // eventos pasados -JP
-app.get("/event/pasados"/* /event/pasados/:id */, function(request,response) {
-    var f = new Date();
-    var fecha = f.getFullYear() + '-' + (f.getMonth() + 1) + '-' + f.getDate();
-    var params = [request.body.id_usuario,fecha];
+app.get("/eventos/terminados/:id_usuario"/* /event/pasados/:id */, function(request,response) {
+    var params = [request.params.id_usuario,request.params.id_usuario];
 
-    let sql = 'SELECT e.* FROM usuarios AS u INNER JOIN usuario_eventos AS ue ON u.id_usuario = ue.id_usuario INNER JOIN eventos AS e ON ue.id_evento = e.id_event WHERE ue.id_usuario = ? AND e.fecha <= "?" ORDER BY e.fecha DESC';
+    let sql = 'SELECT e.* FROM usuarios AS u INNER JOIN usuario_eventos AS ue ON u.id_usuario = ue.id_usuario INNER JOIN eventos AS e ON ue.id_evento = e.id_event WHERE (e.id_creador = ? ' + 
+                'OR ue.id_usuario = ?) AND e.fecha <= CURRENT_DATE ';
+
+    console.log(sql);
 
     connection.query(sql,params,function(err,result){
         if (err) {
@@ -158,17 +159,39 @@ app.get("/event/pasados"/* /event/pasados/:id */, function(request,response) {
 
 
 // asistir a los eventos -JP
-app.get("/event/asistir"/* /event/asistir/:id */, function(request,response) {
+app.get("/eventos/asistir/:id_usuario"/* /event/asistir/:id */, function(request,response) {
     var f = new Date();
-    var fecha = f.getFullYear() + '-' + (f.getMonth() + 1) + '-' + f.getDate();
-    var params = [request.body.id_usuario,fecha];
+    var fecha = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
 
-    let sql = 'SELECT e.* FROM usuarios AS u INNER JOIN usuario_eventos AS ue ON u.id_usuario = ue.id_usuario INNER JOIN eventos AS e ON ue.id_evento = e.id_event WHERE ue.id_usuario = ? AND e.fecha >= "?" ORDER BY e.fecha ASC';
+    var params = [request.params.id_usuario,fecha];
+    
+
+    let sql = 'SELECT e.* FROM usuarios AS u INNER JOIN usuario_eventos AS ue ON u.id_usuario = ue.id_usuario INNER JOIN eventos AS e ON ue.id_evento = e.id_event WHERE ue.id_usuario = ? ' + 
+                'AND e.fecha >= CURRENT_DATE';
 
     connection.query(sql,params,function(err,result){
         if (err) {
             response.send(err);
             console.log(err);
+        } else {
+            response.send(result);
+            console.log(result);
+        }
+    })
+
+});
+
+//recoger favoritos
+app.get("/user/totFavs/:id_usuario"/* /event/asistir/:id */, function(request,response) {
+
+    var params = [request.params.id_usuario]
+
+    let sql = 'SELECT COUNT(`id_usuario`) AS favoritos FROM `usuario_usuario` WHERE id_usuario = ? GROUP BY id_usuario';
+
+    connection.query(sql,params,function(err,result){
+        if (err) {
+            console.log(err);
+            response.send(err);
         } else {
             response.send(result);
             console.log(result);

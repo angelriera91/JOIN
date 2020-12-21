@@ -1,6 +1,6 @@
 <div class="container-fluid" style="background-image: url(../../../assets/fondo.jpg);">
     <nav class="navbar">
-        <a class="navbar-brand text-white" routerLink="/"><img src="../../../assets/logo.png" style="height: 50px;"></a>
+        <a class="navbar-brand text-white" routerLink="/" (click)="home()"><img src="../../../assets/logo.png" style="height: 50px;"></a>
 
         <ul class="nav justify-content-end" id="opciones">
             <li class="nav-link" *ngIf="mostrar===false;" routerLink="perfil" id="pointer"><a  id="icono"><img src="../../../assets/icono.png" style="height: 30px;"></a>Hola, {{ user.nickname }}</li>

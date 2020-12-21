@@ -4,6 +4,8 @@ import { Event } from 'src/app/model/event/event';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { HeaderService } from 'src/app/shared/headerService/header.service';
+import { ProfileService } from 'src/app/shared/profileService/profile.service';
+import { EventService } from 'src/app/shared/event.service';
 
 @Component({
   selector: 'app-header',
@@ -18,10 +20,17 @@ export class HeaderComponent implements OnInit {
   public user:User = new User();
   public mostrarError = false;
 
-  constructor(private modalService: NgbModal, private headerService:HeaderService, private router: Router) {
+  constructor(private modalService: NgbModal, private headerService:HeaderService, private profileService:ProfileService, private eventService:EventService, private router: Router) {
     this.event;
     this.user;
   }
+
+//18-12-2020 -JP
+home(){
+  this.eventService.creados = false;
+  this.eventService.paraAsistir = false;
+  this.eventService.terminados = false;
+}
 
 
 //16-12-20 -MG
@@ -34,10 +43,18 @@ onLogin(email:string,password:string){
     if(data[0] != undefined){
       if (data[0].id_usuario != null){
       this.headerService.user = data[0];
+      this.profileService.user = data[0];
       this.user = data[0];
       this.onSubmit("");
       this.mostrar = false;
       this.router.navigate(["/**"]);
+
+      //llamada a bbdd para capturar numero favs --- by JP
+      let user_id = this.headerService.user.id_usuario;
+      this.headerService.getTotFavs(user_id).subscribe((data:any) => {
+        this.headerService.totFavs = data[0].favoritos;
+      })
+      
     }
 
     else{

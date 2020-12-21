@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileService } from 'src/app/shared/profileService/profile.service';
 import { Event } from '../../model/event/event'
-import { EventService} from '../../shared/event.service'
+import { EventService} from '../../shared/event.service';
 
 @Component({
   selector: 'app-events',
@@ -13,11 +14,11 @@ export class EventsComponent implements OnInit {
   closeResult = '';
   public events : Event[];
   
-  constructor(private modalService: NgbModal, private eventService: EventService) {
+  constructor(private modalService: NgbModal, private eventService: EventService, private profileService:ProfileService) { 
     this.cargaEventos();
   }
 
-  public cargaEventos(){
+/*   public cargaEventos(){
 
     
     this.eventService.getEvents().subscribe((data:any) => {
@@ -25,6 +26,60 @@ export class EventsComponent implements OnInit {
       this.events = data
       this.eventService.events = data
     })
+  } */
+
+  public cargaEventos(){
+
+    if (this.profileService.user != undefined) {
+
+      if (this.profileService.user.id_usuario != null && this.eventService.creados == true) {
+        console.log('creados');
+
+        this.eventService.getEventsCreados(this.profileService.user.id_usuario).subscribe((data:any) => {
+          console.log(data);
+          this.events = data;
+          this.eventService.events = data;
+        });
+  
+      } else if(this.eventService.paraAsistir == true) {
+        console.log('assist');
+  
+        this.eventService.getEventsParaAsistir(this.profileService.user.id_usuario).subscribe((data:any) => {
+          console.log(data);
+          this.events = data;
+          this.eventService.events = data;
+        });
+  
+      } else if(this.profileService.user.id_usuario != null && this.eventService.terminados == true) {
+        console.log('terminados');
+  
+        this.eventService.getEventsTerminados(this.profileService.user.id_usuario).subscribe((data:any) => {
+          console.log(data);
+          this.events = data;
+          this.eventService.events = data;
+        });
+  
+      } else{
+        console.log('todos');
+
+        this.eventService.getEvents().subscribe((data:any) => {
+          console.log(data);
+          this.events = data;
+          this.eventService.events = data;
+        });
+  
+      }
+
+    } else{
+      console.log('todos2');
+
+      this.eventService.getEvents().subscribe((data:any) => {
+        console.log(data);
+        this.events = data;
+        this.eventService.events = data;
+      });
+
+    }
   }
 
 
