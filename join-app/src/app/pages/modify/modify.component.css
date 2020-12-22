@@ -17,3 +17,13 @@
   justify-content: space-around;
   display: flex;
 }
+
+#pointer{
+  cursor: pointer;
+}
+#pointer:hover {
+  background-color:#ff9500;
+  border-radius: 7px;
+}
+
+
