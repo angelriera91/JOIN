@@ -1,5 +1,4 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import { userInfo } from 'os';
 import { User } from 'src/app/model/user/user';
 import { DeleteUserService } from '../../shared/deleteUserService/delete-user.service';
 import { ModifyUserService } from '../../shared/modifyUserService/modify-user.service';

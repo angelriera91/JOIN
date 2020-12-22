@@ -49,7 +49,7 @@ app.post("/register", function(request, response){
 //validacion de usuario para login - MG
 app.post("/login", function(request, response){
     //let user = "SELECT * FROM usuarios WHERE correo = ? and password = ?"
-    let user = "SELECT u.*, (e.total_valoracion/e.numero_valoracion) as media FROM usuarios AS u INNER JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario INNER JOIN eventos AS e ON uu.id_usuario = e.id_creador WHERE correo = ? and password = ? GROUP BY uu.id_usuario";
+    let user = "SELECT u.*, (e.total_valoracion/e.numero_valoracion) as media FROM usuarios AS u LEFT JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario LEFT JOIN eventos AS e ON uu.id_usuario = e.id_creador WHERE correo = ? and password = ? GROUP BY uu.id_usuario";
     let array = [request.body.correo, request.body.password]
 
     connection.query(user, array, function(err,result){
@@ -189,6 +189,25 @@ app.get("/user/totFavs/:id_usuario"/* /event/asistir/:id */, function(request,re
     var params = [request.params.id_usuario]
 
     let sql = 'SELECT COUNT(`id_usuario`) AS favoritos FROM `usuario_usuario` WHERE id_usuario = ? GROUP BY id_usuario';
+
+    connection.query(sql,params,function(err,result){
+        if (err) {
+            console.log(err);
+            response.send(err);
+        } else {
+            response.send(result);
+            console.log(result);
+        }
+    })
+
+});
+
+// Recoger Media eventos user   By JP
+app.get("/user/mediaEvents/:id_creador"/* /event/asistir/:id */, function(request,response) {
+
+    var params = [request.params.id_creador]
+
+    let sql = 'SELECT (total_valoracion/numero_valoracion) AS media FROM eventos WHERE id_creador = ? GROUP BY id_creador';
 
     connection.query(sql,params,function(err,result){
         if (err) {

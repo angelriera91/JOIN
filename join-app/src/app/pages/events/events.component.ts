@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileService } from 'src/app/shared/profileService/profile.service';
+import { PublicProfileService } from 'src/app/shared/publicProfile/public-profile.service';
 import { Event } from '../../model/event/event'
 import { EventService} from '../../shared/event.service';
 
@@ -14,7 +15,7 @@ export class EventsComponent implements OnInit {
   closeResult = '';
   public events : Event[];
   
-  constructor(private modalService: NgbModal, private eventService: EventService, private profileService:ProfileService) { 
+  constructor(private modalService: NgbModal, private eventService: EventService, private profileService:ProfileService, private publicProfileService:PublicProfileService) { 
     this.cargaEventos();
   }
 
@@ -59,6 +60,16 @@ export class EventsComponent implements OnInit {
           this.eventService.events = data;
         });
   
+      }else if( this.publicProfileService.userSelected != undefined){
+        if (this.publicProfileService.userSelected.id_usuario != null && this.eventService.creadosPublic == true) {
+          console.log("creados del perfil publico");
+
+          this.eventService.getEventsCreados(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
+            console.log(data);
+            this.events = data;
+            this.eventService.events = data;
+          });
+        }
       } else{
         console.log('todos');
 

@@ -14,6 +14,7 @@ export class EventService {
   public creados:boolean = false;
   public paraAsistir:boolean = false;
   public terminados:boolean = false;
+  public creadosPublic:boolean = false;
 
   private get_creados = "http://localhost:3000/eventos/creados"
   private get_asistir = "http://localhost:3000/eventos/asistir"
@@ -36,9 +37,7 @@ export class EventService {
 
 
   getEvents(){
-
     return this.http.get(this.get_events)
-
   }
 
 }

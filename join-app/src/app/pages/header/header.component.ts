@@ -7,6 +7,7 @@ import { HeaderService } from 'src/app/shared/headerService/header.service';
 import { ProfileService } from 'src/app/shared/profileService/profile.service';
 import { EventService } from 'src/app/shared/event.service';
 import { NgForm } from '@angular/forms';
+import { PublicProfileService } from 'src/app/shared/publicProfile/public-profile.service';
 
 
 @Component({
@@ -22,9 +23,10 @@ export class HeaderComponent implements OnInit {
   public user:User = new User();
   public mostrarError = false;
   public hasError:boolean = true;
+  public hasError2:boolean = false;
 
 
-  constructor(private modalService: NgbModal, private headerService:HeaderService, private profileService:ProfileService, private eventService:EventService, private router: Router) {
+  constructor(private modalService: NgbModal, private headerService:HeaderService, private profileService:ProfileService, private eventService:EventService, private publicProfileService:PublicProfileService, private router: Router) {
     this.event;
     this.user;
   }
@@ -34,6 +36,9 @@ home(){
   this.eventService.creados = false;
   this.eventService.paraAsistir = false;
   this.eventService.terminados = false;
+  this.publicProfileService.creadosPublic = false;
+  this.hasError = true;
+  this.hasError2 = false;
 }
 
 
@@ -90,6 +95,7 @@ register(nombre:string,apellido:string,ciudad:string,nickname:string,correo:stri
 //funcion salir
 salir(){
   this.hasError = false;
+  this.hasError2 = true;
 }
 
 
