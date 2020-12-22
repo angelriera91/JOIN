@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
   public usuario_evento: UsuarioEvento = new UsuarioEvento();
   public mostrarError = false;
   public hasError: boolean = true;
+  public hasError2:boolean = false;
 
 
   constructor(private modalService: NgbModal, private headerService: HeaderService, private profileService: ProfileService, private eventService: EventService, private router: Router) {
@@ -38,6 +39,8 @@ export class HeaderComponent implements OnInit {
     this.eventService.creados = false;
     this.eventService.paraAsistir = false;
     this.eventService.terminados = false;
+    
+    this.hasError2 = false;
   }
 
 
@@ -94,6 +97,7 @@ export class HeaderComponent implements OnInit {
   //funcion salir
   salir() {
     this.hasError = false;
+    this.hasError2 = true;
   }
 
 
@@ -134,13 +138,6 @@ export class HeaderComponent implements OnInit {
 
   }
 
-
-
-
-
-
-
-
   onSubmit(loginForm) {
     console.log(loginForm);
     this.modalService.dismissAll('Dismissed after saving data');
@@ -162,7 +159,6 @@ export class HeaderComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   };
-
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

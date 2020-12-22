@@ -19,6 +19,7 @@ export class EventService {
   private get_asistir = "http://localhost:3000/eventos/asistir"
   private get_terminados = "http://localhost:3000/eventos/terminados"
   private get_events = "http://localhost:3000/eventos"
+  private delete_event = "http://localhost:3000/delete/event"
 
   constructor(private http: HttpClient) { }
 
@@ -38,6 +39,12 @@ export class EventService {
   getEvents(){
 
     return this.http.get(this.get_events)
+
+  }
+
+  deleteEvent(id_event:any){
+
+    return this.http.delete(this.delete_event + "/" + id_event)
 
   }
 

@@ -385,7 +385,7 @@ app.post("/create/assist", function (request, response) {
 // GET- EVENT - MAIN //
 
 app.get("/eventos/", function (request, response) {
-    let evento = "SELECT e.id_event, e.titulo, e.lugar, e.fecha, e.hora, e.descripcion, e.categoria, e.imagen, u.nickname, COUNT(ue.id_usuario) as total_asist, e.max_assist FROM eventos e LEFT JOIN usuario_eventos ue ON ue.id_evento = e.id_event LEFT JOIN usuarios u ON U.id_usuario = e.id_creador GROUP BY e.id_event"
+    let evento = 'SELECT e.id_event, e.titulo, e.lugar, DATE_FORMAT(e.fecha,"%Y/%m/%d") as fecha, e.hora, e.descripcion, e.categoria, e.imagen, u.nickname, COUNT(ue.id_usuario) as total_asist, e.max_assist, e.id_creador FROM eventos e LEFT JOIN usuario_eventos ue ON ue.id_evento = e.id_event LEFT JOIN usuarios u ON U.id_usuario = e.id_creador GROUP BY e.id_event'
     
     
     connection.query(evento, function (err, result) {
@@ -426,11 +426,11 @@ app.put("/put/event", function (request, response) {
 
 // ELIMINAR EVENTO //
 
-app.delete("/delete/event", function (request, response) {
+app.delete("/delete/event/:id_event", function (request, response) {
 
-    let event_id = request.body.event_id
+    let event_id = request.params.id_event    
 
-    let delete_event = 'DELETE FROM eventos where id_event = ? '
+    let delete_event = 'DELETE FROM eventos WHERE id_event = ? '
 
     connection.query(delete_event, event_id, function (err, result) {
 
@@ -440,8 +440,9 @@ app.delete("/delete/event", function (request, response) {
         else {
             console.log("eliminado correctamente")
             console.log(result)
+            response.send(result)
         }
-        response.send(result)
+        
     })
 
 })
