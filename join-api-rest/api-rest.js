@@ -48,10 +48,10 @@ app.post("/register", function(request, response){
 
 //validacion de usuario para login - MG
 app.post("/login", function(request, response){
-    //let user = "SELECT * FROM usuarios WHERE correo = ? and password = ?"
+    // let user = "SELECT * FROM usuarios WHERE correo = ? and password = ?"
     let user = "SELECT u.*, (e.total_valoracion/e.numero_valoracion) as media FROM usuarios AS u LEFT JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario LEFT JOIN eventos AS e ON uu.id_usuario = e.id_creador WHERE correo = ? and password = ? GROUP BY uu.id_usuario";
     let array = [request.body.correo, request.body.password]
-
+    console.log(request.body)
     connection.query(user, array, function(err,result){
         if(err)
             console.log(err)
@@ -226,6 +226,25 @@ app.get("/user/totFavs/:id_usuario"/* /event/asistir/:id */, function(request,re
 
 });
 
+// Recoger Media eventos user   By JP
+app.get("/user/mediaEvents/:id_creador"/* /event/asistir/:id */, function(request,response) {
+
+    var params = [request.params.id_creador]
+
+    let sql = 'SELECT (total_valoracion/numero_valoracion) AS media FROM eventos WHERE id_creador = ? GROUP BY id_creador';
+
+    connection.query(sql,params,function(err,result){
+        if (err) {
+            console.log(err);
+            response.send(err);
+        } else {
+            response.send(result);
+            console.log(result);
+        }
+    })
+
+});
+
 
 
 // Modificar usuario - LA
@@ -340,22 +359,45 @@ connection.query(delete_usuario, function (err, result){
 app.post("/create/event", function (request, response) {
 
     let evento =
-        [request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen, request.body.id_creador
+        [request.body.titulo, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen, 
+         request.body.id_creador, request.body.max_assist
         ]
 
-    let post_event = 'INSERT INTO eventos (titulo,lugar,fecha,hora,descripcion,categoria,imagen,id_creador) VALUES (?,?,?,?,?,?,?,?)'
-
+    let post_event = 'INSERT INTO eventos (titulo, lugar, fecha, hora, descripcion, categoria, imagen, id_creador, max_assist) VALUES (?,?,?,?,?,?,?,?,?) '
+    
     connection.query(post_event, evento, function (err, result) {
 
         if (err) {
             console.log(err)
         }
         else {
-            console.log("insertado correctamente")
+            console.log("evento insertado")
             console.log(result)
-        }
+            }
         response.send(result)
     })
+
+});
+
+app.get("/get/lastevent/:id_creador", function (request, response){
+
+let id_creador = request.params.id_creador
+
+let last_event = ' SELECT id_event FROM eventos WHERE id_creador = ? ORDER BY id_event DESC LIMIT 1 '
+
+connection.query(last_event, id_creador, function (err, result) {
+
+    if (err) {
+        console.log(err)
+    }
+
+    else {
+        console.log("ultimo evento recuperado")
+        console.log(result)
+    }
+
+    response.send(result)
+})
 
 })
 
@@ -363,9 +405,7 @@ app.post("/create/event", function (request, response) {
 
 app.post("/create/assist", function (request, response) {
 
-
-
-    let user_Event = [request.body.event_id, request.body.user_id]
+    let user_Event = [request.body.id_evento, request.body.id_usuario]
 
     let post_event = 'INSERT INTO usuario_eventos (id_evento, id_usuario) VALUES (?,?)'
 
@@ -388,7 +428,7 @@ app.post("/create/assist", function (request, response) {
 // GET- EVENT - MAIN //
 
 app.get("/eventos/", function (request, response) {
-    let evento = "SELECT e.id_event, e.titulo, e.lugar, e.fecha, e.hora, e.descripcion, e.categoria, e.imagen, u.nickname, COUNT(ue.id_usuario) as total_asist, e.max_assist FROM eventos e LEFT JOIN usuario_eventos ue ON ue.id_evento = e.id_event LEFT JOIN usuarios u ON U.id_usuario = e.id_creador GROUP BY e.id_event"
+    let evento = 'SELECT e.id_event, e.titulo, e.lugar, DATE_FORMAT(e.fecha,"%Y/%m/%d") as fecha, e.hora, e.descripcion, e.categoria, e.imagen, u.nickname, COUNT(ue.id_usuario) as total_asist, e.max_assist, e.id_creador FROM eventos e LEFT JOIN usuario_eventos ue ON ue.id_evento = e.id_event LEFT JOIN usuarios u ON U.id_usuario = e.id_creador GROUP BY e.id_event'
     
     
     connection.query(evento, function (err, result) {
@@ -429,11 +469,11 @@ app.put("/put/event", function (request, response) {
 
 // ELIMINAR EVENTO //
 
-app.delete("/delete/event", function (request, response) {
+app.delete("/delete/event/:id_event", function (request, response) {
 
-    let event_id = request.body.event_id
+    let event_id = request.params.id_event    
 
-    let delete_event = 'DELETE FROM eventos where id_event = ? '
+    let delete_event = 'DELETE FROM eventos WHERE id_event = ? '
 
     connection.query(delete_event, event_id, function (err, result) {
 
@@ -443,8 +483,9 @@ app.delete("/delete/event", function (request, response) {
         else {
             console.log("eliminado correctamente")
             console.log(result)
+            response.send(result)
         }
-        response.send(result)
+        
     })
 
 })

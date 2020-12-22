@@ -11,8 +11,8 @@ export class ModifyUserService {
 
   constructor(private http: HttpClient) { }
 
-  putUser(updateUser: User) 
+  putUser(updatedUser: User) 
   {
-    return this.http.put(this.urluser, updateUser)
+    return this.http.put(this.urluser, updatedUser)
   }
 }

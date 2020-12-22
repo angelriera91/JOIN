@@ -2,7 +2,8 @@
   <div></div>
   <div class="row justify-content-between">
 
-    <div class="card text-center mt-4" (click)="open(eventmodal)" style="width: 14rem" *ngFor="let eventos of events">
+    <div class="card text-center mt-4" style="width: 14rem" *ngFor="let eventos of events, let indice = index" (click)="open(eventmodal,indice)">
+
       <img class="card-img-top " src="{{eventos.imagen}}" alt="Imagen no encontrada" style="height: 10rem; width: auto;">
       <hr>
 
@@ -11,9 +12,8 @@
         <div class="card-text col-12">{{eventos.lugar}}</div>
         <div class="card-text col-12">{{eventos.fecha}}</div>
 
-
       </div>
-
+    
       <!-- visualizar event modal -->
 
       <ng-template #eventmodal let-modal>
@@ -37,9 +37,7 @@
       
         <form>
           <div class="modal-body form-group row text-center">
-      
-      
-      
+            
             <div class="col-1"> </div>
             <div class="form-group col-10">
               <img src={{eventos.imagen}} class="col-12 bg-white" style="height: 15rem; width: auto">
@@ -56,8 +54,7 @@
                 <h4>{{eventos.categoria}}</h4>
               </label>
             </div>
-      
-      
+            
             <div class="form-group col-5">
               <label for="lugar-event">
                 <h4>{{eventos.lugar}}</h4>
@@ -71,23 +68,20 @@
                 <h5>{{eventos.fecha}}</h5>
               </label>
             </div>
-      
-      
+            
             <div class="form-group col-5">
               <label for="time-event">
                 <h5>{{eventos.hora}}</h5>
               </label>
             </div>
             <div class="col-1"> </div>
-      
-      
+            
             <div class="col-1"> </div>
             <div class="form-group col-10">
               <p class="text-justify-center">{{eventos.descripcion}}</p>
             </div>
             <div class="col-1"> </div>
-      
-      
+            
             <div class="col-1"> </div>
             <div class="form-group col-10">
               <h4 class="text-center">Asistentes: {{eventos.total_asist}}/{{eventos.max_assist}}</h4>
@@ -95,36 +89,25 @@
             <div class="col-1"> </div>
       
           </div>
-      
-          
-        
-      
-      
-      
+
           <div class="modal-footer justify-content-center">
       
-      
-      
-      
             <div class="col-3">
-              <button type="submit" class="btn">Editar</button>
+              <button type="submit" class="btn" *ngIf="mostrar1==true;">Editar</button>
             </div>
       
             <div class="col-3">
-              <button type="submit" class="btn">Asistir</button>
+              <button type="submit" class="btn" *ngIf="mostrar2==true;">Asistir</button>
             </div>
       
             <div class="col-3">
-              <button type="submit" class="btn">Eliminar</button>
+              <button type="submit" class="btn" *ngIf="mostrar3==true;"(click)="delete(indice)" >Eliminar</button>
             </div>
-      
-      
+            
           </div>
-      
-      
+            
         </form>
-      
-      
+            
       </ng-template>
     </div>
   </div>

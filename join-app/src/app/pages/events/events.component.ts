@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HomeService } from 'src/app/shared/homeService/home.service';
 import { ProfileService } from 'src/app/shared/profileService/profile.service';
+import { PublicProfileService } from 'src/app/shared/publicProfile/public-profile.service';
 import { Event } from '../../model/event/event'
 import { EventService} from '../../shared/event.service';
 
@@ -17,19 +18,13 @@ export class EventsComponent implements OnInit {
   public categoria:string;
 
   
-  constructor(private modalService: NgbModal, private eventService: EventService, private profileService:ProfileService, private homeService:HomeService) { 
+  public mostrar1: boolean = false;
+  public mostrar2: boolean = false;
+  public mostrar3: boolean = false;
+  
+  constructor(private modalService: NgbModal, private eventService: EventService, private profileService:ProfileService, private publicProfileService:PublicProfileService, private homeService:HomeService) { 
     this.cargaEventos();
   }
-
-/*   public cargaEventos(){
-
-    
-    this.eventService.getEvents().subscribe((data:any) => {
-      console.log(data);
-      this.events = data
-      this.eventService.events = data
-    })
-  } */
 
   public cargaEventos(){
 
@@ -62,17 +57,28 @@ export class EventsComponent implements OnInit {
           console.log(data);
           this.events = data;
           this.eventService.events = data;
+          
         });
+  
+      }else if( this.publicProfileService.userSelected != undefined){
+        if (this.publicProfileService.userSelected.id_usuario != null && this.eventService.creadosPublic == true) {
+          console.log("creados del perfil publico");
 
-      }else{
-        
-        
+          this.eventService.getEventsCreados(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
+            console.log(data);
+            this.events = data;
+            this.eventService.events = data;
+          });
+        }
+      } else{
         console.log('todos');
 
         this.eventService.getEvents().subscribe((data:any) => {
           console.log(data);
           this.events = data;
-          this.eventService.events = data;
+          this.eventService.events = data; 
+          
+          
         });
   
       }
@@ -90,17 +96,66 @@ export class EventsComponent implements OnInit {
   }
 
 
+  public delete(indice: any){
+
+    let id_event = this.events[indice].id_event
+    console.log(id_event)
+
+    this.eventService.deleteEvent(id_event).subscribe((data:any) => {
+
+    console.log("evento borrado")
+    console.log(data)
+
+  })};
 
 
-  public open(eventmodal) {
+  public open(eventmodal,indice) {
 
-    
+    if(this.profileService.user != undefined){ 
+
+    console.log(this.profileService.user.id_usuario)
+
+    if(this.profileService.user.id_usuario == this.events[indice].id_creador){
+
+      this.mostrar1 = true
+      this.mostrar2 = false
+      this.mostrar3 = true
+
+      this.modalService.open(eventmodal, {backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+
+    }
+    else{
+
+      this.mostrar1 = false
+      this.mostrar2 = true
+      this.mostrar3 = false
+
+      this.modalService.open(eventmodal, {backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+
+    }
+  }
+
+  else{
+
+      this.mostrar1 = false
+      this.mostrar2 = false
+      this.mostrar3 = false
 
     this.modalService.open(eventmodal, {backdropClass: 'light-blue-backdrop'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
   }
   
   
