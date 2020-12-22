@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/model/user/user';
+import { UsuarioEvento } from 'src/app/model/usuario_evento/usuario-evento';
 import { Event } from '../../model/event/event'
 
 @Injectable({
@@ -39,11 +40,11 @@ export class HeaderService {
     return this.http.post(this.create_event, evento)
   }
 
-  recuperarEvent(id){
-    return this.http.get(this.recuperar_event, id)
+  recuperarEvent(id:any){
+    return this.http.get(this.recuperar_event + id)
   }
 
- createAssist(datos: any){
+ createAssist(datos: UsuarioEvento){
 
   return this.http.post(this.create_assist, datos)
 

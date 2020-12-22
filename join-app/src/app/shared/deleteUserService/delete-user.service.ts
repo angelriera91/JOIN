@@ -11,7 +11,7 @@ export class DeleteUserService {
 
   constructor(private http: HttpClient) { }
 
-  deleteUser(id_usuario:number)
+  deleteUser(id_usuario)
   {
     return this.http.delete(this.urluser + "?id=" + id_usuario)
   }

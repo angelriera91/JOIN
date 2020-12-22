@@ -48,10 +48,10 @@ app.post("/register", function(request, response){
 
 //validacion de usuario para login - MG
 app.post("/login", function(request, response){
-    //let user = "SELECT * FROM usuarios WHERE correo = ? and password = ?"
+    // let user = "SELECT * FROM usuarios WHERE correo = ? and password = ?"
     let user = "SELECT u.*, (e.total_valoracion/e.numero_valoracion) as media FROM usuarios AS u LEFT JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario LEFT JOIN eventos AS e ON uu.id_usuario = e.id_creador WHERE correo = ? and password = ? GROUP BY uu.id_usuario";
     let array = [request.body.correo, request.body.password]
-
+    console.log(request.body)
     connection.query(user, array, function(err,result){
         if(err)
             console.log(err)
@@ -355,7 +355,7 @@ app.post("/create/event", function (request, response) {
 
 });
 
-app.get("/get/lastevent/:id_event", function (request, response){
+app.get("/get/lastevent/:id_creador", function (request, response){
 
 let id_creador = request.params.id_creador
 
@@ -381,9 +381,7 @@ connection.query(last_event, id_creador, function (err, result) {
 
 app.post("/create/assist", function (request, response) {
 
-
-
-    let user_Event = [request.body.event_id, request.body.user_id]
+    let user_Event = [request.body.id_evento, request.body.id_usuario]
 
     let post_event = 'INSERT INTO usuario_eventos (id_evento, id_usuario) VALUES (?,?)'
 
