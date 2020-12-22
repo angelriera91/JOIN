@@ -14,20 +14,13 @@ export class EventsComponent implements OnInit {
 
   closeResult = '';
   public events : Event[];
+  public mostrar1: boolean = false;
+  public mostrar2: boolean = false;
+  public mostrar3: boolean = false;
   
   constructor(private modalService: NgbModal, private eventService: EventService, private profileService:ProfileService, private publicProfileService:PublicProfileService) { 
     this.cargaEventos();
   }
-
-/*   public cargaEventos(){
-
-    
-    this.eventService.getEvents().subscribe((data:any) => {
-      console.log(data);
-      this.events = data
-      this.eventService.events = data
-    })
-  } */
 
   public cargaEventos(){
 
@@ -58,6 +51,7 @@ export class EventsComponent implements OnInit {
           console.log(data);
           this.events = data;
           this.eventService.events = data;
+          
         });
   
       }else if( this.publicProfileService.userSelected != undefined){
@@ -76,7 +70,9 @@ export class EventsComponent implements OnInit {
         this.eventService.getEvents().subscribe((data:any) => {
           console.log(data);
           this.events = data;
-          this.eventService.events = data;
+          this.eventService.events = data; 
+          
+          
         });
   
       }
@@ -94,15 +90,66 @@ export class EventsComponent implements OnInit {
   }
 
 
-  public open(eventmodal) {
+  public delete(indice: any){
 
-    
+    let id_event = this.events[indice].id_event
+    console.log(id_event)
+
+    this.eventService.deleteEvent(id_event).subscribe((data:any) => {
+
+    console.log("evento borrado")
+    console.log(data)
+
+  })};
+
+
+  public open(eventmodal,indice) {
+
+    if(this.profileService.user != undefined){ 
+
+    console.log(this.profileService.user.id_usuario)
+
+    if(this.profileService.user.id_usuario == this.events[indice].id_creador){
+
+      this.mostrar1 = true
+      this.mostrar2 = false
+      this.mostrar3 = true
+
+      this.modalService.open(eventmodal, {backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+
+    }
+    else{
+
+      this.mostrar1 = false
+      this.mostrar2 = true
+      this.mostrar3 = false
+
+      this.modalService.open(eventmodal, {backdropClass: 'light-blue-backdrop'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+
+    }
+  }
+
+  else{
+
+      this.mostrar1 = false
+      this.mostrar2 = false
+      this.mostrar3 = false
 
     this.modalService.open(eventmodal, {backdropClass: 'light-blue-backdrop'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
   }
   
   

@@ -2,7 +2,8 @@
   <div></div>
   <div class="row justify-content-between">
 
-    <div class="card text-center mt-4" (click)="open(eventmodal)" style="width: 14rem" *ngFor="let eventos of events">
+    <div class="card text-center mt-4" style="width: 14rem" *ngFor="let eventos of events, let indice = index" (click)="open(eventmodal,indice)">
+
       <img class="card-img-top " src="{{eventos.imagen}}" alt="Imagen no encontrada" style="height: 10rem; width: auto;">
       <hr>
 
@@ -12,7 +13,7 @@
         <div class="card-text col-12">{{eventos.fecha}}</div>
 
       </div>
-
+    
       <!-- visualizar event modal -->
 
       <ng-template #eventmodal let-modal>
@@ -92,15 +93,15 @@
           <div class="modal-footer justify-content-center">
       
             <div class="col-3">
-              <button type="submit" class="btn">Editar</button>
+              <button type="submit" class="btn" *ngIf="mostrar1==true;">Editar</button>
             </div>
       
             <div class="col-3">
-              <button type="submit" class="btn">Asistir</button>
+              <button type="submit" class="btn" *ngIf="mostrar2==true;">Asistir</button>
             </div>
       
             <div class="col-3">
-              <button type="submit" class="btn">Eliminar</button>
+              <button type="submit" class="btn" *ngIf="mostrar3==true;"(click)="delete(indice)" >Eliminar</button>
             </div>
             
           </div>
