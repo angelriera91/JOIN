@@ -12,10 +12,10 @@ export class ModifyUserService {
 
   constructor(private http: HttpClient) { }
 
-  putUser(updatedUser: User) 
+  putUser(usuario: User) 
   {
-    console.log(updatedUser)
-    return this.http.put(this.urluser, updatedUser)
+    console.log(usuario)
+    return this.http.put(this.urluser, usuario)
   
   }
 }

@@ -53,7 +53,7 @@ export class ModifyComponent implements OnInit {
 
   modifyUser(nombre: string, apellido: string, ciudad: string, nickname: string, correo: string, password: string, imagen: string, descripcion: string) {
 
-    let usuario = new User(0, nombre, apellido, ciudad, nickname, correo, password, imagen, descripcion);
+    let usuario = new User(this.headerService.user.id_usuario, nombre, apellido, ciudad, nickname, correo, password, imagen, descripcion);
     console.log(usuario)
 
     this.modifyUserService.putUser(usuario).subscribe(
