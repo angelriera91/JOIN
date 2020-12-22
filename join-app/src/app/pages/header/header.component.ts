@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   public user:User = new User();
   public mostrarError = false;
   public hasError:boolean = true;
+  public hasError2:boolean = false;
 
 
   constructor(private modalService: NgbModal, private headerService:HeaderService, private profileService:ProfileService, private eventService:EventService, private router: Router) {
@@ -33,6 +34,9 @@ home(){
   this.eventService.creados = false;
   this.eventService.paraAsistir = false;
   this.eventService.terminados = false;
+  this.hasError = true;
+  this.hasError2 = true;
+
 }
 
 
@@ -94,9 +98,10 @@ register(nombre:string,apellido:string,ciudad:string,nickname:string,correo:stri
   );
 }
 
-//funcion salir
+//funcion para cambiar color del nav -MG
 salir(){
   this.hasError = false;
+  this.hasError2 = true;
 }
 
 

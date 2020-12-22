@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HomeService } from 'src/app/shared/homeService/home.service';
 import { ProfileService } from 'src/app/shared/profileService/profile.service';
 import { Event } from '../../model/event/event'
 import { EventService} from '../../shared/event.service';
@@ -13,8 +14,10 @@ export class EventsComponent implements OnInit {
 
   closeResult = '';
   public events : Event[];
+  public categoria:string;
+
   
-  constructor(private modalService: NgbModal, private eventService: EventService, private profileService:ProfileService) { 
+  constructor(private modalService: NgbModal, private eventService: EventService, private profileService:ProfileService, private homeService:HomeService) { 
     this.cargaEventos();
   }
 
@@ -29,6 +32,8 @@ export class EventsComponent implements OnInit {
   } */
 
   public cargaEventos(){
+
+    let categoria = this.homeService.categoria;
 
     if (this.profileService.user != undefined) {
 
@@ -58,8 +63,10 @@ export class EventsComponent implements OnInit {
           this.events = data;
           this.eventService.events = data;
         });
-  
-      } else{
+
+      }else{
+        
+        
         console.log('todos');
 
         this.eventService.getEvents().subscribe((data:any) => {
@@ -69,7 +76,7 @@ export class EventsComponent implements OnInit {
         });
   
       }
-
+    
     } else{
       console.log('todos2');
 

@@ -20,7 +20,7 @@ export class HeaderService {
 
     return this.http.get(this.urlUserTotFavs + "/" + id);
   }
-
+//servicios -MG
   loginUser(usuario:User){
     return this.http.post(this.urlLogin, usuario);
   }

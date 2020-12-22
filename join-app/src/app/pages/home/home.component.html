@@ -8,15 +8,11 @@
     </div>
 
         <form class="form-inline">
-            <input type="text" placeholder="¿Qué estás buscando?">
-            <select id="select" style="cursor: pointer;" >
-                <option value="">Categorías</option>
-                <option value="">Conocimiento</option>
-                <option value="">Deportes</option>
-                <option value="">Idiomas</option>
-                <option value="">Salir</option>
+            <input type="text" placeholder="¿Qué estás buscando?" #input>
+            <select  id="select" style="cursor: pointer;"  #category>
+                <option *ngFor="let categoria of categorias" value="{{categoria}}" id="seleccionCategoria" >{{ categoria }}</option>
             </select>
-            <button type="submit" style="width: 100px;">Buscar</button>
+            <button type="button" style="width: 100px;" (click)="filtroSelect(category.value)">Buscar</button>
 
         </form>
     

@@ -49,7 +49,7 @@ app.post("/register", function(request, response){
 //validacion de usuario para login - MG
 app.post("/login", function(request, response){
     //let user = "SELECT * FROM usuarios WHERE correo = ? and password = ?"
-    let user = "SELECT u.*, (e.total_valoracion/e.numero_valoracion) as media FROM usuarios AS u INNER JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario INNER JOIN eventos AS e ON uu.id_usuario = e.id_creador WHERE correo = ? and password = ? GROUP BY uu.id_usuario";
+    let user = "SELECT u.*, (e.total_valoracion/e.numero_valoracion) as media FROM usuarios AS u LEFT JOIN usuario_usuario AS uu ON u.id_usuario = uu.id_usuario LEFT JOIN eventos AS e ON uu.id_usuario = e.id_creador WHERE correo = ? and password = ? GROUP BY uu.id_usuario";
     let array = [request.body.correo, request.body.password]
 
     connection.query(user, array, function(err,result){
@@ -82,9 +82,9 @@ app.get("/user/login/id_usuario", function(request, response){
 
 
 //traer los eventos segun la categoria - MG
-app.get("/eventos/categoria", function(request, response){
+app.get("/categoria/:categoria", function(request, response){
     let user = "SELECT * FROM eventos WHERE categoria = ?"
-    let array = [request.body.categoria]
+    let array = [request.params.categoria]
     connection.query(user, array, function(err,result){
         if(err)
             console.log(err)
@@ -95,6 +95,30 @@ app.get("/eventos/categoria", function(request, response){
         response.send(result)
     })
 });
+
+//traer los eventos segun el input - MG
+app.get("/evento/:titulo", function(request, response){
+    let user = "SELECT * FROM `eventos` WHERE `titulo` LIKE '%?%'"
+    let array = [request.params.titulo]
+    connection.query(user, array, function(err,result){
+        if(err)
+            console.log(err)
+        else{
+            console.log("Accion realizada correctamente");
+            console.log(result)
+            response.send(result)
+
+        }
+    })
+});
+
+
+
+
+
+
+
+
 
 
 // evento por creador -JP
