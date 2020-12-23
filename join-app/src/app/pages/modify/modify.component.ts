@@ -4,9 +4,10 @@ import { DeleteUserService } from '../../shared/deleteUserService/delete-user.se
 import { ModifyUserService } from '../../shared/modifyUserService/modify-user.service';
 import { ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HeaderService } from 'src/app/shared/headerService/header.service';
 import { HeaderComponent } from '../header/header.component';
+// import { homedir } from 'os';
 
 @Component({
   selector: 'app-modify',
@@ -41,7 +42,7 @@ export class ModifyComponent implements OnInit {
    }
 
 
-  eliminateUser() {
+  eliminateUser(id_usuario: string) {
     this.deleteUserService.deleteUser(this.headerService.user.id_usuario).subscribe(
       res => {
         console.log(res);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpParams } from "@angular/common/http";
 import { User } from 'src/app/model/user/user';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class DeleteUserService {
 
   constructor(private http: HttpClient) { }
 
-  deleteUser(id_usuario)
+  deleteUser(usuario)
   {
-    return this.http.delete(this.urluser + "?id=" + id_usuario)
+    return this.http.delete(this.urluser + "/" + usuario);
   }
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div [class]="hasError2 ? 'none' : 'container-fluid'" >
   <div [style.background-image]="hasError ? 'none' : 'url(../../../assets/fondo.jpg)'">
     <nav class="navbar">
         <a class="navbar-brand text-white" routerLink="/" (click)="home()"><img src="../../../assets/logo.png" style="height: 50px;"></a>

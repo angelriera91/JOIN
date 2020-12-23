@@ -251,9 +251,9 @@ app.delete("/usuario/favorito",function(request, response){
 
     let usuario = [request.body.id_usuario]
     
-let delete_favorito = 'DELETE FROM usuario_usuario WHERE id_usuario =?'
+    let delete_favorito = 'DELETE FROM usuario_usuario WHERE id_usuario =?'
 
-connection.query(delete_favorito, usuario, function (err, result){
+    connection.query(delete_favorito, usuario, function (err, result){
 
     if(err){
         console.log(err)
@@ -290,13 +290,12 @@ connection.query(put_evento, puntuacion, function (err, result){
 });
 
 // Borrar cuenta -LA
-app.delete("/usuario",function(request, response){
+app.delete("/usuario/:id",function(request, response){
 
-    let id_usuario = request.body.id_usuario
-    
-let delete_usuario = 'DELETE FROM usuarios WHERE id_usuario ="' + id_usuario + '"'
+    let id_usuario = request.params.id
+    let delete_usuario = 'DELETE FROM usuarios WHERE id_usuario ="' + id_usuario + '"'
 
-connection.query(delete_usuario, function (err, result){
+    connection.query(delete_usuario, function (err, result){
 
     if(err){
         console.log(err)

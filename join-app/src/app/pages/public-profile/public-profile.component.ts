@@ -9,6 +9,8 @@ export class PublicProfileComponent implements OnInit {
 
   constructor() { }
 
+
+
   ngOnInit(): void {
   }
 
