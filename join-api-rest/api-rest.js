@@ -31,8 +31,8 @@ connection.connect(function(error){
 
 //registro usuario - MG
 app.post("/register", function(request, response){
-    let user = "INSERT INTO usuarios (nickname, nombre, apellidos, ciudad, correo, password) VALUES (?,?,?,?,?,?);"
-    let array = [request.body.nickname, request.body.nombre, request.body.apellido, request.body.ciudad, request.body.correo, request.body.password, request.body.descripcion]
+    let user = "INSERT INTO usuarios (nickname, nombre, apellidos, ciudad, correo, password, imagen) VALUES (?,?,?,?,?,?,?);"
+    let array = [request.body.nickname, request.body.nombre, request.body.apellido, request.body.ciudad, request.body.correo, request.body.password, request.body.imagen, request.body.descripcion]
     connection.query(user, array, function(err,result){
         if(err){
             console.log(err);
@@ -83,7 +83,7 @@ app.get("/user/login/id_usuario", function(request, response){
 
 
 //traer los eventos segun la categoria - MG
-app.get("/categoria/:categoria", function(request, response){
+app.get("/categoria/filtrar/:categoria", function(request, response){
     let user = ' SELECT e.id_event, e.titulo, e.lugar, DATE_FORMAT(e.fecha,"%d/%m/%Y") as fecha, e.hora, e.descripcion, e.categoria, e.imagen, u.nickname, COUNT(ue.id_usuario) as total_asist, e.max_assist, e.id_creador FROM eventos e LEFT JOIN usuario_eventos ue ON ue.id_evento = e.id_event LEFT JOIN usuarios u ON U.id_usuario = e.id_creador WHERE e.categoria = ? AND e.fecha >= CURDATE() GROUP BY e.id_event'
     let array = [request.params.categoria]
     console.log(array)
@@ -101,9 +101,11 @@ app.get("/categoria/:categoria", function(request, response){
 });
 
 //traer los eventos segun el input - MG
-app.get("/evento/:titulo", function(request, response){
+app.get("/eventos/filtrar/:titulo", function(request, response){
     let user = 'SELECT e.id_event, e.titulo, e.lugar, DATE_FORMAT(e.fecha,"%d/%m/%Y") as fecha, e.hora, e.descripcion, e.categoria, e.imagen, u.nickname, COUNT(ue.id_usuario) as total_asist, e.max_assist, e.id_creador FROM eventos e LEFT JOIN usuario_eventos ue ON ue.id_evento = e.id_event LEFT JOIN usuarios u ON U.id_usuario = e.id_creador WHERE `titulo` LIKE ? AND e.fecha >= CURDATE() GROUP BY e.id_event'
-    let array = ['%' + request.params.input + '%']
+    let array = ['%' + request.params.titulo + '%']
+    console.log(array)
+
     connection.query(user, array, function(err,result){
         if(err)
             console.log(err)

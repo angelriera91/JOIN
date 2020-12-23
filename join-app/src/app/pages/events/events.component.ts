@@ -81,6 +81,7 @@ export class EventsComponent implements OnInit {
           })
         }
         else if (this.homeService.categoria != null) {
+          console.log(" select")
           this.homeService.filterSelect(categoria).subscribe((data: any) => {
             console.log(data);
             this.events = data;
@@ -88,6 +89,7 @@ export class EventsComponent implements OnInit {
           })
         }
         else if (this.homeService.input != null) {
+          console.log("input ")
           this.homeService.filterInput(input).subscribe((data: any) => {
             console.log(data);
             this.events = data;
@@ -118,6 +120,7 @@ export class EventsComponent implements OnInit {
           })
         }
         else if (this.homeService.categoria != null) {
+          console.log(" select")
           this.homeService.filterSelect(this.homeService.categoria).subscribe((data: any) => {
             console.log(data);
             this.events = data;
@@ -125,6 +128,7 @@ export class EventsComponent implements OnInit {
           })
         }
         else if (this.homeService.input != null) {
+          console.log("input ")
           this.homeService.filterInput(this.homeService.input).subscribe((data: any) => {
             console.log(data);
             this.events = data;
@@ -158,6 +162,7 @@ export class EventsComponent implements OnInit {
         })
       }
       else if (this.homeService.categoria != null) {
+        console.log("select")
         this.homeService.filterSelect(this.homeService.categoria).subscribe((data: any) => {
           console.log(data);
           this.events = data;
@@ -165,6 +170,7 @@ export class EventsComponent implements OnInit {
         })
       }
       else if (this.homeService.input != null) {
+        console.log("input ")
         this.homeService.filterInput(this.homeService.input).subscribe((data: any) => {
           console.log(data);
           this.events = data;

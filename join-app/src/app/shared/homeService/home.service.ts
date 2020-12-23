@@ -22,7 +22,7 @@ export class HomeService {
   }
 
   filterInput(input:string){
-    console.log("prueba")
+    console.log(input)
     return this.http.get(this.urlInput + "/" + input);
   }
   filterSelectInput(array:string[]){
