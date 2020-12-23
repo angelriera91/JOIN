@@ -10,24 +10,48 @@ import { HomeService } from 'src/app/shared/homeService/home.service';
 export class HomeComponent implements OnInit {
 
   public categorias:string[]= ["Categoria","Conocimiento","Idiomas","Salir","Deportes"];
-  
+  public mostrarDatoBuscado:boolean = false;
 
   constructor(private homeService: HomeService) {
+    homeService.mostrarDatoBuscado = false;
    }
 
 
   //busqueda por el select
-  filtroSelect(categoria:string){
-    console.log(categoria);
-
-    this.homeService.categoria = categoria;
-
-    this.homeService.filterSelect(categoria).subscribe((data:any) => {
-      console.log(data);
-    });
+  filtroSelect(input:string){
+    if(input != null){
+      console.log("ANTES VALIDACION INPUT")
+      if(input === ""){
+        console.log(input)
+        this.homeService.input = null;
+      }else{
+        console.log(input);
+        this.homeService.input = input;
+      }
+      if (this.homeService.mostrarDatoBuscado == false) {
+        console.log("primer event")
+        this.homeService.mostrarDatoBuscado = true;
+        this.mostrarDatoBuscado = true;
+      } else {
+        console.log("segundo event")
+        this.homeService.mostrarDatoBuscado = false;
+        this.mostrarDatoBuscado = false;
+      }
   
+      
+    }
+
   }
 
+  cambio(categoria:string){
+    if(categoria == "Categoria"){
+      this.homeService.categoria = null;
+      console.log(categoria)  
+    }else{
+      this.homeService.categoria = categoria;
+      console.log(categoria)
+    }
+  }
 
   ngOnInit(): void {
   }

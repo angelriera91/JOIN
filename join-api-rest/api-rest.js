@@ -81,37 +81,62 @@ app.get("/user/login/id_usuario", function(request, response){
 
 
 
+
 //traer los eventos segun la categoria - MG
-app.get("/categoria/:categoria", function(request, response){
+app.get("/categoria/filtrar/:categoria", function(request, response){
     let user = "SELECT * FROM eventos WHERE categoria = ?"
     let array = [request.params.categoria]
+    console.log(array)
     connection.query(user, array, function(err,result){
         if(err)
             console.log(err)
         else{
             console.log("Accion realizada correctamente");
             console.log(result)
-        }
-        response.send(result)
-    })
-});
-
-//traer los eventos segun el input - MG
-app.get("/evento/:titulo", function(request, response){
-    let user = "SELECT * FROM `eventos` WHERE `titulo` LIKE '%?%'"
-    let array = [request.params.titulo]
-    connection.query(user, array, function(err,result){
-        if(err)
-            console.log(err)
-        else{
-            console.log("Accion realizada correctamente");
-            console.log(result)
+            console.log("prueba2")
             response.send(result)
 
         }
     })
 });
 
+//traer los eventos segun el input - MG
+app.get("/eventos/filtrar/:input", function(request, response){
+    let user = "SELECT * FROM eventos WHERE titulo LIKE ?"
+    let array = ['%' + request.params.input + '%']
+    console.log(array)
+    connection.query(user, array, function(err,result){
+        if(err)
+            console.log(err)
+        else{
+            console.log("Accion realizada correctamente");
+            console.log(result)
+            console.log("prueba")
+            response.send(result)
+
+        }
+
+    })
+});
+
+//traer los eventos segun el input + select- MG
+app.get("/eventos/filtrarSelect", function(request, response){
+    let user = 'SELECT e.id_event, e.titulo, e.lugar, DATE_FORMAT(e.fecha,"%d/%m/%Y") as fecha, e.hora, e.descripcion, e.categoria, e.imagen, u.nickname, COUNT(ue.id_usuario) as total_asist, e.max_assist, e.id_creador FROM eventos e LEFT JOIN usuario_eventos ue ON ue.id_evento = e.id_event LEFT JOIN usuarios u ON U.id_usuario = e.id_creador WHERE `titulo` LIKE ? AND categoria = ? AND e.fecha >= CURDATE() GROUP BY e.id_event'
+    let array = ['%' + request.query.input + '%', request.query.categoria]
+    console.log(array)
+    connection.query(user, array, function(err,result){
+        if(err)
+            console.log(err)
+        else{
+            console.log("Accion realizada correctamente");
+            console.log(result)
+            console.log("prueba")
+            response.send(result)
+
+        }
+
+    })
+});
 
 
 
