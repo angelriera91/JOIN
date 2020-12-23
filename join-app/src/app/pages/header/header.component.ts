@@ -83,7 +83,7 @@ export class HeaderComponent implements OnInit {
 
   //funcion para registrarse
   register(nombre: string, apellido: string, ciudad: string, nickname: string, correo: string, password: string) {
-    let usuario = new User(0, nombre, apellido, ciudad, nickname, correo, password);
+    let usuario = new User(0, nombre, apellido, ciudad, nickname, correo, password,"../assets/perfil-auto.jpg");
     console.log(usuario);
 
     this.headerService.registerUser(usuario).subscribe((data: any) => {
