@@ -9,12 +9,13 @@
 
         <form class="form-inline">
             <input type="text" placeholder="¿Qué estás buscando?" #input>
-            <select  id="select" style="cursor: pointer;"  #category>
+            <select  id="select" style="cursor: pointer;"  #category (change)="cambio(category.value)">
                 <option *ngFor="let categoria of categorias" value="{{categoria}}" id="seleccionCategoria" >{{ categoria }}</option>
             </select>
-            <button type="button" style="width: 100px;" (click)="filtroSelect(category.value)">Buscar</button>
+            <button type="button" style="width: 100px;" (click)="filtroSelect(input.value)">Buscar</button>
 
         </form>
     
 </div>
-<app-events></app-events>
+<app-events *ngIf="mostrarDatoBuscado == false"></app-events>
+<app-events *ngIf="mostrarDatoBuscado == true"></app-events>
