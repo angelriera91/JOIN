@@ -7,3 +7,8 @@ color: #fc5404;
 font-weight: bold;
 
 }
+
+#pointer{
+    cursor: pointer;
+    outline: none;
+}

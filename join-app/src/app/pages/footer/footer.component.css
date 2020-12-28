@@ -6,3 +6,7 @@
     margin-bottom: auto;
     display: inline-flex;
 }
+
+#pointer{
+    cursor: pointer;
+  }

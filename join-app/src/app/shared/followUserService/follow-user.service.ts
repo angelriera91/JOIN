@@ -11,8 +11,14 @@ export class FollowUserService {
 
   constructor(private http: HttpClient) { }
 
-  followUser(followUser: User) 
+  followUser(followedId: number, followerId: number) 
   {
-    return this.http.post(this.url, followUser)
+    let body = {
+      id_usuario: followedId, 
+      id_seguidor: followerId
+    }
+
+
+    return this.http.post(this.url, body)
   }
 }
