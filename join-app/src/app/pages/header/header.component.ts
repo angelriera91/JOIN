@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
   public hasError: boolean = true;
   public hasError2:boolean = false;
 
-
   constructor(private modalService: NgbModal, private headerService: HeaderService, private profileService: ProfileService, private eventService: EventService, private publicProfileService: PublicProfileService, private router: Router) {
     this.event;
     this.user;

@@ -8,7 +8,7 @@
     </div>
   
     <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
-      <p class="centrar">¿Qué te ha parecido el evento organizado por <strong>Jermase</strong>?</p>
+      <p class="centrar">¿Qué te ha parecido el evento organizado por <strong>{{user.nickname}</strong>?</p>
       <form class="centrar">
           <p class="clasificacion">
           <input id="radio1" type="radio" name="estrellas" value="5">
@@ -23,7 +23,7 @@
           <label for="radio5">★</label>
           </p>
           <div class="col-4">
-            <button class="btn btn-block" id="color" style="border: solid 1px #fc5404;">Modificar</button>
+            <button class="btn btn-block" id="color" style="border: solid 1px #fc5404;" routerLink="perfil" id="pointer">Enviar</button>
           </div>
       </form>
     </div>
