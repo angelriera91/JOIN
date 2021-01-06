@@ -335,14 +335,13 @@ app.delete("/usuario/favorito/:id",function(request, response){
 });
 
 // Puntuar evento -LA
-app.put("/evento/puntuacion",function(request, response){
+app.post("/evento/puntuacion",function(request, response){
 
-    let id_evento = request.body.id_evento
-    let puntuacion = [request.body.puntuacion]
+    let usuario_eventos = [request.body.id_evento, request.body.id_usuario, request.body.puntuacion]
 
-let put_evento = 'UPDATE usuario_eventos SET puntuacion = ? WHERE id_evento ="' + id_evento + '"'
+let post_puntuacion = 'INSERT INTO usuario_eventos (id_evento, id_usuario, puntuacion) VALUES (?,?,?)'
 
-connection.query(put_evento, puntuacion, function (err, result){
+connection.query(post_puntuacion, usuario_eventos, function (err, result){
 
     if(err){
         console.log(err)
