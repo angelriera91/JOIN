@@ -142,6 +142,7 @@ export class ProfileComponent implements OnInit {
     this.eventService.paraAsistir = false;
     this.eventService.terminados = false;
     this.eventService.creadosPublic = true;
+    this.publicProfileService.show = false;
 
     this.headerService.getTotFavs(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
       console.log(data[0])
