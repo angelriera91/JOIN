@@ -19,6 +19,7 @@ import { ScoreComponent } from './pages/score/score.component';
 import { PublicProfileComponent } from './pages/public-profile/public-profile.component';
 import { ModifyComponent } from './pages/modify/modify.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AboutComponent } from './pages/aboutUs/about.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
     ScoreComponent,
     PublicProfileComponent,
     ModifyComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

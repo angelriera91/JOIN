@@ -8,6 +8,7 @@
             <li class="nav-link" *ngIf="mostrar===false;" routerLink="perfil" id="pointer" (click)="salir()">Hola, {{ user.nickname }}</li>
             <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(login)" *ngIf="mostrar===true;">Iniciar sesión</a></li>
             <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(registro)" *ngIf="mostrar===true;">Registrarse</a></li>
+            <li class="nav-item"><a class="nav-link text-white" id="pointer" routerLink="aboutUs" (click)="salir()">Sobre Nosotros</a></li>
             <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(createEvent)">Crear Evento</a></li>
         </ul>
     </nav>

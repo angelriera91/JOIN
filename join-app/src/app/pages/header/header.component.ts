@@ -61,12 +61,29 @@ export class HeaderComponent implements OnInit {
           this.mostrar = false;
           this.router.navigate(["/**"]);
 
-          //llamada a bbdd para capturar numero favs --- by JP
-          let user_id = this.headerService.user.id_usuario;
-          this.headerService.getTotFavs(user_id).subscribe((data: any) => {
-            this.headerService.totFavs = data[0].favoritos;
-          })
+          this.headerService.getTotFavs(this.profileService.user.id_usuario).subscribe((data:any) => {​​
 
+            console.log(data[0])
+
+            if (data.length == 0) {​​
+
+              this.profileService.user.favoritos = 0;
+
+            }​​else{​​
+
+              if (data[0].favoritos == null || data[0].favoritos == undefined) {​​
+
+                this.profileService.user.favoritos = 0;
+
+              }​​else {​​
+
+                this.profileService.user.favoritos = data[0].favoritos;
+
+              }​​
+
+            }​​
+
+          }​​)
         }
         else {
           this.mostrarError = true;

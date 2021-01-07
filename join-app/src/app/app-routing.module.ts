@@ -6,6 +6,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { PublicProfileComponent } from './pages/public-profile/public-profile.component';
 import { ScoreComponent } from './pages/score/score.component';
 import { ModifyComponent } from './pages/modify/modify.component';
+import { AboutComponent } from './pages/aboutUs/about.component';
 
 const routes: Routes = [
   {path:"perfil", component:ProfileComponent},
@@ -13,6 +14,8 @@ const routes: Routes = [
   {path:"score",component:ScoreComponent},
   {path:"perfil/public",component:PublicProfileComponent},
   {path:"perfil/modify",component:ModifyComponent},
+  {path:"aboutUs",component:AboutComponent},
+
   {path:"**",component:HomeComponent}
 ];
 
