@@ -294,14 +294,13 @@ app.put("/usuario",
 );
 
 // Seguir favorito - LA
-app.post("/usuario/favorito",function(request, response){
+app.post("/usuario/favorito/",function(request, response){
 
-    let usuario =
-    [request.body.id_usuario, request.body.id_seguidor]
+    let usuario = [request.body.id_usuario, request.body.id_seguidor]
 
-let post_usuario = 'INSERT INTO usuario_usuario (id_usuario, id_seguidor) VALUES (?,?)'
+let post_follow = 'INSERT INTO usuario_usuario (id_usuario, id_seguidor) VALUES (?,?)'
 
-connection.query(post_usuario, usuario, function (err, result){
+connection.query(post_follow, usuario, function (err, result){
 
     if(err){
         console.log(err)
@@ -316,13 +315,12 @@ connection.query(post_usuario, usuario, function (err, result){
 });
 
 // Dejar de seguir favorito - LA
-app.delete("/usuario/favorito",function(request, response){
+app.delete("/usuario/favorito/:id",function(request, response){
 
-    let usuario = [request.body.id_usuario]
-    
-let delete_favorito = 'DELETE FROM usuario_usuario WHERE id_usuario =?'
+    let id_usuario = request.params.id
+    let delete_favorito = 'DELETE FROM usuario_usuario WHERE id_usuario ="' + id_usuario + '"'
 
-connection.query(delete_favorito, usuario, function (err, result){
+    connection.query(delete_favorito, function (err, result){
 
     if(err){
         console.log(err)
@@ -337,14 +335,13 @@ connection.query(delete_favorito, usuario, function (err, result){
 });
 
 // Puntuar evento -LA
-app.put("/evento/puntuacion",function(request, response){
+app.post("/evento/puntuacion",function(request, response){
 
-    let id_evento = request.body.id_evento
-    let puntuacion = [request.body.puntuacion]
+    let usuario_eventos = [request.body.id_evento, request.body.id_usuario, request.body.puntuacion]
 
-let put_evento = 'UPDATE usuario_eventos SET puntuacion = ? WHERE id_evento ="' + id_evento + '"'
+let post_puntuacion = 'INSERT INTO usuario_eventos (id_evento, id_usuario, puntuacion) VALUES (?,?,?)'
 
-connection.query(put_evento, puntuacion, function (err, result){
+connection.query(post_puntuacion, usuario_eventos, function (err, result){
 
     if(err){
         console.log(err)
@@ -359,13 +356,12 @@ connection.query(put_evento, puntuacion, function (err, result){
 });
 
 // Borrar cuenta -LA
-app.delete("/usuario",function(request, response){
+app.delete("/usuario/:id",function(request, response){
 
-    let id_usuario = request.body.id_usuario
-    
-let delete_usuario = 'DELETE FROM usuarios WHERE id_usuario ="' + id_usuario + '"'
+    let id_usuario = request.params.id
+    let delete_usuario = 'DELETE FROM usuarios WHERE id_usuario ="' + id_usuario + '"'
 
-connection.query(delete_usuario, function (err, result){
+    connection.query(delete_usuario, function (err, result){
 
     if(err){
         console.log(err)

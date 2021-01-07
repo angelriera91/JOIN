@@ -7,12 +7,12 @@ import { User } from 'src/app/model/user/user';
 })
 export class UnfollowUserService {
 
-  url = "http://localhost:3000/usuario/favorito";
+  urluser = "http://localhost:3000/usuario/favorito";
 
   constructor(private http: HttpClient) { }
 
-  unfollowUser(id_usuario:number)
+  unfollowUser(usuario)
   {
-    return this.http.delete(this.url + "?id=" + id_usuario)
+    return this.http.delete(this.urluser + "/" + usuario);
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from 'src/app/model/user/user';
+import { UsuarioEvento } from 'src/app/model/usuario_evento/usuario-evento';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,8 @@ export class RateEventService {
 
   constructor(private http: HttpClient) { }
 
-  rateEvent(id_event: number, puntuacion) 
+  rateEvent(puntuacion: UsuarioEvento) 
   {
-    return this.http.put(this.urlevent, id_event, puntuacion)
+    return this.http.post(this.urlevent, puntuacion)
   }
 }
