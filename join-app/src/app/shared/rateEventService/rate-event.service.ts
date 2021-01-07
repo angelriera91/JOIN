@@ -13,6 +13,6 @@ export class RateEventService {
 
   rateEvent(puntuacion: UsuarioEvento) 
   {
-    return this.http.put(this.urlevent, puntuacion)
+    return this.http.post(this.urlevent, puntuacion)
   }
 }

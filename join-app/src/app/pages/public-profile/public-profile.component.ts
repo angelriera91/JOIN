@@ -28,7 +28,7 @@ export class PublicProfileComponent implements OnInit {
    }
 
 
-  public mostrar: boolean = true;
+  public show: boolean = true;
 
  
    ngOnInit(): void {
@@ -37,29 +37,30 @@ export class PublicProfileComponent implements OnInit {
 
   follow(id_usuario: number, id_seguidor: number) {
 
-    //  FALTA servicio para id_usuario público
 
-    this.followUserService.followUser(1, this.user2.id_usuario).subscribe(
+    this.followUserService.followUser(this.user.id_usuario, this.user2.id_usuario).subscribe(
       res => {
         console.log(res);
+        this.show = false;
       },
       err => console.error(err)
     );
+    this.show = false;
 
 
   }
 
   unfollow(id_usuario: string) {
 
-    //  FALTA servicio para id_usuario público
 
-    this.unfollowUserService.unfollowUser(1).subscribe(
+    this.unfollowUserService.unfollowUser(this.user.id_usuario).subscribe(
       res => {
         console.log(res);
+        this.show = true;
       },
       err => console.error(err)
     );
-
+    
 
   }
 

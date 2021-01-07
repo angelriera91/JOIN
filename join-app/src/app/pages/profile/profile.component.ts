@@ -34,7 +34,6 @@ export class ProfileComponent implements OnInit {
 
   constructor(private modalService: NgbModal, public eventService:EventService, public profileService: ProfileService, public headerService:HeaderService, public publicProfileService:PublicProfileService) {
     this.user = headerService.user;
-    this.user.favoritos = headerService.totFavs;
     this.eventService.creados = true;
     this.creados = true;
     this.eventService.paraAsistir = false;

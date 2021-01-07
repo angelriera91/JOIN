@@ -61,29 +61,31 @@ export class HeaderComponent implements OnInit {
           this.mostrar = false;
           this.router.navigate(["/**"]);
 
-          this.headerService.getTotFavs(this.profileService.user.id_usuario).subscribe((data:any) => {​​
-
+          this.headerService.getTotFavs(this.profileService.user.id_usuario).subscribe((data:any) => {
             console.log(data[0])
-
-            if (data.length == 0) {​​
-
+            if (data.length == 0) {
               this.profileService.user.favoritos = 0;
-
-            }​​else{​​
-
-              if (data[0].favoritos == null || data[0].favoritos == undefined) {​​
-
+            }else{
+              if (data[0].favoritos == null || data[0].favoritos == undefined) {
                 this.profileService.user.favoritos = 0;
-
-              }​​else {​​
-
+              }else {
                 this.profileService.user.favoritos = data[0].favoritos;
+              }
+            }
+          })
 
-              }​​
+          this.profileService.getMediaEventUser(this.profileService.user.id_usuario).subscribe((data:any) => {
+            if (data.length == 0) {
+              this.profileService.user.media = 0;
+            }else{
+              if (data[0].media == null) {
+                this.profileService.user.media = 0;
+              }else {
+                this.profileService.user.media = data[0].media;
+              }
+            }
+          });
 
-            }​​
-
-          }​​)
         }
         else {
           this.mostrarError = true;
