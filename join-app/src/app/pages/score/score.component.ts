@@ -27,21 +27,48 @@ export class ScoreComponent implements OnInit {
 
   }
 
-  
-
   rate(stars: number){
 
     let puntuacion = new UsuarioEvento(this.eventService.event.id_event, this.user.id_usuario, stars);
     console.log(puntuacion)
 
-    this.rateEventService.rateEvent(puntuacion).subscribe(
+    let exists = false;
+
+    this.rateEventService.getRate(this.eventService.event.id_event,this.user.id_usuario).subscribe(
       res => {
-        console.log(res);
+        if (res[0] != null)
+        {
+          exists = true;
+        } else 
+        {
+          exists = false;
+        }
+
+        if (exists==true)
+          {
+          this.rateEventService.changeRate (puntuacion).subscribe(
+            res => {
+              console.log(res);
+            },
+            err => console.error(err)
+          );
+
+          } 
+        else 
+          {
+            this.rateEventService.rateEvent(puntuacion).subscribe(
+              res => {
+                console.log(res);
+              },
+              err => console.error(err)
+            );
+          } 
+
       },
       err => console.error(err)
     );
 
-  }
+  };
 
 
 

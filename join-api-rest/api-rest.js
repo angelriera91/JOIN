@@ -315,18 +315,18 @@ connection.query(post_follow, usuario, function (err, result){
 });
 
 // Dejar de seguir favorito - LA
-app.delete("/usuario/favorito/:id",function(request, response){
+app.delete("/usuario/favorito/:id_usuario/:id_seguidor",function(request, response){
 
-    let id_usuario = request.params.id
-    let delete_favorito = 'DELETE FROM usuario_usuario WHERE id_usuario ="' + id_usuario + '"'
+let delete_follow = 'DELETE FROM usuario_usuario WHERE id_usuario ="' + request.params.id_usuario + '" AND id_seguidor ="' + request.params.id_seguidor + '"'
 
-    connection.query(delete_favorito, function (err, result){
+
+connection.query(delete_follow,function (err, result){
 
     if(err){
         console.log(err)
     }
     else{
-        console.log("Eliminado correctamente")
+        console.log("insertado correctamente")
         console.log(result)
     }
     response.send(result)
@@ -334,7 +334,24 @@ app.delete("/usuario/favorito/:id",function(request, response){
 
 });
 
-// Puntuar evento -LA
+//Obtener puntuación LA
+app.get("/evento/puntuacion/:id_evento/:id_usuario",function(request,response) {
+
+    let sql = 'SELECT puntuacion FROM usuario_eventos WHERE id_evento = "' + request.params.id_evento + '" AND id_usuario = "' + request.params.id_usuario + '"';
+
+    connection.query(sql,function(err,result){
+        if (err) {
+            console.log(err);
+            response.send(err);
+        } else {
+            response.send(result);
+            console.log(result);
+        }
+    })
+
+});
+
+// Puntuación evento nueva - LA
 app.post("/evento/puntuacion",function(request, response){
 
     let usuario_eventos = [request.body.id_evento, request.body.id_usuario, request.body.puntuacion]
@@ -342,6 +359,27 @@ app.post("/evento/puntuacion",function(request, response){
 let post_puntuacion = 'INSERT INTO usuario_eventos (id_evento, id_usuario, puntuacion) VALUES (?,?,?)'
 
 connection.query(post_puntuacion, usuario_eventos, function (err, result){
+
+    if(err){
+        console.log(err)
+    }
+    else{
+        console.log("Puntuación añadida")
+        console.log(result)
+    }
+    response.send(result)
+    })
+
+});
+
+// Editar puntuación evento - LA
+app.put("/evento/puntuacion",function(request, response){
+
+    let usuario_eventos = [request.body.puntuacion, request.body.id_evento, request.body.id_usuario]
+
+let put_puntuacion = "UPDATE usuario_eventos SET puntuacion = ? WHERE id_evento = ? AND id_usuario = ?"
+
+connection.query(put_puntuacion, usuario_eventos, function (err, result){
 
     if(err){
         console.log(err)

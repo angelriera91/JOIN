@@ -56,7 +56,7 @@ export class PublicProfileComponent implements OnInit {
   unfollow() {
 
 
-    this.unfollowUserService.unfollowUser(this.user2.id_usuario).subscribe(
+    this.unfollowUserService.unfollowUser(this.user.id_usuario, this.user2.id_usuario).subscribe(
       res => {
         console.log(res);
         this.show = true;
