@@ -16,6 +16,7 @@ const routes: Routes = [
   {path:"perfil/modify",component:ModifyComponent},
   {path:"aboutUs",component:AboutComponent},
   {path:"perfil/score",component:ScoreComponent},
+  {path:"**/perfil/public",component:PublicProfileComponent},
   {path:"**",component:HomeComponent},
  
 ];
