@@ -22,7 +22,7 @@ export class EventService {
   private get_events = "http://localhost:3000/eventos"
   private delete_event = "http://localhost:3000/delete/event"
   private edit_Event = "http://localhost:3000/put/event"
-  private getidevent = "http://localhost:300/get/idevent"
+  private get_user = "http://localhost:3000/user"
 
   constructor(private http: HttpClient) { }
 
@@ -55,11 +55,13 @@ export class EventService {
 
   }
 
-  getidEvent(titulo:string, id_creador:number){
+  getUsuario(id_creador:number){
 
 
-    return this.http.get(this.getidevent + "/" + titulo + "/" + id_creador)
+    return this.http.get(this.get_user + "/" + id_creador)
 
   }
+
+
 
 }
