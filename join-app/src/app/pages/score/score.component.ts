@@ -23,18 +23,20 @@ export class ScoreComponent implements OnInit {
   constructor(private rateEventService: RateEventService, private modalService: NgbModal, private headerService: HeaderService, private eventService: EventService, private router: Router) {
     this.user = headerService.user;
     this.event = eventService.event;
-
+    // this.event.nickname = this.event.nickname;
 
   }
 
   rate(stars: number){
 
-    let puntuacion = new UsuarioEvento(this.eventService.event.id_event, this.user.id_usuario, stars);
+    let puntuacion: UsuarioEvento = this.rateEventService.usuario_evento;
+    puntuacion.puntuacion = stars;
+
     console.log(puntuacion)
 
     let exists = false;
 
-    this.rateEventService.getRate(this.eventService.event.id_event,this.user.id_usuario).subscribe(
+    this.rateEventService.getRate(puntuacion.id_evento,puntuacion.id_usuario).subscribe(
       res => {
         if (res[0] != null)
         {
