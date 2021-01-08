@@ -124,7 +124,7 @@ export class HeaderComponent implements OnInit {
           this.usuario_evento.id_usuario = id
           this.usuario_evento.id_evento = event2
 
-          this.headerService.createAssist(this.usuario_evento).subscribe
+          this.headerService.createAssist(this.usuario_evento).subscribe()
 
         })
 

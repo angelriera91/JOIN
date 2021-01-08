@@ -13,7 +13,9 @@ const routes: Routes = [
   {path:"score",component:ScoreComponent},
   {path:"perfil/public",component:PublicProfileComponent},
   {path:"perfil/modify",component:ModifyComponent},
-  {path:"**",component:HomeComponent}
+  {path:"perfil/score",component:ScoreComponent},
+  {path:"**",component:HomeComponent},
+ 
 ];
 
 @NgModule({
