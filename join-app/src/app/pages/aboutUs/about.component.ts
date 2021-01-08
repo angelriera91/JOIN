@@ -17,6 +17,7 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
 
   linkJuan(){
     window.open("https://www.linkedin.com/in/juan-pablo-carpio-guzman-1bb332182/", "_blank");
