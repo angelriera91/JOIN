@@ -315,12 +315,15 @@ connection.query(post_follow, usuario, function (err, result){
 });
 
 // Dejar de seguir favorito - LA
-app.delete("/usuario/favorito/:id_usuario/:id_seguidor",function(request, response){
-
-let delete_follow = 'DELETE FROM usuario_usuario WHERE id_usuario ="' + request.params.id_usuario + '" AND id_seguidor ="' + request.params.id_seguidor + '"'
+app.delete("/usuario/favorito",function(request, response){
 
 
-connection.query(delete_follow,function (err, result){
+    
+let usuarios = [request.body.id_usuario, request.body.id_seguidor]
+let delete_follow = 'DELETE FROM usuario_usuario WHERE id_usuario = ? AND id_seguidor = ?'
+
+
+connection.query(delete_follow,usuarios,function (err, result){
 
     if(err){
         console.log(err)
