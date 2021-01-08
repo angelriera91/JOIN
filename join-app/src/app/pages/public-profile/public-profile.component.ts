@@ -21,24 +21,27 @@ export class PublicProfileComponent implements OnInit {
   public user2: User;
   public creado:boolean;
   public noEvents:boolean = false;
+  public show: boolean;
 
   constructor(public publicProfileService:PublicProfileService, public eventService:EventService, private followUserService: FollowUserService, private unfollowUserService: UnfollowUserService, public headerService:HeaderService) {
     this.user = publicProfileService.userSelected;
     this.user2 = headerService.user;
+    this.show = this.publicProfileService.show;
+
+
    }
 
-
-  public show: boolean = true;
+  
 
  
    ngOnInit(): void {
 
   }
 
-  follow(id_usuario: number, id_seguidor: number) {
+  follow() {
 
 
-    this.followUserService.followUser(this.user.id_usuario, this.user2.id_usuario).subscribe(
+    this.followUserService.followUser(this.user2.id_usuario, this.user.id_usuario).subscribe(
       res => {
         console.log(res);
         this.show = false;
@@ -50,10 +53,10 @@ export class PublicProfileComponent implements OnInit {
 
   }
 
-  unfollow(id_usuario: string) {
+  unfollow() {
 
 
-    this.unfollowUserService.unfollowUser(this.user.id_usuario).subscribe(
+    this.unfollowUserService.unfollowUser(this.user.id_usuario, this.user2.id_usuario).subscribe(
       res => {
         console.log(res);
         this.show = true;
