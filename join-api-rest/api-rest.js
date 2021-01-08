@@ -315,12 +315,15 @@ connection.query(post_follow, usuario, function (err, result){
 });
 
 // Dejar de seguir favorito - LA
-app.delete("/usuario/favorito/:id_usuario/:id_seguidor",function(request, response){
-
-let delete_follow = 'DELETE FROM usuario_usuario WHERE id_usuario ="' + request.params.id_usuario + '" AND id_seguidor ="' + request.params.id_seguidor + '"'
+app.delete("/usuario/favorito",function(request, response){
 
 
-connection.query(delete_follow,function (err, result){
+    
+let usuarios = [request.body.id_usuario, request.body.id_seguidor]
+let delete_follow = 'DELETE FROM usuario_usuario WHERE id_usuario = ? AND id_seguidor = ?'
+
+
+connection.query(delete_follow,usuarios,function (err, result){
 
     if(err){
         console.log(err)
@@ -338,7 +341,7 @@ connection.query(delete_follow,function (err, result){
 app.get("/evento/puntuacion/:id_evento/:id_usuario",function(request,response) {
 
     let sql = 'SELECT puntuacion FROM usuario_eventos WHERE id_evento = "' + request.params.id_evento + '" AND id_usuario = "' + request.params.id_usuario + '"';
-
+    console.log(request.params)
     connection.query(sql,function(err,result){
         if (err) {
             console.log(err);
@@ -506,12 +509,12 @@ app.get("/eventos/", function (request, response) {
 
 app.put("/put/event", function (request, response) {
 
-    let event_id = request.body.event_id
+    let event_id = request.body.id_event;
     let evento =
-        [request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen,
+        [request.body.titulo, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen, request.body.max_assist,
             event_id]
 
-    let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?  where id_event = ? '
+    let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?, max_assist = ?  WHERE id_event = ? '
 
     connection.query(put_event, evento, function (err, result) {
 
@@ -549,5 +552,29 @@ app.delete("/delete/event/:id_event", function (request, response) {
     })
 
 })
+
+
+app.get ("/user/:id_usuario", function (request, response){
+
+
+    let id_usuario = request.params.id_usuario
+
+    let query = 'SELECT * FROM usuarios WHERE id_usuario = ?'
+
+    connection.query(query, id_usuario, function (err, result) {
+
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log("usuario recogido")
+            console.log(result)
+            response.send(result)
+        }
+        
+    })
+
+})
+
 
 app.listen(3000);

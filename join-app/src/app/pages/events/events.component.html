@@ -43,7 +43,7 @@
               <img src={{eventos.imagen}} class="col-12 bg-white" style="height: 15rem; width: auto">
               <hr>
               <label for="creador-event">
-                <h3> {{eventos.nickname}}</h3>
+                <a routerLink="perfil/public" (click) = "dismis()"><h3> {{eventos.nickname}}</h3></a>
               </label>
             </div>
             <div class="col-1"> </div>
@@ -92,23 +92,122 @@
 
           <div class="modal-footer justify-content-center">
       
-            <div class="col-3">
-              <button type="submit" class="btn" *ngIf="mostrar1==true;">Editar</button>
+            <div class="col-3" *ngIf="mostrar1==true;">
+              <button type="submit" class="btn" (click)=open(editmodal,indice)>Editar</button>
             </div>
       
-            <div class="col-3">
-              <button type="submit" class="btn" *ngIf="mostrar2==true;">Asistir</button>
+            <div class="col-3" *ngIf="mostrar2==true;">
+              <button type="submit" class="btn"  (click)="assist(indice)" >Asistir</button>
+            </div>
+
+            <div class="col-3" *ngIf="mostrar4==true;">
+              <button type="submit" class="btn"  routerLink = "score" (click)="puntuar(indice)">Puntuar </button>
             </div>
       
-            <div class="col-3">
-              <button type="submit" class="btn" *ngIf="mostrar3==true;"(click)="delete(indice)" >Eliminar</button>
+            <div class="col-3" *ngIf="mostrar3==true;">
+              <button type="submit" class="btn" (click)="delete(indice)" >Eliminar</button>
             </div>
             
           </div>
             
         </form>
+
+
+        <ng-template #editmodal let-modal>
+          <div>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Editar <strong style="color: #fc5404;">Evento</strong></h4>
+            <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          </div>
+          
+          <form  #createForm="ngForm" (ngSubmit)="onSubmit2(createForm)">     
+          <div class="modal-body form-group row">
+      
+                  <div class="col-1"> </div>
+                  <div class="form-group col-10">
+                    <label for="title-event">Titulo</label>
+                    <input #titulo type="text" class="form-control" id="titulo" name="titulo" value="{{eventos.titulo}}">                           
+                  </div>
+                  <div class="col-1"> </div>
+      
+                  <div class="col-1"> </div>
+                  <div class="form-group col-10">
+                    <label for="categoria-event">Categoria</label>
+                    <select #categoria class="form-control" id="categoria" value="{{eventos.categoria}}">
+                      <option value="Deportes">Deportes</option>
+                      <option value="Conocimiento">Conocimiento</option>
+                      <option value="Idiomas">Idiomas</option>
+                      <option value="Salir">Salir</option>                
+                    </select>
+                  </div>
+                  <div class="col-1"> </div>
+      
+                  <div class="col-1"> </div>
+                  <div class="form-group col-10">
+                    <label for="lugar-event">Lugar</label>
+                    <input #lugar type="text" class="form-control" id="lugar" value="{{eventos.lugar}}" name="lugar">              
+                  </div>
+                  <div class="col-1"> </div>
+      
+                  <div class="col-1"> </div>
+                  <div class="col-10 pb-3 pt-1">
+                        <label for="insert-img">Seleccionar imagen</label>
+                        <input #imagen type="file" name="imagen" id="imagen" accept="image/*" id="imagen">
+                      
+                  </div>
+                  <div class="col-1"> </div>
+      
+                  <div class="col-1"> </div>
+                  <div class="form-group col-5">
+                    <label for="date-event">fecha</label>
+                    <input #fecha type="date" class="form-control" id="fecha" name="fecha" value="{{eventos.fecha}}">              
+                  </div>          
+                  
+                  
+                  <div class="form-group col-5">
+                    <label for="time-event">hora</label>
+                    <input #hora type="time" class="form-control" id="hora" name="hora" value="{{eventos.hora}}">              
+                  </div>
+                  <div class="col-1"> </div>
+      
+      
+                  <div class="col-1"> </div>
+                  <div class="form-group col-10">
+                    <label for="description-event">descripcion</label>
+                    <textarea #descripcion class="form-control" id="description" value="{{eventos.descripcion}}"></textarea>         
+                  </div>
+                  <div class="col-1"> </div>
+      
+                  <div class="col-4"> </div>
+                  <div class="form-group col-4">
+                    <label for="max-assist">Asistentes</label>
+                    <input #assist type="text" class="form-control" id="max-assist" value="{{eventos.max_assist}}">              
+                  </div>
+                  <div class="col-4"> </div>
+          </div>
+      
+          
+          <div class="modal-footer">
+            <div class="col-4"></div>  
+              <div class="col-4 form-group">
+                <button class="btn btn-block" id="color" (click)="editarEvento(titulo.value, lugar.value, fecha.value, hora.value, descripcion.value, categoria.value, imagen.value, max-assist.value)" type="button" [disabled]="createForm.invalid"> Editar Evento </button>
+              </div>
+            <div class="col-4"> </div>
+          </div>
+          
+          </form>
             
       </ng-template>
+
+            
+      </ng-template>
+
+
+      
+
     </div>
   </div>
 </div>

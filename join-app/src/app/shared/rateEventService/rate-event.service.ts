@@ -9,6 +9,8 @@ export class RateEventService {
 
   urlevent = "http://localhost:3000/evento/puntuacion";
 
+  public usuario_evento: UsuarioEvento;
+
   constructor(private http: HttpClient) { }
 
   getRate(id_evento : number, id_usuario : number) 

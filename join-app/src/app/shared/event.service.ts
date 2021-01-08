@@ -21,6 +21,8 @@ export class EventService {
   private get_terminados = "http://localhost:3000/eventos/terminados"
   private get_events = "http://localhost:3000/eventos"
   private delete_event = "http://localhost:3000/delete/event"
+  private edit_Event = "http://localhost:3000/put/event"
+  private get_user = "http://localhost:3000/user"
 
   constructor(private http: HttpClient) { }
 
@@ -46,5 +48,20 @@ export class EventService {
     return this.http.delete(this.delete_event + "/" + id_event)
 
   }
+
+  editEvent(evento: Event){
+
+    return this.http.put(this.edit_Event, evento)
+
+  }
+
+  getUsuario(id_creador:number){
+
+
+    return this.http.get(this.get_user + "/" + id_creador)
+
+  }
+
+
 
 }

@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/model/user/user';
+import { UsuarioEvento } from 'src/app/model/usuario_evento/usuario-evento';
+import { HeaderService } from 'src/app/shared/headerService/header.service';
 import { HomeService } from 'src/app/shared/homeService/home.service';
 import { ProfileService } from 'src/app/shared/profileService/profile.service';
 import { PublicProfileService } from 'src/app/shared/publicProfile/public-profile.service';
+import { RateEventService } from 'src/app/shared/rateEventService/rate-event.service';
 import { Event } from '../../model/event/event'
 import { EventService } from '../../shared/event.service';
 
@@ -15,13 +19,17 @@ export class EventsComponent implements OnInit {
 
   closeResult = '';
   public events: Event[];
+  public event: Event;
+  public user: User;
 
   public mostrar1: boolean = false;
   public mostrar2: boolean = false;
   public mostrar3: boolean = false;
+  public mostrar4: boolean = false;
 
-  constructor(private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService) {
+  constructor (private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService) {
     this.cargaEventos();
+    this.user = headerService.user;
   }
 
   public cargaEventos() {
@@ -107,12 +115,12 @@ export class EventsComponent implements OnInit {
 
           });
         }
-      }else if (this.homeService.mostrarDatoBuscado == false) {
+      } else if (this.homeService.mostrarDatoBuscado == false) {
         console.log("aqui entra")
         if (this.homeService.categoria != null && this.homeService.input != null) {
           console.log("input select")
-  
-          let array:string[] = [this.homeService.categoria, this.homeService.input]
+
+          let array: string[] = [this.homeService.categoria, this.homeService.input]
           this.homeService.filterSelectInput(array).subscribe((data: any) => {
             console.log(data);
             this.events = data;
@@ -137,24 +145,24 @@ export class EventsComponent implements OnInit {
         }
         else {
           console.log('todos');
-  
+
           this.eventService.getEvents().subscribe((data: any) => {
             console.log(data);
             this.events = data;
             this.eventService.events = data;
-  
-  
+
+
           });
         }
       }
-    
+
 
     } else if (this.homeService.mostrarDatoBuscado == true) {
       console.log("aqui entra")
       if (this.homeService.categoria != null && this.homeService.input != null) {
         console.log("input select")
 
-        let array:string[] = [this.homeService.categoria, this.homeService.input]
+        let array: string[] = [this.homeService.categoria, this.homeService.input]
         this.homeService.filterSelectInput(array).subscribe((data: any) => {
           console.log(data);
           this.events = data;
@@ -188,12 +196,12 @@ export class EventsComponent implements OnInit {
 
         });
       }
-    }else if (this.homeService.mostrarDatoBuscado == false) {
+    } else if (this.homeService.mostrarDatoBuscado == false) {
       console.log("aqui entra")
       if (this.homeService.categoria != null && this.homeService.input != null) {
         console.log("input select")
 
-        let array:string[] = [this.homeService.categoria, this.homeService.input]
+        let array: string[] = [this.homeService.categoria, this.homeService.input]
         this.homeService.filterSelectInput(array).subscribe((data: any) => {
           console.log(data);
           this.events = data;
@@ -226,7 +234,7 @@ export class EventsComponent implements OnInit {
         });
       }
     }
-     else {
+    else {
       console.log('todos2');
 
       this.eventService.getEvents().subscribe((data: any) => {
@@ -249,34 +257,91 @@ export class EventsComponent implements OnInit {
       console.log("evento borrado")
       console.log(data)
 
+      this.modalService.dismissAll('Dismissed after saving data');
+
     })
   };
 
 
   public open(eventmodal, indice) {
 
+    this.event = this.eventService.events[indice]
+
+    this.rellenarPublic()
+
     if (this.profileService.user != undefined) {
 
       console.log(this.profileService.user.id_usuario)
 
-      if (this.profileService.user.id_usuario == this.events[indice].id_creador) {
+      if (this.eventService.terminados == false) {
 
-        this.mostrar1 = true
-        this.mostrar2 = false
-        this.mostrar3 = true
 
-        this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
-          this.closeResult = `Closed with: ${result}`;
-        }, (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
+        if (this.eventService.creados == true) {
+          this.mostrar1 = true
+          this.mostrar2 = false
+          this.mostrar3 = true
+          this.mostrar4 = false
+
+          this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          });
+
+        }
+        else if (this.eventService.paraAsistir == true) {
+
+          this.mostrar1 = false
+          this.mostrar2 = true
+          this.mostrar3 = false
+          this.mostrar4 = false
+
+          this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          });
+
+        }
+        else if (this.profileService.user.id_usuario == this.events[indice].id_creador) {
+
+
+
+          this.mostrar1 = true
+          this.mostrar2 = false
+          this.mostrar3 = true
+          this.mostrar4 = false
+
+          this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          });
+        }
+
+        else {
+
+          this.mostrar1 = false
+          this.mostrar2 = true
+          this.mostrar3 = false
+          this.mostrar4 = false
+
+          this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          });
+
+        }
 
       }
+
       else {
 
         this.mostrar1 = false
-        this.mostrar2 = true
+        this.mostrar2 = false
         this.mostrar3 = false
+        this.mostrar4 = true
 
         this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
@@ -287,11 +352,13 @@ export class EventsComponent implements OnInit {
       }
     }
 
+
     else {
 
       this.mostrar1 = false
       this.mostrar2 = false
       this.mostrar3 = false
+      this.mostrar4 = false
 
       this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
@@ -300,6 +367,107 @@ export class EventsComponent implements OnInit {
       });
     }
 
+  }
+
+
+  public assist(indice: any) {
+
+    if (this.events[indice].id_event !== null || this.events[indice].id_event !== undefined) {
+
+      let datos = new UsuarioEvento(this.events[indice].id_event, this.profileService.user.id_usuario);
+
+      this.headerService.createAssist(datos).subscribe()
+
+      console.log("assist created")
+
+      this.modalService.dismissAll('Dismissed after saving data');
+    }
+
+
+  }
+
+  public puntuar(indice: any) {
+    if (this.events[indice].id_event !== null || this.events[indice].id_event !== undefined) {
+
+      let datos = new UsuarioEvento(this.events[indice].id_event, this.profileService.user.id_usuario);
+
+      this.eventService.event = this.events[indice];
+
+      this.rateEventService.usuario_evento = datos;
+
+      console.log("Datos recogidos")
+    }
+  }
+
+  public editarEvento(titulo: string, lugar: string, fecha: string, hora: string, description: string, categoria: string, imagen: string, max_assist: number, indice: number) {
+
+
+    console.log(titulo)
+
+    let evento = { "titulo": titulo, "lugar": lugar, "fecha": fecha, "hora": hora, "descripcion": description, "categoria": categoria, "imagen": imagen, "id_creador": this.event.id_creador, "max_assist": max_assist, "id_event": this.event.id_event }
+
+    console.log(evento.id_event)
+
+    this.eventService.editEvent(evento).subscribe(data => {
+
+      if (this.event != null) {
+
+        this.event = data;
+
+        console.log("Evento Editado")
+        console.log(this.event)
+
+        this.modalService.dismissAll('Dismissed after saving data');
+      }
+
+      else {
+
+        console.log("no se a podido editar")
+      }
+
+    })
+
+  }
+
+  rellenarPublic(){
+
+    console.log("esta entrando?")
+
+    this.eventService.getUsuario(this.event.id_creador).subscribe((data:any) => {
+      
+      this.user = data
+
+    console.log(this.user)
+    this.publicProfileService.userSelected = this.user;
+    console.log(this.publicProfileService.userSelected)
+    this.eventService.creados = false;
+    this.eventService.paraAsistir = false;
+    this.eventService.terminados = false;
+    this.eventService.creadosPublic = true;
+    this.publicProfileService.show = false;
+
+    this.headerService.getTotFavs(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
+      console.log(data[0])
+      if (data[0].favoritos == null || data[0].favoritos == undefined ||data[0] == undefined) {
+        this.publicProfileService.userSelected.favoritos = 0;
+      }else {
+        this.publicProfileService.userSelected.favoritos = data[0].favoritos;
+      }
+    })
+    this.profileService.getMediaEventUser(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
+      if (data[0].media == null || data[0] == undefined) {
+        this.publicProfileService.userSelected.media = 0;
+      }else {
+        this.publicProfileService.userSelected.media = data[0];
+      }
+    });
+
+    
+      
+    })
+
+
+    
   }
 
 
@@ -314,6 +482,12 @@ export class EventsComponent implements OnInit {
     }
   }
 
+
+  private dismis(){
+
+    this.modalService.dismissAll('Dismissed after saving data');
+    
+  }
 
   ngOnInit(): void {
   }
