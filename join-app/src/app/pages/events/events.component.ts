@@ -18,6 +18,7 @@ export class EventsComponent implements OnInit {
 
   closeResult = '';
   public events: Event[];
+  public event: Event
 
   public mostrar1: boolean = false;
   public mostrar2: boolean = false;
@@ -259,13 +260,13 @@ export class EventsComponent implements OnInit {
 
   public open(eventmodal, indice) {
 
+    this.event = this.eventService.events[indice]
+
     if (this.profileService.user != undefined) {
 
       console.log(this.profileService.user.id_usuario)
 
       if (this.eventService.terminados == false) {
-
-        console.log("x aqui pasa")
 
 
         if (this.eventService.creados == true) {
@@ -387,6 +388,33 @@ export class EventsComponent implements OnInit {
 
       console.log("Datos recogidos")
     }
+  }
+
+  public editarEvento(titulo: string, lugar: string, fecha: string, hora: string, description: string, categoria: string, imagen: string, max_assist: number, indice: number) {
+
+
+    console.log(titulo)
+
+    let evento = { "titulo": titulo, "lugar": lugar, "fecha": fecha, "hora": hora, "descripcion": description, "categoria": categoria, "imagen": imagen, "id_creador": this.event.id_creador, "max_assist": max_assist, "id_event": this.event.id_event }
+
+    console.log(evento.id_event)
+
+    this.eventService.editEvent(evento).subscribe(data => {
+
+      if (this.event != null) {
+
+        this.event = data;
+
+        console.log("Evento Editado")
+        console.log(this.event)
+      }
+
+      else {
+
+        console.log("no se a podido editar")
+      }
+
+    })
 
   }
 
