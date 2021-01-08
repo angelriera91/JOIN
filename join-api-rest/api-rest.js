@@ -506,12 +506,12 @@ app.get("/eventos/", function (request, response) {
 
 app.put("/put/event", function (request, response) {
 
-    let event_id = request.body.event_id
+    let event_id = request.body.id_event;
     let evento =
-        [request.body.title, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen,
+        [request.body.titulo, request.body.lugar, request.body.fecha, request.body.hora, request.body.descripcion, request.body.categoria, request.body.imagen, request.body.max_assist,
             event_id]
 
-    let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?  where id_event = ? '
+    let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?, max_assist = ?  WHERE id_event = ? '
 
     connection.query(put_event, evento, function (err, result) {
 
@@ -549,5 +549,6 @@ app.delete("/delete/event/:id_event", function (request, response) {
     })
 
 })
+
 
 app.listen(3000);
