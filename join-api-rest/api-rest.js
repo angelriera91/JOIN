@@ -341,7 +341,7 @@ connection.query(delete_follow,usuarios,function (err, result){
 app.get("/evento/puntuacion/:id_evento/:id_usuario",function(request,response) {
 
     let sql = 'SELECT puntuacion FROM usuario_eventos WHERE id_evento = "' + request.params.id_evento + '" AND id_usuario = "' + request.params.id_usuario + '"';
-
+    console.log(request.params)
     connection.query(sql,function(err,result){
         if (err) {
             console.log(err);

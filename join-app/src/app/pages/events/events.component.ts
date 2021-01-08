@@ -5,6 +5,7 @@ import { HeaderService } from 'src/app/shared/headerService/header.service';
 import { HomeService } from 'src/app/shared/homeService/home.service';
 import { ProfileService } from 'src/app/shared/profileService/profile.service';
 import { PublicProfileService } from 'src/app/shared/publicProfile/public-profile.service';
+import { RateEventService } from 'src/app/shared/rateEventService/rate-event.service';
 import { Event } from '../../model/event/event'
 import { EventService } from '../../shared/event.service';
 
@@ -23,7 +24,7 @@ export class EventsComponent implements OnInit {
   public mostrar3: boolean = false;
   public mostrar4: boolean = false;
 
-  constructor(private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService) {
+  constructor (private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService) {
     this.cargaEventos();
   }
 
@@ -372,6 +373,20 @@ export class EventsComponent implements OnInit {
       console.log("assist created")
     }
 
+
+  }
+
+  public puntuar(indice: any) {
+    if (this.events[indice].id_event !== null || this.events[indice].id_event !== undefined) {
+
+      let datos = new UsuarioEvento(this.events[indice].id_event, this.profileService.user.id_usuario);
+
+      this.eventService.event = this.events[indice];
+
+      this.rateEventService.usuario_evento = datos;
+
+      console.log("Datos recogidos")
+    }
 
   }
 

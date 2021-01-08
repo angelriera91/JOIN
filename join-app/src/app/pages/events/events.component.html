@@ -101,7 +101,7 @@
             </div>
 
             <div class="col-3" *ngIf="mostrar4==true;">
-              <button type="submit" class="btn"  routerLink = "score" >Puntuar </button>
+              <button type="submit" class="btn"  routerLink = "score" (click)="puntuar(indice)">Puntuar </button>
             </div>
       
             <div class="col-3" *ngIf="mostrar3==true;">
