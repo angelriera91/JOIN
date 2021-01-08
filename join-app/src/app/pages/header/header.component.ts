@@ -147,6 +147,9 @@ export class HeaderComponent implements OnInit {
         })
 
         console.log("Evento Creado")
+
+        this.modalService.dismissAll('Dismissed after saving data');
+
       }
 
       else {

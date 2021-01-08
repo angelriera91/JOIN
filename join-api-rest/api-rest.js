@@ -554,4 +554,27 @@ app.delete("/delete/event/:id_event", function (request, response) {
 })
 
 
+app.get ("/user/:id_usuario", function (request, response){
+
+
+    let id_usuario = request.params.id_usuario
+
+    let query = 'SELECT * FROM usuarios WHERE id_usuario = ?'
+
+    connection.query(query, id_usuario, function (err, result) {
+
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log("usuario recogido")
+            console.log(result)
+            response.send(result)
+        }
+        
+    })
+
+})
+
+
 app.listen(3000);

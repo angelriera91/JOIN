@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/model/user/user';
 import { UsuarioEvento } from 'src/app/model/usuario_evento/usuario-evento';
 import { HeaderService } from 'src/app/shared/headerService/header.service';
 import { HomeService } from 'src/app/shared/homeService/home.service';
@@ -18,7 +19,8 @@ export class EventsComponent implements OnInit {
 
   closeResult = '';
   public events: Event[];
-  public event: Event
+  public event: Event;
+  public user: User;
 
   public mostrar1: boolean = false;
   public mostrar2: boolean = false;
@@ -27,6 +29,7 @@ export class EventsComponent implements OnInit {
 
   constructor (private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService) {
     this.cargaEventos();
+    this.user = headerService.user;
   }
 
   public cargaEventos() {
@@ -254,6 +257,8 @@ export class EventsComponent implements OnInit {
       console.log("evento borrado")
       console.log(data)
 
+      this.modalService.dismissAll('Dismissed after saving data');
+
     })
   };
 
@@ -261,6 +266,8 @@ export class EventsComponent implements OnInit {
   public open(eventmodal, indice) {
 
     this.event = this.eventService.events[indice]
+
+    this.rellenarPublic()
 
     if (this.profileService.user != undefined) {
 
@@ -372,6 +379,8 @@ export class EventsComponent implements OnInit {
       this.headerService.createAssist(datos).subscribe()
 
       console.log("assist created")
+
+      this.modalService.dismissAll('Dismissed after saving data');
     }
 
 
@@ -407,6 +416,8 @@ export class EventsComponent implements OnInit {
 
         console.log("Evento Editado")
         console.log(this.event)
+
+        this.modalService.dismissAll('Dismissed after saving data');
       }
 
       else {
@@ -416,6 +427,47 @@ export class EventsComponent implements OnInit {
 
     })
 
+  }
+
+  rellenarPublic(){
+
+    console.log("esta entrando?")
+
+    this.eventService.getUsuario(this.event.id_creador).subscribe((data:any) => {
+      
+      this.user = data
+
+    console.log(this.user)
+    this.publicProfileService.userSelected = this.user;
+    console.log(this.publicProfileService.userSelected)
+    this.eventService.creados = false;
+    this.eventService.paraAsistir = false;
+    this.eventService.terminados = false;
+    this.eventService.creadosPublic = true;
+    this.publicProfileService.show = false;
+
+    this.headerService.getTotFavs(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
+      console.log(data[0])
+      if (data[0].favoritos == null || data[0].favoritos == undefined ||data[0] == undefined) {
+        this.publicProfileService.userSelected.favoritos = 0;
+      }else {
+        this.publicProfileService.userSelected.favoritos = data[0].favoritos;
+      }
+    })
+    this.profileService.getMediaEventUser(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
+      if (data[0].media == null || data[0] == undefined) {
+        this.publicProfileService.userSelected.media = 0;
+      }else {
+        this.publicProfileService.userSelected.media = data[0];
+      }
+    });
+
+    
+      
+    })
+
+
+    
   }
 
 
@@ -430,6 +482,12 @@ export class EventsComponent implements OnInit {
     }
   }
 
+
+  private dismis(){
+
+    this.modalService.dismissAll('Dismissed after saving data');
+    
+  }
 
   ngOnInit(): void {
   }
