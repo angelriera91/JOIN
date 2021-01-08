@@ -11,8 +11,9 @@ export class UnfollowUserService {
 
   constructor(private http: HttpClient) { }
 
-  unfollowUser(usuario)
+  unfollowUser(id_usuario, id_seguidor)
   {
-    return this.http.delete(this.urluser + "/" + usuario);
+    return this.http.delete(this.urluser + "/" + id_usuario + "/" + id_seguidor);
   }
+
 }
