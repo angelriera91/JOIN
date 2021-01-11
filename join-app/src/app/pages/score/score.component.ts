@@ -23,7 +23,6 @@ export class ScoreComponent implements OnInit {
   constructor(private rateEventService: RateEventService, private modalService: NgbModal, private headerService: HeaderService, private eventService: EventService, private router: Router) {
     this.user = headerService.user;
     this.event = eventService.event;
-    // this.event.nickname = this.event.nickname;
 
   }
 
