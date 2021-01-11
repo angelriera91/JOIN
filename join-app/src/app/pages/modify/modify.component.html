@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label>Apellidos:</label>
-                <input #apellido type="text" class="form-control" name="lastname" [(ngModel)]="user.apellido" #lastname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" placeholder="Apellidos" required>
+                <input #apellido type="text" class="form-control" name="lastname" [(ngModel)]="user.apellido" #lastname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && lastname.invalid }" placeholder="Apellidos" required>
                 <div *ngIf="userForm.submitted && lastname.invalid" class="invalid-feedback">
                 <p *ngIf="lastname.errors?.required">Los apellidos son obligatorios</p>
                 </div>

@@ -195,6 +195,7 @@ app.get("/eventos/terminados/:id_usuario"/* /event/pasados/:id */, function(requ
                 'OR ue.id_usuario = ?) AND e.fecha <= CURRENT_DATE GROUP BY e.id_event';
 
     console.log(sql);
+    console.log(params)
 
     connection.query(sql,params,function(err,result){
         if (err) {
