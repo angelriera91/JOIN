@@ -59,7 +59,13 @@ export class ModifyComponent implements OnInit {
    
     imagen = imagen.slice(12);
     console.log(imagen);
-    imagen = "../../../assets/" + imagen;
+    if (imagen == null || imagen == undefined || imagen == "") {
+      imagen = this.headerService.user.imagen;
+    }
+    else {
+      imagen = "../../../assets/" + imagen;
+    }
+   
     console.log(imagen);
     let usuario = new User(this.headerService.user.id_usuario, nickname, nombre, apellido, ciudad, correo, password, imagen, descripcion);
 
