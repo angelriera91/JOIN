@@ -31,7 +31,7 @@ connection.connect(function(error){
 
 //registro usuario - MG
 app.post("/register", function(request, response){
-    let user = "INSERT INTO usuarios (nickname, nombre, apellidos, ciudad, correo, password, imagen) VALUES (?,?,?,?,?,?,?);"
+    let user = "INSERT INTO usuarios (nickname, nombre, apellido, ciudad, correo, password, imagen) VALUES (?,?,?,?,?,?,?);"
     let array = [request.body.nickname, request.body.nombre, request.body.apellido, request.body.ciudad, request.body.correo, request.body.password, request.body.imagen, request.body.descripcion]
     connection.query(user, array, function(err,result){
         if(err){
@@ -195,6 +195,7 @@ app.get("/eventos/terminados/:id_usuario"/* /event/pasados/:id */, function(requ
                 'OR ue.id_usuario = ?) AND e.fecha <= CURRENT_DATE GROUP BY e.id_event';
 
     console.log(sql);
+    console.log(params)
 
     connection.query(sql,params,function(err,result){
         if (err) {
@@ -277,9 +278,9 @@ app.get("/user/mediaEvents/:id_creador"/* /event/asistir/:id */, function(reques
 app.put("/usuario",
         function(request, response)
         {
-            let usuario = [request.body.nombre, request.body.apellidos, request.body.ciudad, request.body.nickname, request.body.correo, request.body.password,
+            let usuario = [request.body.nombre, request.body.apellido, request.body.ciudad, request.body.nickname, request.body.correo, request.body.password,
                            request.body.imagen, request.body.descripcion, request.body.id_usuario]
-            let sql = "UPDATE usuarios SET nombre = ? , apellidos = ?, ciudad = ?, nickname = ?, correo = ?, password = ?, imagen = ?, descripcion = ? WHERE id_usuario = ? "
+            let sql = "UPDATE usuarios SET nombre = ? , apellido = ?, ciudad = ?, nickname = ?, correo = ?, password = ?, imagen = ?, descripcion = ? WHERE id_usuario = ? "
             console.log(sql);
             connection.query(sql, usuario, function (err, result)
             {
