@@ -396,6 +396,8 @@ export class EventsComponent implements OnInit {
       this.rateEventService.usuario_evento = datos;
 
       console.log("Datos recogidos")
+      this.modalService.dismissAll('Dismissed after saving data');
+
     }
   }
 
