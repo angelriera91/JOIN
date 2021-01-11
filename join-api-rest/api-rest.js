@@ -278,7 +278,7 @@ app.get("/user/mediaEvents/:id_creador"/* /event/asistir/:id */, function(reques
 app.put("/usuario",
         function(request, response)
         {
-            let usuario = [request.body.nombre, request.body.apellidos, request.body.ciudad, request.body.nickname, request.body.correo, request.body.password,
+            let usuario = [request.body.nombre, request.body.apellido, request.body.ciudad, request.body.nickname, request.body.correo, request.body.password,
                            request.body.imagen, request.body.descripcion, request.body.id_usuario]
             let sql = "UPDATE usuarios SET nombre = ? , apellidos = ?, ciudad = ?, nickname = ?, correo = ?, password = ?, imagen = ?, descripcion = ? WHERE id_usuario = ? "
             console.log(sql);

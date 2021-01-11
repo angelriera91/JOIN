@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HeaderService } from 'src/app/shared/headerService/header.service';
 import { HeaderComponent } from '../header/header.component';
+import { ProfileService } from 'src/app/shared/profileService/profile.service';
 // import { homedir } from 'os';
 
 @Component({
@@ -37,9 +38,10 @@ export class ModifyComponent implements OnInit {
 
   
 
-  constructor(private deleteUserService: DeleteUserService, private modifyUserService: ModifyUserService, private modalService: NgbModal, private router: Router, public headerService:HeaderService) {
+  constructor(private profileService: ProfileService, private deleteUserService: DeleteUserService, private modifyUserService: ModifyUserService, private modalService: NgbModal, private router: Router, public headerService:HeaderService) {
     this.user = headerService.user
-   }
+    console.log(this.user)
+  }
 
 
   eliminateUser(id_usuario: string) {
@@ -52,14 +54,52 @@ export class ModifyComponent implements OnInit {
 
   }
 
-  modifyUser(nombre: string, apellido: string, ciudad: string, nickname: string, correo: string, password: string, imagen: string, descripcion: string) {
+  modifyUser(nickname: string, nombre: string, apellido: string, ciudad: string, correo: string, password: string, imagen: string, descripcion: string) {
+ 
+   
+    imagen = imagen.slice(12);
+    console.log(imagen);
+    imagen = "../../../assets/" + imagen;
+    console.log(imagen);
+    let usuario = new User(this.headerService.user.id_usuario, nickname, nombre, apellido, ciudad, correo, password, imagen, descripcion);
 
-    let usuario = new User(this.headerService.user.id_usuario, nombre, apellido, ciudad, nickname, correo, password, imagen, descripcion);
     console.log(usuario)
 
     this.modifyUserService.putUser(usuario).subscribe(
       res => {
         console.log(res);
+
+        this.headerService.loginUser(usuario).subscribe((data) => {
+
+          this.headerService.user = data[0];
+          this.profileService.user = data[0];
+
+          this.headerService.getTotFavs(this.profileService.user.id_usuario).subscribe((data:any) => {
+            console.log(data[0])
+            if (data.length == 0) {
+              this.profileService.user.favoritos = 0;
+            }else{
+              if (data[0].favoritos == null || data[0].favoritos == undefined) {
+                this.profileService.user.favoritos = 0;
+              }else {
+                this.profileService.user.favoritos = data[0].favoritos;
+              }
+            }
+          })
+
+          this.profileService.getMediaEventUser(this.profileService.user.id_usuario).subscribe((data:any) => {
+            if (data.length == 0) {
+              this.profileService.user.media = 0;
+            }else{
+              if (data[0].media == null) {
+                this.profileService.user.media = 0;
+              }else {
+                this.profileService.user.media = data[0].media;
+              }
+            }
+
+          });
+        })
       },
       err => console.error(err)
     );
