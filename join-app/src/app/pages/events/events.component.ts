@@ -408,10 +408,10 @@ export class EventsComponent implements OnInit {
 
     let evento = { "titulo": titulo, "lugar": lugar, "fecha": fecha, "hora": hora, "descripcion": description, "categoria": categoria, "imagen": imagen, "id_creador": this.event.id_creador, "max_assist": max_assist, "id_event": this.event.id_event }
 
-    console.log(evento.id_event)
-
     this.eventService.editEvent(evento).subscribe(data => {
+      this.event = data;
 
+      console.log(this.event)
       if (this.event != null) {
 
         this.event = data;
@@ -424,7 +424,7 @@ export class EventsComponent implements OnInit {
 
       else {
 
-        console.log("no se a podido editar")
+        console.log("no se ha podido editar")
       }
 
     })

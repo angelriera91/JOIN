@@ -517,6 +517,7 @@ app.put("/put/event", function (request, response) {
 
     let put_event = 'UPDATE eventos SET titulo = ?, lugar = ?, fecha = ?, hora = ?, descripcion = ?, categoria = ?, imagen = ?, max_assist = ?  WHERE id_event = ? '
 
+
     connection.query(put_event, evento, function (err, result) {
 
         if (err) {
