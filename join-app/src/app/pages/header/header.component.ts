@@ -133,7 +133,7 @@ export class HeaderComponent implements OnInit {
         this.headerService.event = data;
         this.event = data;
         this.onSubmit2("");
-        this.router.navigate(["/**"]);
+        this.router.navigate(["/perfil"]);
 
         let id = this.user.id_usuario
 
@@ -158,6 +158,7 @@ export class HeaderComponent implements OnInit {
       }
 
     })
+    this.hasError = false;
 
   }
 
