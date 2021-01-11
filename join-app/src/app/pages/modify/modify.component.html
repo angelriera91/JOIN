@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label>Apellidos:</label>
-                <input #apellido type="text" class="form-control" name="lastname" [(ngModel)]="user.apellido" #lastname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && lastname.invalid }" placeholder="" required>
+                <input #apellido type="text" class="form-control" name="lastname" [(ngModel)]="user.apellido" #lastname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && lastname.invalid }" placeholder="Apellidos" required [ngModelOptions]="{standalone: true}">
                 <div *ngIf="userForm.submitted && lastname.invalid" class="invalid-feedback">
                 <p *ngIf="lastname.errors?.required">Los apellidos son obligatorios</p>
                 </div>
@@ -73,7 +73,7 @@
             <div>
                 <div class="centrar">
                     <div class="col-4" class="form-group">
-                        <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;" routerLink="perfil">Volver</button>
+                        <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;" routerLink="/perfil">Volver</button>
                     </div>
                     <div class="col-4" class="form-group">
                         <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;" (click)="modifyUser(nickname.value, nombre.value, apellido.value, ciudad.value, correo.value, password.value, imagen.value, descripcion.value)" (click)="open(modificada)">Actualizar</button>
