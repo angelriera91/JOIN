@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/model/user/user';
 import { UsuarioEvento } from 'src/app/model/usuario_evento/usuario-evento';
@@ -27,12 +28,14 @@ export class EventsComponent implements OnInit {
   public mostrar3: boolean = false;
   public mostrar4: boolean = false;
 
-  constructor (private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService) {
+  constructor (private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService, public route:Router) {
     this.cargaEventos();
     this.user = headerService.user;
+    
+
   }
 
-  public cargaEventos() {
+  public cargaEventos(callback?) {
 
     let categoria = this.homeService.categoria;
     let input = this.homeService.input;
@@ -46,6 +49,7 @@ export class EventsComponent implements OnInit {
           console.log(data);
           this.events = data;
           this.eventService.events = data;
+          callback();
         });
 
       } else if (this.eventService.paraAsistir == true) {
@@ -413,6 +417,11 @@ export class EventsComponent implements OnInit {
       if (this.event != null) {
 
         this.event = data;
+        this.eventService.creados = true
+
+        this.cargaEventos(this.navegar())
+        
+        
 
         console.log("Evento Editado")
         console.log(this.event)
@@ -468,6 +477,10 @@ export class EventsComponent implements OnInit {
 
 
     
+  }
+
+  private navegar(){
+    this.route.navigate(["perfil"])
   }
 
 
