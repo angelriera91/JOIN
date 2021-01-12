@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+
+import { Component, Inject, OnInit } from '@angular/core';
 import { User } from 'src/app/model/user/user';
 import { Event } from 'src/app/model/event/event';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -27,7 +29,7 @@ export class HeaderComponent implements OnInit {
   public hasError: boolean = true;
   public hasError2:boolean = false;
 
-  constructor(private modalService: NgbModal, private headerService: HeaderService, private profileService: ProfileService, private eventService: EventService, private publicProfileService: PublicProfileService, private router: Router) {
+  constructor( @Inject(DOCUMENT) private _document: Document,  private modalService: NgbModal, private headerService: HeaderService, private profileService: ProfileService, private eventService: EventService, private publicProfileService: PublicProfileService, private router: Router) {
     this.event;
     this.user;
     this.usuario_evento
@@ -44,6 +46,9 @@ export class HeaderComponent implements OnInit {
     this.hasError2 = false;
   }
 
+  refresh():void {
+    this._document.defaultView.location.reload();
+  }
 
   //funcion para hacer login -MG
   onLogin(email: string, password: string) {
