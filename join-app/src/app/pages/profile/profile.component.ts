@@ -1,4 +1,5 @@
 import { APP_BOOTSTRAP_LISTENER, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from 'src/app/app.component';
 import { User } from 'src/app/model/user/user';
@@ -32,7 +33,7 @@ export class ProfileComponent implements OnInit {
   public claseTerminadoActivo:string;
   public indice:number;
 
-  constructor(private modalService: NgbModal, public eventService:EventService, public profileService: ProfileService, public headerService:HeaderService, public publicProfileService:PublicProfileService) {
+  constructor(private modalService: NgbModal, public eventService:EventService, public profileService: ProfileService, public headerService:HeaderService, public publicProfileService:PublicProfileService, public route:Router) {
     this.user = headerService.user;
     this.eventService.creados = true;
     this.creados = true;
@@ -147,19 +148,25 @@ export class ProfileComponent implements OnInit {
     this.headerService.getTotFavs(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
       console.log(data[0])
       
-      if (data[0].favoritos == null || data[0].favoritos == undefined) {
+      if (data.length == 0) {
         this.publicProfileService.userSelected.favoritos = 0;
-      }else {
-        this.publicProfileService.userSelected.favoritos = data[0].favoritos;
+      }else{
+        if (data[0].favoritos === null || data[0].favoritos === undefined || data.length === 0) {
+          this.publicProfileService.userSelected.favoritos = 0;
+        }else {
+          this.publicProfileService.userSelected.favoritos = data[0].favoritos;
+        }
       }
     })
 
-    this.profileService.getMediaEventUser(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
-      if (data[0].media == null) {
+    this.profileService.getMediaEventUser(this.publicProfileService.userSelected.id_usuario).subscribe((data2:any) => {
+      if (data2[0].media === null) {
         this.publicProfileService.userSelected.media = 0;
       }else {
-        this.publicProfileService.userSelected.media = data[0];
+        this.publicProfileService.userSelected.media = data2[0];
       }
+
+      this.route.navigate(["perfil/public"])
     });
 
     this.modalService.dismissAll('Dismissed after saving data');

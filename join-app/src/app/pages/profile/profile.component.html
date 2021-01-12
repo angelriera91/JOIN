@@ -98,8 +98,8 @@
         
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-3" style="text-align: center; margin-top: 10px;" routerLink="public" *ngFor="let usuario of users; let indice = index" >
-                <div #indice class="col-md-12" (click)="rellenarPublic(indice)">
+            <div class="col-md-3" style="text-align: center; margin-top: 10px;" *ngFor="let usuario of users; let indice = index" >
+                <div #indice class="col-md-12" (click)="rellenarPublic(indice)" >
                     <img class="img-fluid rounded" src="{{usuario.imagen}}" style="height: 11rem;">
                     <label >{{usuario.nickname}}</label>
                 </div>
