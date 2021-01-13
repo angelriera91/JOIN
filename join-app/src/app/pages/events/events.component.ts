@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -23,16 +24,17 @@ export class EventsComponent implements OnInit {
   public events: Event[];
   public event: Event;
   public user: User;
+  public today: String
 
   public mostrar1: boolean = false;
   public mostrar2: boolean = false;
   public mostrar3: boolean = false;
   public mostrar4: boolean = false;
 
-  constructor (private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService, public route:Router) {
+  constructor(private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService, public route: Router) {
     this.cargaEventos();
     this.user = headerService.user;
-    
+
 
   }
 
@@ -416,6 +418,13 @@ export class EventsComponent implements OnInit {
     }
   }
 
+ public limiteFecha(){
+  let fecha = new Date();
+  this.today = fecha.getFullYear()+'-'+(('0'+fecha.getMonth()+1).slice(-2))+'-'+('0'+fecha.getDate()).slice(-2)
+  console.log(this.today)
+ } 
+
+
   public editarEvento(titulo: string, lugar: string, fecha: string, hora: string, description: string, categoria: string, imagen: string, max_assist: number, indice: number) {
 
 
@@ -425,7 +434,7 @@ export class EventsComponent implements OnInit {
 
     this.eventService.editEvent(evento).subscribe(data => {
       this.event = data;
-
+      
       console.log(this.event)
       if (this.event != null) {
 
@@ -433,8 +442,6 @@ export class EventsComponent implements OnInit {
         this.eventService.creados = true
 
         this.cargaEventos(this.navegar())
-        
-        
 
         console.log("Evento Editado")
         console.log(this.event)
@@ -451,7 +458,7 @@ export class EventsComponent implements OnInit {
 
   }
 
-  rellenarPublic(){
+  rellenarPublic() {
 
     if (this.headerService.user != undefined) {
       if (this.headerService.user.id_usuario != 0) {
@@ -510,7 +517,7 @@ export class EventsComponent implements OnInit {
 
   }
 
-  private navegar(){
+  private navegar() {
     this.route.navigate(["perfil"])
   }
 
@@ -527,10 +534,10 @@ export class EventsComponent implements OnInit {
   }
 
 
-  private dismis(){
+  private dismis() {
 
     this.modalService.dismissAll('Dismissed after saving data');
-    
+
   }
 
   ngOnInit(): void {
