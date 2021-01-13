@@ -11,7 +11,7 @@
     <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
       <p class="centrar">¿Qué te ha parecido el evento organizado por <strong>{{event.nickname}}</strong>?</p>
       <form class="centrar">
-          <p class="clasificacion">
+          <!-- <p class="clasificacion">
           <input id="radio1" type="radio" #estrella value="5" (click)="rate(5)">
           <label for="radio1">★</label>
           <input id="radio2" type="radio" #estrella value="4" (click)="rate(4)">
@@ -22,10 +22,13 @@
           <label for="radio4">★</label>
           <input id="radio5" type="radio" #estrella value="1" (click)="rate(1)">
           <label for="radio5">★</label>
-          </p>
+          </p> -->
+
+          <ngb-rating  [max]="5" [(rate)]="starRating" [readonly]="false"></ngb-rating>
+
           <div class="col-12">
             <button class="btn btn-block" id="color" style="border: solid 1px #fc5404; width: 15%; margin-left: auto; 
-            margin-right:auto; display: flexbox" routerLink="/perfil" id="pointer">Salir</button>
+            margin-right:auto; display: flexbox" (click)="rate()" routerLink="/perfil" id="pointer">Enviar</button>
           </div>
       </form>
     </div>

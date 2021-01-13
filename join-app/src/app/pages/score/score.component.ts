@@ -16,6 +16,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ScoreComponent implements OnInit {
 
+
+  starRating = 0; 
   public event: Event;
   public eventPaPuntuacion: Event; 
   public user: User;
@@ -27,13 +29,13 @@ export class ScoreComponent implements OnInit {
 
   }
 
-  rate(stars: number){
+  rate(){
 
     let puntuacion: UsuarioEvento = this.rateEventService.usuario_evento;
     let puntuacion2: UsuarioEvento ;
     let evento: Event = this.eventService.eventPaPuntuacion;
     
-    puntuacion.puntuacion = stars;
+    puntuacion.puntuacion = this.starRating;
 
     console.log(puntuacion)
 
