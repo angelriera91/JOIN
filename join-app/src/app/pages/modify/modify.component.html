@@ -13,7 +13,7 @@
             <div>
                 <div class="form-group">
                     <label>Nickname: </label>
-                    <input #nickname type="text" class="form-control" name="nickname" [(ngModel)]="user.nickname" #nickname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && nickname.invalid }" placeholder="Jfaramir" required>
+                    <input #nickname type="text" class="form-control" name="nickname" [(ngModel)]="nick" #nickname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && nickname.invalid }" placeholder="Nickname" required>
                     <div *ngIf="userForm.submitted && nickname.invalid" class="invalid-feedback">
                     <p *ngIf="nickname.errors?.required">El nickname es obligatorio</p>
                     </div>
