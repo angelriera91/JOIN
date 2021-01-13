@@ -1,4 +1,6 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+
+import { Component, OnInit, HostBinding, ɵɵqueryRefresh, Inject } from '@angular/core';
 import { User } from 'src/app/model/user/user';
 import { DeleteUserService } from '../../shared/deleteUserService/delete-user.service';
 import { ModifyUserService } from '../../shared/modifyUserService/modify-user.service';
@@ -38,20 +40,23 @@ export class ModifyComponent implements OnInit {
 
   
 
-  constructor(private profileService: ProfileService, private deleteUserService: DeleteUserService, private modifyUserService: ModifyUserService, private modalService: NgbModal, private router: Router, public headerService:HeaderService) {
+  constructor(@Inject(DOCUMENT) private _document: Document, private profileService: ProfileService, private deleteUserService: DeleteUserService, private modifyUserService: ModifyUserService, private modalService: NgbModal, private router: Router, public headerService:HeaderService) {
     this.user = headerService.user
     console.log(this.user)
   }
 
+  refresh():void {
+    this._document.defaultView.location.reload();
+  }
 
-  eliminateUser(id_usuario: string) {
+  eliminateUser() {
     this.deleteUserService.deleteUser(this.headerService.user.id_usuario).subscribe(
       res => {
         console.log(res);
       },
       err => console.error(err)
     );
-
+    this.router.navigate(["/**"]);
   }
 
   modifyUser(nickname: string, nombre: string, apellido: string, ciudad: string, correo: string, password: string, imagen: string, descripcion: string) {
