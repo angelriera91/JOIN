@@ -82,14 +82,14 @@ export class ModifyComponent implements OnInit {
     this.modifyUserService.putUser(usuario).subscribe(
       res => {
         console.log(res);
-
+        this.user.nickname = nickname;
 
 
         this.headerService.loginUser(usuario).subscribe((data) => {
 
           this.headerService.user = data[0];
           this.profileService.user = data[0];
-          this.user.nickname = nickname;
+          
 
           this.headerService.getTotFavs(this.profileService.user.id_usuario).subscribe((data:any) => {
             console.log(data[0])
