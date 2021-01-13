@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,16 +23,17 @@ export class EventsComponent implements OnInit {
   public events: Event[];
   public event: Event;
   public user: User;
+  public today: String
 
   public mostrar1: boolean = false;
   public mostrar2: boolean = false;
   public mostrar3: boolean = false;
   public mostrar4: boolean = false;
 
-  constructor (private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService, public route:Router) {
+  constructor(private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService, public route: Router) {
     this.cargaEventos();
     this.user = headerService.user;
-    
+
 
   }
 
@@ -405,6 +407,13 @@ export class EventsComponent implements OnInit {
     }
   }
 
+ public limiteFecha(){
+  let fecha = new Date();
+  this.today = fecha.getFullYear()+'-'+(('0'+fecha.getMonth()+1).slice(-2))+'-'+('0'+fecha.getDate()).slice(-2)
+  console.log(this.today)
+ } 
+
+
   public editarEvento(titulo: string, lugar: string, fecha: string, hora: string, description: string, categoria: string, imagen: string, max_assist: number, indice: number) {
 
 
@@ -414,7 +423,7 @@ export class EventsComponent implements OnInit {
 
     this.eventService.editEvent(evento).subscribe(data => {
       this.event = data;
-
+      
       console.log(this.event)
       if (this.event != null) {
 
@@ -422,8 +431,6 @@ export class EventsComponent implements OnInit {
         this.eventService.creados = true
 
         this.cargaEventos(this.navegar())
-        
-        
 
         console.log("Evento Editado")
         console.log(this.event)
@@ -440,48 +447,48 @@ export class EventsComponent implements OnInit {
 
   }
 
-  rellenarPublic(){
+  rellenarPublic() {
 
     console.log("esta entrando?")
 
-    this.eventService.getUsuario(this.event.id_creador).subscribe((data:any) => {
-      
+    this.eventService.getUsuario(this.event.id_creador).subscribe((data: any) => {
+
       this.user = data
 
-    console.log(this.user)
-    this.publicProfileService.userSelected = this.user;
-    console.log(this.publicProfileService.userSelected)
-    this.eventService.creados = false;
-    this.eventService.paraAsistir = false;
-    this.eventService.terminados = false;
-    this.eventService.creadosPublic = true;
-    this.publicProfileService.show = false;
+      console.log(this.user)
+      this.publicProfileService.userSelected = this.user;
+      console.log(this.publicProfileService.userSelected)
+      this.eventService.creados = false;
+      this.eventService.paraAsistir = false;
+      this.eventService.terminados = false;
+      this.eventService.creadosPublic = true;
+      this.publicProfileService.show = false;
 
-    this.headerService.getTotFavs(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
-      console.log(data[0])
-      if (data[0].favoritos == null || data[0].favoritos == undefined ||data[0] == undefined) {
-        this.publicProfileService.userSelected.favoritos = 0;
-      }else {
-        this.publicProfileService.userSelected.favoritos = data[0].favoritos;
-      }
+      this.headerService.getTotFavs(this.publicProfileService.userSelected.id_usuario).subscribe((data: any) => {
+        console.log(data[0])
+        if (data[0].favoritos == null || data[0].favoritos == undefined || data[0] == undefined) {
+          this.publicProfileService.userSelected.favoritos = 0;
+        } else {
+          this.publicProfileService.userSelected.favoritos = data[0].favoritos;
+        }
+      })
+      this.profileService.getMediaEventUser(this.publicProfileService.userSelected.id_usuario).subscribe((data: any) => {
+        if (data[0].media == null || data[0] == undefined) {
+          this.publicProfileService.userSelected.media = 0;
+        } else {
+          this.publicProfileService.userSelected.media = data[0];
+        }
+      });
+
+
+
     })
-    this.profileService.getMediaEventUser(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
-      if (data[0].media == null || data[0] == undefined) {
-        this.publicProfileService.userSelected.media = 0;
-      }else {
-        this.publicProfileService.userSelected.media = data[0];
-      }
-    });
-
-    
-      
-    })
 
 
-    
+
   }
 
-  private navegar(){
+  private navegar() {
     this.route.navigate(["perfil"])
   }
 
@@ -498,10 +505,10 @@ export class EventsComponent implements OnInit {
   }
 
 
-  private dismis(){
+  private dismis() {
 
     this.modalService.dismissAll('Dismissed after saving data');
-    
+
   }
 
   ngOnInit(): void {

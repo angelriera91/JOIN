@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   public mostrarError = false;
   public hasError: boolean = true;
   public hasError2:boolean = false;
+  public today : string
 
   constructor( @Inject(DOCUMENT) private _document: Document,  private modalService: NgbModal, private headerService: HeaderService, private profileService: ProfileService, private eventService: EventService, private publicProfileService: PublicProfileService, private router: Router) {
     this.event;
@@ -125,6 +126,13 @@ export class HeaderComponent implements OnInit {
     this.hasError = false;
     this.hasError2 = true;
   }
+
+
+  public limiteFecha(){
+    let fecha = new Date();
+    this.today = fecha.getFullYear()+'-'+(('0'+fecha.getMonth()+1).slice(-2))+'-'+('0'+fecha.getDate()).slice(-2)
+    console.log(this.today)
+   } 
 
   // create - event
 
