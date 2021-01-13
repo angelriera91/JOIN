@@ -28,12 +28,14 @@ export class HeaderComponent implements OnInit {
   public mostrarError = false;
   public hasError: boolean = true;
   public hasError2:boolean = false;
+  public today : string
 
   constructor( @Inject(DOCUMENT) private _document: Document,  private modalService: NgbModal, private headerService: HeaderService, private profileService: ProfileService, private eventService: EventService, private publicProfileService: PublicProfileService, private router: Router) {
     this.event;
     this.user;
-    this.usuario_evento
-
+    this.usuario_evento;
+    this.hasError = headerService.hasError;
+    this.hasError2 = headerService.hasError2;
   }
 
   //18-12-2020 -JP
@@ -42,8 +44,10 @@ export class HeaderComponent implements OnInit {
     this.eventService.paraAsistir = false;
     this.eventService.terminados = false;
     this.publicProfileService.creadosPublic = false;
-    this.hasError = true;
-    this.hasError2 = false;
+    this.headerService.hasError = true;
+    this.headerService.hasError2 = false;
+    this.headerService.perfilDesdeEvent = false;
+
   }
 
   refresh():void {
@@ -125,6 +129,13 @@ export class HeaderComponent implements OnInit {
     this.hasError = false;
     this.hasError2 = true;
   }
+
+
+  public limiteFecha(){
+    let fecha = new Date();
+    this.today = fecha.getFullYear()+'-'+(('0'+fecha.getMonth()+1).slice(-2))+'-'+('0'+fecha.getDate()).slice(-2)
+    console.log(this.today)
+   } 
 
   // create - event
 

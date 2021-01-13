@@ -1,108 +1,106 @@
 <div class="row">
-
-    <label style="height: 65px;"></label>
-
-</div>
-
-<div class="container" class="col-12 col-sm-10 col-md-6 col-lg-6 col-xl-4" style="margin-left: auto; margin-right: auto; margin-top: 20px;">
-
-    <h4 class="modal-title" id="modal-basic-title"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Modificar <strong style="color: #fc5404;">Usuario</strong></h4>
-    <hr>
-    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)"> 
-
-        <div>
-            <div class="form-group">
-                <label>Nickname: </label>
-                <input #nickname type="text" class="form-control" name="nickname" [(ngModel)]="user.nickname" #nickname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && nickname.invalid }" placeholder="Jfaramir" required>
-                <div *ngIf="userForm.submitted && nickname.invalid" class="invalid-feedback">
-                <p *ngIf="nickname.errors?.required">El nickname es obligatorio</p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Descripción:</label>
-                <textarea  #descripcion type="text" name="descripcion" class="form-control" [(ngModel)]="user.descripcion" #descripcion="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && descripcion.invalid }" required>Vivo en ...</textarea>
-                <div *ngIf="userForm.submitted && descripcion.invalid" class="invalid-feedback">
-                    <p *ngIf="descripcion.errors?.required">La descripcion es obligatoria</p>
-                </div>
-            </div>
-
-            <form style="display: inline-block;">
-                <div class="file-field">
-                    <div class="file-path-wrapper">
-                        <svg color="#ff9500" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9c0 .013 0 .027.002.04V12l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15 9.499V3.5a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm4.502 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                        </svg>
-                        <input #imagen type="file" style= "margin-left: 10px;" [(ngModel)]="user.imagen" #imagen="ngModel">
-                    </div>
-                </div>
-            </form>
-            <hr style="margin-top:40px; margin-bottom:40px ">
-            
-            <div class="form-group">
-                <label>Nombre:</label>
-                <input #nombre type="text" class="form-control" name="name" [(ngModel)]="user.nombre" #name="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" placeholder="Nombre" required>
-                <div *ngIf="userForm.submitted && name.invalid" class="invalid-feedback">
-                <p *ngIf="name.errors?.required">El nombre es obligatorio</p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Apellidos:</label>
-                <input #apellido type="text" class="form-control" name="lastname" [(ngModel)]="user.apellido" #lastname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && lastname.invalid }" placeholder="Apellidos" required [ngModelOptions]="{standalone: true}">
-                <div *ngIf="userForm.submitted && lastname.invalid" class="invalid-feedback">
-                <p *ngIf="lastname.errors?.required">Los apellidos son obligatorios</p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Ciudad:</label>
-                <input #ciudad type="text" class="form-control" name="city" [(ngModel)]="user.ciudad" #city="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && city.invalid }" placeholder="Ciudad" required>
-                <div *ngIf="userForm.submitted && name.invalid" class="invalid-feedback">
-                <p *ngIf="city.errors?.required">La ciudad es obligatoria</p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Correo:</label>
-                <input #correo type="text" class="form-control" name="mail" [(ngModel)]="user.correo" #mail="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && mail.invalid }" placeholder="Correo electrónico" required>
-                <div *ngIf="userForm.submitted && mail.invalid" class="invalid-feedback">
-                <p *ngIf="mail.errors?.required">El correo electrónico es obligatorio</p>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Contraseña:</label>
-                <input #password type="text" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && password.invalid }" placeholder="Contraseña" required>
-                <div *ngIf="userForm.submitted && password.invalid" class="invalid-feedback">
-                <p *ngIf="password.errors?.required">La contraseña es obligatoria</p>
-                </div>
-            </div>
-        </div>
-
-        <div>
+    ​
+        <label style="height: 65px;"></label>
+    ​
+    </div>
+    ​
+    <div class="container" class="col-12 col-sm-10 col-md-6 col-lg-6 col-xl-4" style="margin-left: auto; margin-right: auto; margin-top: 20px;">
+    ​
+        <h4 class="modal-title" id="modal-basic-title"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Modificar <strong style="color: #fc5404;">Usuario</strong></h4>
+        <hr>
+        <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)"> 
+    ​
             <div>
-                <div class="centrar">
-                    <div class="col-4" class="form-group">
-                        <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;" routerLink="/perfil">Volver</button>
+                <div class="form-group">
+                    <label>Nickname: </label>
+                    <input #nickname type="text" class="form-control" name="nickname" [(ngModel)]="nick" #nickname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && nickname.invalid }" placeholder="Nickname" required>
+                    <div *ngIf="userForm.submitted && nickname.invalid" class="invalid-feedback">
+                    <p *ngIf="nickname.errors?.required">El nickname es obligatorio</p>
                     </div>
-                    <div class="col-4" class="form-group">
-                        <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;" (click)="modifyUser(nickname.value, nombre.value, apellido.value, ciudad.value, correo.value, password.value, imagen.value, descripcion.value)" (click)="open(modificada)">Actualizar</button>
+                </div>
+                <div class="form-group">
+                    <label>Descripción:</label>
+                    <textarea  #descripcion type="text" name="descripcion" class="form-control" [(ngModel)]="user.descripcion" #descripcion="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && descripcion.invalid }" required>Vivo en ...</textarea>
+                    <div *ngIf="userForm.submitted && descripcion.invalid" class="invalid-feedback">
+                        <p *ngIf="descripcion.errors?.required">La descripcion es obligatoria</p>
+                    </div>
+                </div>
+    ​
+                <form style="display: inline-block;">
+                    <div class="file-field">
+                        <div class="file-path-wrapper">
+                            <svg color="#ff9500" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9c0 .013 0 .027.002.04V12l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15 9.499V3.5a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm4.502 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                            </svg>
+                            <input #imagen type="file" style= "margin-left: 10px;" [(ngModel)]="user.imagen" #imagen="ngModel">
+                        </div>
+                    </div>
+                </form>
+                <hr style="margin-top:40px; margin-bottom:40px ">
+                
+                <div class="form-group">
+                    <label>Nombre:</label>
+                    <input #nombre type="text" class="form-control" name="name" [(ngModel)]="user.nombre" #name="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" placeholder="Nombre" required>
+                    <div *ngIf="userForm.submitted && name.invalid" class="invalid-feedback">
+                    <p *ngIf="name.errors?.required">El nombre es obligatorio</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Apellidos:</label>
+                    <input #apellido type="text" class="form-control" name="lastname" [(ngModel)]="user.apellido" #lastname="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && lastname.invalid }" placeholder="Apellidos" required [ngModelOptions]="{standalone: true}">
+                    <div *ngIf="userForm.submitted && lastname.invalid" class="invalid-feedback">
+                    <p *ngIf="lastname.errors?.required">Los apellidos son obligatorios</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Ciudad:</label>
+                    <input #ciudad type="text" class="form-control" name="city" [(ngModel)]="user.ciudad" #city="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && city.invalid }" placeholder="Ciudad" required>
+                    <div *ngIf="userForm.submitted && name.invalid" class="invalid-feedback">
+                    <p *ngIf="city.errors?.required">La ciudad es obligatoria</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Correo:</label>
+                    <input #correo type="text" class="form-control" name="mail" [(ngModel)]="user.correo" #mail="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && mail.invalid }" placeholder="Correo electrónico" required>
+                    <div *ngIf="userForm.submitted && mail.invalid" class="invalid-feedback">
+                    <p *ngIf="mail.errors?.required">El correo electrónico es obligatorio</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña:</label>
+                    <input #password type="text" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && password.invalid }" placeholder="Contraseña" required>
+                    <div *ngIf="userForm.submitted && password.invalid" class="invalid-feedback">
+                    <p *ngIf="password.errors?.required">La contraseña es obligatoria</p>
+                    </div>
+                </div>
+            </div>
+    ​
+            <div>
+                <div>
+                    <div class="centrar">
+                        <div class="col-4" class="form-group">
+                            <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;" routerLink="/perfil">Volver</button>
+                        </div>
+                        <div class="col-4" class="form-group">
+                            <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;" (click)="modifyUser(nickname.value, nombre.value, apellido.value, ciudad.value, correo.value, password.value, imagen.value, descripcion.value)" (click)="open(modificada)">Actualizar</button>
+                        </div>
+                    </div>
+                    <div class="col-4" class="form-group" style="margin-top: 15%">
+                        <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;width: 50%; margin-left: auto; margin-right:auto; display: flexbox" (click)="open(eliminate)">Eliminar cuenta</button>
                     </div>
                 </div>
                 <div class="col-4" class="form-group" style="margin-top: 15%">
                     <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;width: 50%; margin-left: auto; margin-right:auto; display: flexbox" (click)="open(eliminate)" >Eliminar cuenta</button>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
-
-<!-- Modal eliminar cuenta -->
-<ng-template #eliminate let-modal>
-    <div class="modal-header">
-    <h4 class="modal-title" style="height: 50px; font-family: Arial, Helvetica, sans-serif;"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;" >Eliminar <strong style="color: #fc5404;">Cuenta</strong> </h4>
-    <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+        </form>
     </div>
-
-    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-        <div class="modal-body">
-            ¿Seguro deseas eliminar tu cuenta?
+    ​
+    <!-- Modal eliminar cuenta -->
+    <ng-template #eliminate let-modal>
+        <div class="modal-header">
+        <h4 class="modal-title" style="height: 50px; font-family: Arial, Helvetica, sans-serif;"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Eliminar <strong style="color: #fc5404;">Cuenta</strong> </h4>
+        <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
         </div>
     
     <div class="modal-footer">
@@ -112,39 +110,46 @@
             <div class="form-group">
                 <button  class="btn btn-block" #color style="border: solid 1px #fc5404;" type="button" (click)="modal.close('Close click')">No</button>    
             </div>
-
-        </div>
-    </form>
-</ng-template>
-<!-- Termina modal eliminar cuenta -->
-
-
-
-
-<!-- Modal cuenta modificada -->
-<ng-template #modificada let-modal>
-    <div class="modal-header">
-    <h4 class="modal-title" style="height: 50px; font-family: Arial, Helvetica, sans-serif;"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Cuenta <strong style="color: #fc5404;">Modificada</strong> </h4>
-    <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+        
+        <!-- <div class="modal-footer">
+                <div class="form-group">
+                    <button class="btn btn-block" #color style="border: solid 1px #fc5404;" [disabled]="loginForm.invalid" type="button" (click)="eliminateUser()" routerLink="/" (click)="modal.close('Close click')">Sí</button>
+                  </div>
+                <div class="form-group">
+                    <button  class="btn btn-block" #color style="border: solid 1px #fc5404;" type="button" (click)="modal.close('Close click')">No</button>    
+                </div>
+    ​ -->
     </div>
-
-    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-        <div class="modal-body">
-            ¡Tu cuenta ha sido actualizada!
+    </ng-template>
+    <!-- Termina modal eliminar cuenta -->
+    ​
+    ​
+    ​
+    ​
+    <!-- Modal cuenta modificada -->
+    <ng-template #modificada let-modal>
+        <div class="modal-header">
+        <h4 class="modal-title" style="height: 50px; font-family: Arial, Helvetica, sans-serif;"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Cuenta <strong style="color: #fc5404;">Modificada</strong> </h4>
+        <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
         </div>
-    
-    <div class="modal-footer">
-            <div class="form-group">
-                <button  class="btn btn-block" #color style="border: solid 1px #fc5404;" type="button" (click)="modal.close('Close click')">Ok</button>    
+    ​
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+            <div class="modal-body">
+                ¡Tu cuenta ha sido actualizada!
             </div>
-
-        </div>
-    </form>
-</ng-template>
-<!-- Termina modal cuenta modificada-->
-
-<div class ="row">
-    
-    <label style="height: 100px"></label>
-
-</div>
+        
+        <div class="modal-footer">
+                <div class="form-group">
+                    <button  class="btn btn-block" #color style="border: solid 1px #fc5404;" type="button" (click)="modal.close('Close click')">Ok</button>    
+                </div>
+    ​
+            </div>
+        </form>
+    </ng-template>
+    <!-- Termina modal cuenta modificada-->
+    ​
+    <div class ="row">
+        
+        <label style="height: 100px"></label>
+    ​
+    </div>

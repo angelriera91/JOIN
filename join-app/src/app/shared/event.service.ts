@@ -10,6 +10,7 @@ import { User } from '../model/user/user';
 export class EventService {
 
   public event : Event;
+  public eventPaPuntuacion: Event;
   public events : Event[];  
   public creados:boolean = false;
   public paraAsistir:boolean = false;

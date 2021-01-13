@@ -10,6 +10,7 @@ export class RateEventService {
   urlevent = "http://localhost:3000/evento/puntuacion";
 
   public usuario_evento: UsuarioEvento;
+  public evento: Event;
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +23,11 @@ export class RateEventService {
   rateEvent(puntuacion: UsuarioEvento) 
   {
     return this.http.post(this.urlevent, puntuacion)
+  }
+
+  ChangeEvent(evento: any) 
+  {
+    return this.http.put(this.urlevent + "/evento", evento)
   }
 
   changeRate(puntuacion: UsuarioEvento) 

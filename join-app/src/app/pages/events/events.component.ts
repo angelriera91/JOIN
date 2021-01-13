@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,6 +9,7 @@ import { HomeService } from 'src/app/shared/homeService/home.service';
 import { ProfileService } from 'src/app/shared/profileService/profile.service';
 import { PublicProfileService } from 'src/app/shared/publicProfile/public-profile.service';
 import { RateEventService } from 'src/app/shared/rateEventService/rate-event.service';
+import Swal from 'sweetalert2';
 import { Event } from '../../model/event/event'
 import { EventService } from '../../shared/event.service';
 
@@ -22,16 +24,17 @@ export class EventsComponent implements OnInit {
   public events: Event[];
   public event: Event;
   public user: User;
+  public today: String
 
   public mostrar1: boolean = false;
   public mostrar2: boolean = false;
   public mostrar3: boolean = false;
   public mostrar4: boolean = false;
 
-  constructor (private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService, public route:Router) {
+  constructor(private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService, public route: Router) {
     this.cargaEventos();
     this.user = headerService.user;
-    
+
 
   }
 
@@ -270,8 +273,7 @@ export class EventsComponent implements OnInit {
   public open(eventmodal, indice) {
 
     this.event = this.eventService.events[indice]
-
-    this.rellenarPublic()
+    this.eventService.eventPaPuntuacion = this.eventService.events[indice];
 
     if (this.profileService.user != undefined) {
 
@@ -306,10 +308,21 @@ export class EventsComponent implements OnInit {
             this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
           });
 
+        }else if (this.eventService.creadosPublic == true) {
+
+          this.mostrar1 = false
+          this.mostrar2 = true
+          this.mostrar3 = false
+          this.mostrar4 = false
+
+          this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          });
+
         }
         else if (this.profileService.user.id_usuario == this.events[indice].id_creador) {
-
-
 
           this.mostrar1 = true
           this.mostrar2 = false
@@ -405,6 +418,13 @@ export class EventsComponent implements OnInit {
     }
   }
 
+ public limiteFecha(){
+  let fecha = new Date();
+  this.today = fecha.getFullYear()+'-'+(('0'+fecha.getMonth()+1).slice(-2))+'-'+('0'+fecha.getDate()).slice(-2)
+  console.log(this.today)
+ } 
+
+
   public editarEvento(titulo: string, lugar: string, fecha: string, hora: string, description: string, categoria: string, imagen: string, max_assist: number, indice: number) {
 
 
@@ -414,7 +434,7 @@ export class EventsComponent implements OnInit {
 
     this.eventService.editEvent(evento).subscribe(data => {
       this.event = data;
-
+      
       console.log(this.event)
       if (this.event != null) {
 
@@ -422,8 +442,6 @@ export class EventsComponent implements OnInit {
         this.eventService.creados = true
 
         this.cargaEventos(this.navegar())
-        
-        
 
         console.log("Evento Editado")
         console.log(this.event)
@@ -440,48 +458,66 @@ export class EventsComponent implements OnInit {
 
   }
 
-  rellenarPublic(){
+  rellenarPublic() {
 
-    console.log("esta entrando?")
-
-    this.eventService.getUsuario(this.event.id_creador).subscribe((data:any) => {
-      
-      this.user = data
-
-    console.log(this.user)
-    this.publicProfileService.userSelected = this.user;
-    console.log(this.publicProfileService.userSelected)
-    this.eventService.creados = false;
-    this.eventService.paraAsistir = false;
-    this.eventService.terminados = false;
-    this.eventService.creadosPublic = true;
-    this.publicProfileService.show = false;
-
-    this.headerService.getTotFavs(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
-      console.log(data[0])
-      if (data[0].favoritos == null || data[0].favoritos == undefined ||data[0] == undefined) {
-        this.publicProfileService.userSelected.favoritos = 0;
-      }else {
-        this.publicProfileService.userSelected.favoritos = data[0].favoritos;
+    if (this.headerService.user != undefined) {
+      if (this.headerService.user.id_usuario != 0) {
+        console.log("esta entrando?")
+  
+        this.eventService.getUsuario(this.event.id_creador).subscribe((data:any) => {
+          
+          this.user = data[0]
+  
+          console.log(this.user)
+          this.publicProfileService.userSelected = this.user;
+          console.log(this.publicProfileService.userSelected)
+          this.eventService.creados = false;
+          this.eventService.paraAsistir = false;
+          this.eventService.terminados = false;
+          this.eventService.creadosPublic = true;
+          this.publicProfileService.show = false;
+  
+          this.headerService.getTotFavs(this.publicProfileService.userSelected.id_usuario).subscribe((data2:any) => {
+            console.log(data2[0])
+            if (data2.length == 0) {
+              this.publicProfileService.userSelected.favoritos = 0;
+            }else{
+              if (data2[0].favoritos == null || data2[0].favoritos == undefined || data2[0] == undefined) {
+                this.publicProfileService.userSelected.favoritos = 0;
+              }else {
+                this.publicProfileService.userSelected.favoritos = data[0].favoritos;
+              }
+            }
+          })
+          this.profileService.getMediaEventUser(this.publicProfileService.userSelected.id_usuario).subscribe((data3:any) => {
+            if (data3[0].media == null || data3[0] == undefined) {
+              this.publicProfileService.userSelected.media = 0;
+            }else {
+              this.publicProfileService.userSelected.media = data3[0];
+            }
+  
+            this.dismis();
+            this.route.navigate(["perfil/public"]);
+            this.headerService.perfilDesdeEvent == true;
+          });
+        });
       }
-    })
-    this.profileService.getMediaEventUser(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
-      if (data[0].media == null || data[0] == undefined) {
-        this.publicProfileService.userSelected.media = 0;
-      }else {
-        this.publicProfileService.userSelected.media = data[0];
-      }
-    });
+    }else{
+      Swal.fire({
+        html: 'No se puede entrar a un perfil publico sin logear previamente',
+        timer: 1000,
+        timerProgressBar: true,
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.timer) {
+          console.log('I was closed by the timer')
+        }
+      })
+    }
 
-    
-      
-    })
-
-
-    
   }
 
-  private navegar(){
+  private navegar() {
     this.route.navigate(["perfil"])
   }
 
@@ -498,10 +534,10 @@ export class EventsComponent implements OnInit {
   }
 
 
-  private dismis(){
+  private dismis() {
 
     this.modalService.dismissAll('Dismissed after saving data');
-    
+
   }
 
   ngOnInit(): void {

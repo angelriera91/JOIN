@@ -37,11 +37,14 @@ export class ModifyComponent implements OnInit {
   closeResult = '';
   public mostrar:boolean = true;
   public mostrarError = false;
+  public nick: string = "";
+
 
   
 
   constructor(@Inject(DOCUMENT) private _document: Document, private profileService: ProfileService, private deleteUserService: DeleteUserService, private modifyUserService: ModifyUserService, private modalService: NgbModal, private router: Router, public headerService:HeaderService) {
     this.user = headerService.user
+    this.nick = headerService.user.nickname
     console.log(this.user)
   }
 
@@ -49,8 +52,8 @@ export class ModifyComponent implements OnInit {
     this._document.defaultView.location.reload();
   }
 
-  eliminateUser() {
-    this.deleteUserService.deleteUser(this.headerService.user.id_usuario).subscribe(
+  eliminateUser(id_usuario: string) {
+    this.deleteUserService.deleteUser(this.user.id_usuario).subscribe(
       res => {
         console.log(res);
       },
@@ -80,10 +83,13 @@ export class ModifyComponent implements OnInit {
       res => {
         console.log(res);
 
+
+
         this.headerService.loginUser(usuario).subscribe((data) => {
 
           this.headerService.user = data[0];
           this.profileService.user = data[0];
+          this.user.nickname = nickname;
 
           this.headerService.getTotFavs(this.profileService.user.id_usuario).subscribe((data:any) => {
             console.log(data[0])
@@ -111,6 +117,7 @@ export class ModifyComponent implements OnInit {
 
           });
         })
+
       },
       err => console.error(err)
     );
