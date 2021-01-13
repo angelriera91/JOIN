@@ -45,7 +45,7 @@ export class ModifyComponent implements OnInit {
 
 
   eliminateUser(id_usuario: string) {
-    this.deleteUserService.deleteUser(this.headerService.user.id_usuario).subscribe(
+    this.deleteUserService.deleteUser(this.user.id_usuario).subscribe(
       res => {
         console.log(res);
       },
