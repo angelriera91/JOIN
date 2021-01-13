@@ -49,8 +49,8 @@ export class ModifyComponent implements OnInit {
     this._document.defaultView.location.reload();
   }
 
-  eliminateUser() {
-    this.deleteUserService.deleteUser(this.headerService.user.id_usuario).subscribe(
+  eliminateUser(id_usuario: string) {
+    this.deleteUserService.deleteUser(this.user.id_usuario).subscribe(
       res => {
         console.log(res);
       },
