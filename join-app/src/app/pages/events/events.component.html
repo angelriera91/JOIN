@@ -42,8 +42,8 @@
             <div class="form-group col-10">
               <img src={{eventos.imagen}} class="col-12 bg-white" style="height: 15rem; width: auto">
               <hr>
-              <label for="creador-event">
-                <a routerLink="perfil/public" (click) = "dismis()"><h3> {{eventos.nickname}}</h3></a>
+              <label for="creador-event" (click)="rellenarPublic()">
+                <a><h3> {{eventos.nickname}}</h3></a>
               </label>
             </div>
             <div class="col-1"> </div>

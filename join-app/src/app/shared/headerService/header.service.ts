@@ -19,6 +19,9 @@ export class HeaderService {
   public user:User;
   public event;
   public last_event;
+  public hasError = true;
+  public hasError2 = false;
+  public perfilDesdeEvent:boolean = false;
 
   constructor(private http: HttpClient) { }
 

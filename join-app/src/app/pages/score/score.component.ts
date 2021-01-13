@@ -17,6 +17,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ScoreComponent implements OnInit {
 
   public event: Event;
+  public eventPaPuntuacion: Event; 
   public user: User;
   
 
@@ -29,6 +30,9 @@ export class ScoreComponent implements OnInit {
   rate(stars: number){
 
     let puntuacion: UsuarioEvento = this.rateEventService.usuario_evento;
+    let puntuacion2: UsuarioEvento ;
+    let evento: Event = this.eventService.eventPaPuntuacion;
+    
     puntuacion.puntuacion = stars;
 
     console.log(puntuacion)
@@ -46,10 +50,19 @@ export class ScoreComponent implements OnInit {
         }
 
         if (exists==true)
-          {
+          {          
+          if (res[0].puntuacion == 0) {
+            evento.total_valoracion = evento.total_valoracion + puntuacion.puntuacion;
+          }
+
           this.rateEventService.changeRate (puntuacion).subscribe(
             res => {
               console.log(res);
+              
+              this.rateEventService.ChangeEvent(evento).subscribe((data) => {
+                console.log(data);
+              })
+
             },
             err => console.error(err)
           );
@@ -60,6 +73,11 @@ export class ScoreComponent implements OnInit {
             this.rateEventService.rateEvent(puntuacion).subscribe(
               res => {
                 console.log(res);
+                evento.total_valoracion = evento.total_valoracion + puntuacion.puntuacion;
+                evento.numero_valoracion = evento.numero_valoracion + 1;
+                this.rateEventService.ChangeEvent(evento).subscribe((data) => {
+                  console.log(data);
+                })
               },
               err => console.error(err)
             );

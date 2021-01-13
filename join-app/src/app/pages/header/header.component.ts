@@ -32,8 +32,9 @@ export class HeaderComponent implements OnInit {
   constructor( @Inject(DOCUMENT) private _document: Document,  private modalService: NgbModal, private headerService: HeaderService, private profileService: ProfileService, private eventService: EventService, private publicProfileService: PublicProfileService, private router: Router) {
     this.event;
     this.user;
-    this.usuario_evento
-
+    this.usuario_evento;
+    this.hasError = headerService.hasError;
+    this.hasError2 = headerService.hasError2;
   }
 
   //18-12-2020 -JP
@@ -42,8 +43,10 @@ export class HeaderComponent implements OnInit {
     this.eventService.paraAsistir = false;
     this.eventService.terminados = false;
     this.publicProfileService.creadosPublic = false;
-    this.hasError = true;
-    this.hasError2 = false;
+    this.headerService.hasError = true;
+    this.headerService.hasError2 = false;
+    this.headerService.perfilDesdeEvent = false;
+
   }
 
   refresh():void {

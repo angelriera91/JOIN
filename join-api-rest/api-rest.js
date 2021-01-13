@@ -191,7 +191,7 @@ app.get("/user/favoritos/:id_usuario"/* /user/favorito/:id */,function(request,r
 app.get("/eventos/terminados/:id_usuario"/* /event/pasados/:id */, function(request,response) {
     var params = [request.params.id_usuario,request.params.id_usuario];
 
-    let sql = 'SELECT e.id_event, e.titulo, e.lugar, DATE_FORMAT(e.fecha,"%d/%m/%Y") as fecha, e.hora, e.descripcion, e.categoria, e.imagen, u.nickname, COUNT(ue.id_usuario) as total_asist, e.max_assist, e.id_creador FROM usuarios AS u INNER JOIN usuario_eventos AS ue ON u.id_usuario = ue.id_usuario INNER JOIN eventos AS e ON ue.id_evento = e.id_event WHERE (e.id_creador = ? ' + 
+    let sql = 'SELECT e.id_event, e.titulo, e.lugar, DATE_FORMAT(e.fecha,"%d/%m/%Y") as fecha, e.hora, e.descripcion, e.categoria, e.imagen, u.nickname, COUNT(ue.id_usuario) as total_asist, e.max_assist, e.id_creador, e.total_valoracion, e.numero_valoracion FROM usuarios AS u INNER JOIN usuario_eventos AS ue ON u.id_usuario = ue.id_usuario INNER JOIN eventos AS e ON ue.id_evento = e.id_event WHERE (e.id_creador = ? ' + 
                 'OR ue.id_usuario = ?) AND e.fecha <= CURRENT_DATE GROUP BY e.id_event';
 
     console.log(sql);
@@ -262,7 +262,7 @@ app.get("/user/mediaEvents/:id_creador"/* /event/asistir/:id */, function(reques
 
     var params = [request.params.id_creador]
 
-    let sql = 'SELECT (total_valoracion/numero_valoracion) AS media FROM eventos WHERE id_creador = ? GROUP BY id_creador';
+    let sql = 'SELECT (SUM(total_valoracion)/SUM(numero_valoracion)) AS media FROM eventos WHERE id_creador = ? GROUP BY id_creador';
 
     connection.query(sql,params,function(err,result){
         if (err) {
@@ -276,6 +276,23 @@ app.get("/user/mediaEvents/:id_creador"/* /event/asistir/:id */, function(reques
 
 });
 
+app.put("/evento/puntuacion/evento",
+        function(request, response)
+        {
+            let usuario = [request.body.total_valoracion,request.body.numero_valoracion,request.body.id_event]
+            let sql = "UPDATE eventos SET total_valoracion = ?, numero_valoracion = ?  WHERE id_event = ? "
+            console.log(sql);
+            connection.query(sql, usuario, function (err, result)
+            {
+                if (err)
+                    console.log(err);
+                else
+            {
+                response.send(result);
+            }
+        })
+    }
+);
 
 
 // Modificar usuario - LA
@@ -496,7 +513,7 @@ app.post("/create/assist", function (request, response) {
 // GET- EVENT - MAIN //
 
 app.get("/eventos/", function (request, response) {
-    let evento = 'SELECT e.id_event, e.titulo, e.lugar, DATE_FORMAT(e.fecha,"%d/%m/%Y") as fecha, e.hora, e.descripcion, e.categoria, e.imagen, u.nickname, COUNT(ue.id_usuario) as total_asist, e.max_assist, e.id_creador FROM eventos e LEFT JOIN usuario_eventos ue ON ue.id_evento = e.id_event LEFT JOIN usuarios u ON U.id_usuario = e.id_creador WHERE e.fecha >= CURDATE() GROUP BY e.id_event'
+    let evento = 'SELECT e.id_event, e.titulo, e.lugar, DATE_FORMAT(e.fecha,"%d/%m/%Y") as fecha, e.hora, e.descripcion, e.categoria, e.imagen, u.nickname, COUNT(ue.id_usuario) as total_asist, e.max_assist, e.id_creador, e.total_valoracion, e.numero_valoracion FROM eventos e LEFT JOIN usuario_eventos ue ON ue.id_evento = e.id_event LEFT JOIN usuarios u ON U.id_usuario = e.id_creador WHERE e.fecha >= CURDATE() GROUP BY e.id_event'
     
     
     connection.query(evento, function (err, result) {
