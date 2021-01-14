@@ -1,7 +1,7 @@
 <div [class]="hasError2 ? 'none' : 'container-fluid'" >
   <div [style.background-image]="hasError ? 'none' : 'url(../../../assets/fondo.jpg)'">
     <nav class="navbar">
-        <a class="navbar-brand text-white" (click)="home()"><img src="../../../assets/logo.png" style="height: 50px;"></a>
+        <a class="navbar-brand text-white" (click)="home()" style="cursor: pointer;"><img src="../../../assets/logo.png" style="height: 50px;"></a>
 
         <ul class="nav justify-content-end" id="opciones">
           <img src="../../../assets/icono.png" style="height: 40px; cursor: pointer; outline: none;" *ngIf="mostrar===false;" routerLink="perfil"><a id="icono"></a>
