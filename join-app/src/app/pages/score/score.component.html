@@ -1,6 +1,6 @@
 <div class="row" style="margin-top: 10%;">
     <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
-      <p style="font-style: oblique" class="centrar">{{event.titulo}}</p>
+      <p style="font-style: oblique; font-size: large;" class="centrar">{{event.titulo}}</p>
       <div>
         <!-- <img id="imagen" src="https://ep01.epimg.net/economia/imagenes/2020/01/16/actualidad/1579196525_489238_1579272049_noticia_normal_recorte1.jpg" alt=""> -->
         <img id="imagen" src="{{event.imagen}}" alt="Imagen no encontrada" style="height: 10rem; width: auto;">
@@ -24,7 +24,7 @@
           <label for="radio5">★</label>
           </p> -->
 
-          <ngb-rating  [max]="5" [(rate)]="starRating" [readonly]="false"></ngb-rating>
+          <ngb-rating  [max]="5" [(rate)]="starRating" [readonly]="false" style="outline: none;"></ngb-rating>
 
           <div class="col-12">
             <button class="btn btn-block" id="color" style="border: solid 1px #fc5404; width: 15%; margin-left: auto; 
