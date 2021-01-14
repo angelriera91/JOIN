@@ -18,7 +18,7 @@ import { HeaderComponent } from '../header/header.component';
 export class PublicProfileComponent implements OnInit {
 
   public user:User;
-  public user2: User;
+  public userLog: User;
   public creado:boolean;
   public noEvents:boolean = false;
   public show: boolean;
@@ -26,7 +26,7 @@ export class PublicProfileComponent implements OnInit {
 
   constructor(public publicProfileService:PublicProfileService, public eventService:EventService, private followUserService: FollowUserService, private unfollowUserService: UnfollowUserService, public headerService:HeaderService) {
     this.user = publicProfileService.userSelected;
-    this.user2 = headerService.user;
+    this.userLog = headerService.user;
     this.show = this.publicProfileService.show;
     this.mostrar = eventService.mostrar;
 
@@ -42,7 +42,7 @@ export class PublicProfileComponent implements OnInit {
   follow() {
 
 
-    this.followUserService.followUser(this.user2.id_usuario, this.user.id_usuario).subscribe(
+    this.followUserService.followUser(this.userLog.id_usuario, this.user.id_usuario).subscribe(
       res => {
         console.log(res);
         this.show = false;
@@ -57,7 +57,7 @@ export class PublicProfileComponent implements OnInit {
   unfollow() {
 
 
-    this.unfollowUserService.unfollowUser(this.user2.id_usuario, this.user.id_usuario).subscribe(
+    this.unfollowUserService.unfollowUser(this.userLog.id_usuario, this.user.id_usuario).subscribe(
       res => {
         console.log(res);
         this.show = true;
