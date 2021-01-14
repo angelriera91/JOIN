@@ -22,12 +22,13 @@ export class PublicProfileComponent implements OnInit {
   public creado:boolean;
   public noEvents:boolean = false;
   public show: boolean;
+  public mostrar: boolean;
 
   constructor(public publicProfileService:PublicProfileService, public eventService:EventService, private followUserService: FollowUserService, private unfollowUserService: UnfollowUserService, public headerService:HeaderService) {
     this.user = publicProfileService.userSelected;
     this.user2 = headerService.user;
     this.show = this.publicProfileService.show;
-
+    this.mostrar = eventService.mostrar;
 
    }
 

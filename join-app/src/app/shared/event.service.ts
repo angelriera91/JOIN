@@ -16,6 +16,7 @@ export class EventService {
   public paraAsistir:boolean = false;
   public terminados:boolean = false;
   public creadosPublic:boolean = false;
+  public mostrar:boolean;
 
   private get_creados = "http://localhost:3000/eventos/creados"
   private get_asistir = "http://localhost:3000/eventos/asistir"

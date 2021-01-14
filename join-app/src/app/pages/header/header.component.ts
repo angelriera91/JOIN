@@ -43,10 +43,12 @@ export class HeaderComponent implements OnInit {
     this.eventService.creados = false;
     this.eventService.paraAsistir = false;
     this.eventService.terminados = false;
-    this.publicProfileService.creadosPublic = false;
+    this.eventService.creadosPublic = false;
     this.headerService.hasError = true;
     this.headerService.hasError2 = false;
     this.headerService.perfilDesdeEvent = false;
+
+    this.router.navigate(["/"]);
 
   }
 
@@ -188,6 +190,14 @@ export class HeaderComponent implements OnInit {
     console.log(createForm);
     this.modalService.dismissAll('Dismissed after saving data');
 
+  }
+
+  entrarPerfil(){
+    if (this.eventService.mostrar == false) {
+      this.eventService.mostrar = true
+    } else {
+      this.eventService.mostrar = false
+    }
   }
 
   // create - event -AR

@@ -73,7 +73,10 @@
           </div>
     </div>
     <div class="row">
-        <div class="col-md-12" *ngIf="creados == true">
+        <div class="col-md-12" *ngIf="creados == true && mostrar == true">
+            <app-events></app-events>
+        </div>
+        <div class="col-md-12" *ngIf="creados == true && mostrar == false">
             <app-events></app-events>
         </div>
         <div class="col-md-12" *ngIf="paraAsistir == true">

@@ -10,6 +10,7 @@ import { AboutComponent } from './pages/aboutUs/about.component';
 
 const routes: Routes = [
   {path:"perfil", component:ProfileComponent},
+  {path:"perfil2", component:ProfileComponent},
   {path:"perfilAct", component:FormActPerfilComponent},
   {path:"score",component:ScoreComponent},
   {path:"perfil/public",component:PublicProfileComponent},

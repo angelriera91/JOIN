@@ -56,7 +56,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" *ngIf="mostrar == true">
+            <app-events></app-events>
+        </div>
+        <div class="col-md-12" *ngIf="mostrar == false">
             <app-events></app-events>
         </div>
     </div>

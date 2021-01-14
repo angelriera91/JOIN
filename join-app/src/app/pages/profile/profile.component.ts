@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit {
   public claseTerminado:string;
   public claseTerminadoActivo:string;
   public indice:number;
+  public mostrar:boolean;
 
   constructor(private modalService: NgbModal, public eventService:EventService, public profileService: ProfileService, public headerService:HeaderService, public publicProfileService:PublicProfileService, public route:Router) {
     this.user = headerService.user;
@@ -42,6 +43,7 @@ export class ProfileComponent implements OnInit {
     this.eventService.terminados = false;
     this.terminados = false;
     this.eventService.creadosPublic = false;
+    this.mostrar = this.eventService.mostrar;
 
     this.claseCreado = "tab-pane fade show active";
     this.claseCreadoActivo = "nav-link active";
@@ -143,6 +145,11 @@ export class ProfileComponent implements OnInit {
     this.eventService.paraAsistir = false;
     this.eventService.terminados = false;
     this.eventService.creadosPublic = true;
+    if (this.eventService.mostrar == true) {
+      this.eventService.mostrar = false;
+    } else {
+      this.eventService.mostrar = true;
+    }
     this.publicProfileService.show = false;
 
     this.headerService.getTotFavs(this.publicProfileService.userSelected.id_usuario).subscribe((data:any) => {
@@ -163,7 +170,7 @@ export class ProfileComponent implements OnInit {
       if (data2[0].media === null) {
         this.publicProfileService.userSelected.media = 0;
       }else {
-        this.publicProfileService.userSelected.media = data2[0];
+        this.publicProfileService.userSelected.media = data2[0].media;
       }
 
       this.route.navigate(["perfil/public"])

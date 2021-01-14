@@ -83,6 +83,14 @@ export class EventsComponent implements OnInit {
             this.events = data;
             this.eventService.events = data;
           });
+        }else{
+          console.log("vuelta desde el perfil publico");
+
+          this.eventService.getEvents().subscribe((data: any) => {
+            console.log(data);
+            this.events = data;
+            this.eventService.events = data;
+          });
         }
       } else if (this.homeService.mostrarDatoBuscado == true) {
         console.log("aqui entra")
@@ -118,8 +126,6 @@ export class EventsComponent implements OnInit {
             console.log(data);
             this.events = data;
             this.eventService.events = data;
-
-
           });
         }
       } else if (this.homeService.mostrarDatoBuscado == false) {
@@ -261,6 +267,15 @@ export class EventsComponent implements OnInit {
 
     this.eventService.deleteEvent(id_event).subscribe((data: any) => {
 
+      if (this.eventService.creados == true) {
+        this.cargaEventos()
+        if (this.eventService.mostrar == false) {
+          this.eventService.mostrar = true
+        } else {
+          this.eventService.mostrar = false
+        }
+      }
+
       console.log("evento borrado")
       console.log(data)
 
@@ -393,7 +408,24 @@ export class EventsComponent implements OnInit {
 
       let datos = new UsuarioEvento(this.events[indice].id_event, this.profileService.user.id_usuario);
 
-      this.headerService.createAssist(datos).subscribe()
+      this.headerService.createAssist(datos).subscribe((data) => {
+        if (this.eventService.creadosPublic == true) {
+          this.cargaEventos();
+          if (this.eventService.mostrar == false) {
+            this.eventService.mostrar = true
+          } else {
+            this.eventService.mostrar = false
+          }
+        }else if(this.eventService.paraAsistir == true){
+          this.cargaEventos();
+          if (this.eventService.mostrar == false) {
+            this.eventService.mostrar = true
+          } else {
+            this.eventService.mostrar = false
+          }
+        }
+
+      })
 
       console.log("assist created")
 
