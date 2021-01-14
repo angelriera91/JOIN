@@ -459,7 +459,14 @@ export class EventsComponent implements OnInit {
 
   public editarEvento(titulo: string, lugar: string, fecha: string, hora: string, description: string, categoria: string, imagen: string, max_assist: number, indice: number) {
 
-
+    imagen = imagen.slice(12);
+    console.log(imagen);
+    if (imagen == null || imagen == undefined || imagen == "") {
+      imagen = this.event.imagen;
+    }
+    else {
+      imagen = "../../../assets/" + imagen;
+    }
     console.log(titulo)
 
     let evento = { "titulo": titulo, "lugar": lugar, "fecha": fecha, "hora": hora, "descripcion": description, "categoria": categoria, "imagen": imagen, "id_creador": this.event.id_creador, "max_assist": max_assist, "id_event": this.event.id_event }
@@ -499,7 +506,7 @@ export class EventsComponent implements OnInit {
         if (this.event.id_creador == this.headerService.user.id_usuario) {
           Swal.fire({
             html: 'No puede entrar a su propio perfil publico',
-            timer: 1000,
+            timer: 2000,
             timerProgressBar: true,
           }).then((result) => {
             /* Read more about handling dismissals below */
@@ -550,7 +557,7 @@ export class EventsComponent implements OnInit {
     }else{
       Swal.fire({
         html: 'No se puede entrar a un perfil publico sin logear previamente',
-        timer: 1000,
+        timer: 2000,
         timerProgressBar: true,
       }).then((result) => {
         /* Read more about handling dismissals below */

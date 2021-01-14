@@ -239,7 +239,7 @@ app.get("/user/totFavs/:id_usuario"/* /event/asistir/:id */, function(request,re
 
     var params = [request.params.id_usuario]
 
-    let sql = 'SELECT COUNT(DISTINCT `id_usuario`) AS favoritos FROM `usuario_usuario` WHERE id_usuario = ? GROUP BY id_usuario';
+    let sql = 'SELECT COUNT(`id_usuario`) AS favoritos FROM `usuario_usuario` WHERE id_usuario = ? GROUP BY id_usuario';
 
     connection.query(sql,params,function(err,result){
         if (err) {

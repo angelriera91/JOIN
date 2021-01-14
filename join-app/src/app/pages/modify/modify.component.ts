@@ -10,6 +10,7 @@ import { Router, RouterLink } from '@angular/router';
 import { HeaderService } from 'src/app/shared/headerService/header.service';
 import { HeaderComponent } from '../header/header.component';
 import { ProfileService } from 'src/app/shared/profileService/profile.service';
+import Swal from 'sweetalert2';
 // import { homedir } from 'os';
 
 @Component({
@@ -114,6 +115,17 @@ export class ModifyComponent implements OnInit {
                 this.profileService.user.media = data[0].media;
               }
             }
+
+            Swal.fire({
+              html: '¡Tu cuenta ha sido modificada correctamente!',
+              timer: 2400,
+              timerProgressBar: true,
+            }).then((result) => {
+              /* Read more about handling dismissals below */
+              if (result.dismiss === Swal.DismissReason.timer) {
+                console.log('I was closed by the timer')
+              }
+            })
 
           });
         })
