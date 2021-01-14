@@ -11,11 +11,11 @@ export class FollowUserService {
 
   constructor(private http: HttpClient) { }
 
-  followUser(followedId: number, followerId: number) 
+  followUser(followerId: number, followedId: number) 
   {
     let body = {
-      id_usuario: followedId, 
-      id_seguidor: followerId
+      id_usuario: followerId, 
+      id_seguidor: followedId
     }
 
 
