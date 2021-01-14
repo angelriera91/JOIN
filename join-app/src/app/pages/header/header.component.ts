@@ -151,7 +151,12 @@ export class HeaderComponent implements OnInit {
         this.headerService.event = data;
         this.event = data;
         this.onSubmit2("");
-        this.router.navigate(["/perfil"]);
+        if (this.router.url == "/perfil") {
+          this.router.navigate(["/perfil2"]);
+        } else {
+          this.router.navigate(["/perfil"]);
+        }
+        
 
         let id = this.user.id_usuario
 
@@ -164,6 +169,8 @@ export class HeaderComponent implements OnInit {
           this.headerService.createAssist(this.usuario_evento).subscribe()
 
         })
+
+
 
         console.log("Evento Creado")
 

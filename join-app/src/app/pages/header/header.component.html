@@ -1,7 +1,7 @@
 <div [class]="hasError2 ? 'none' : 'container-fluid'" >
   <div [style.background-image]="hasError ? 'none' : 'url(../../../assets/fondo.jpg)'">
     <nav class="navbar">
-        <a class="navbar-brand text-white" (click)="home()"><img src="../../../assets/logo.png" style="height: 50px;"></a>
+        <a class="navbar-brand text-white" (click)="home()" style="cursor: pointer;"><img src="../../../assets/logo.png" style="height: 50px;"></a>
 
         <ul class="nav justify-content-end" id="opciones">
           <img src="../../../assets/icono.png" style="height: 30px; cursor: pointer; outline: none;" *ngIf="mostrar===false;" routerLink="perfil"><a id="icono"></a>
@@ -11,7 +11,7 @@
             <li class="nav-item"><a class="nav-link text-white" id="pointer" routerLink="aboutUs" (click)="salir()">Sobre Nosotros</a></li>
             <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(createEvent)" (click)="limiteFecha()" *ngIf="mostrar===false;">Crear Evento</a></li>
             <li class="nav-item"><a class="nav-link text-white" id="pointer" (click)="open(login)" (click)="salir()" *ngIf="mostrar===true;">Iniciar sesión</a></li>
-            <li class="nav-item"><a class="nav-link text-white" id="pointer" *ngIf="mostrar===false;" (click)="refresh()">Cerrar sesión</a></li>
+            <li class="nav-item"><a class="nav-link text-white" id="pointer" *ngIf="mostrar===false;" href="http://localhost:4200/">Cerrar sesión</a></li>
 
         </ul>
     </nav>

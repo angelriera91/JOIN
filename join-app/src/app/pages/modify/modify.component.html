@@ -82,7 +82,7 @@
                             <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;" routerLink="/perfil">Volver</button>
                         </div>
                         <div class="col-4" class="form-group">
-                            <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;" (click)="modifyUser(nickname.value, nombre.value, apellido.value, ciudad.value, correo.value, password.value, imagen.value, descripcion.value)" (click)="open(modificada)">Actualizar</button>
+                            <button class="btn btn-block" id="color" id="pointer" style="border: solid 1px #fc5404;" (click)="modifyUser(nickname.value, nombre.value, apellido.value, ciudad.value, correo.value, password.value, imagen.value, descripcion.value)" routerLink="/perfil">Modificar</button>
                         </div>
                     </div>
                     <div class="col-4" class="form-group" style="margin-top: 15%">
@@ -124,7 +124,7 @@
     <ng-template #modificada let-modal>
         <div class="modal-header">
         <h4 class="modal-title" style="height: 50px; font-family: Arial, Helvetica, sans-serif;"><img src="../../../assets/move.gif" style="width: 60px; height: 50px;">Cuenta <strong style="color: #fc5404;">Modificada</strong> </h4>
-        <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+        <button style="outline: none;" type="button" class="close" aria-label="Close" routerLink="/perfil" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
         </div>
     ​
         <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
@@ -134,7 +134,7 @@
         
         <div class="modal-footer">
                 <div class="form-group">
-                    <button  class="btn btn-block" #color style="border: solid 1px #fc5404;" type="button" (click)="modal.close('Close click')">Ok</button>    
+                    <button  class="btn btn-block" #color style="border: solid 1px #fc5404;" type="button" routerLink="/perfil" (click)="modal.close('Close click')">Ok</button>    
                 </div>
     ​
             </div>
