@@ -24,12 +24,14 @@ export class EventsComponent implements OnInit {
   public events: Event[];
   public event: Event;
   public user: User;
-  public today: String
+  public today: String;
+
 
   public mostrar1: boolean = false;
   public mostrar2: boolean = false;
   public mostrar3: boolean = false;
   public mostrar4: boolean = false;
+  public mostrar5: boolean = false;
 
   constructor(private rateEventService: RateEventService, private modalService: NgbModal, private eventService: EventService, private profileService: ProfileService, private publicProfileService: PublicProfileService, private homeService: HomeService, public headerService: HeaderService, public route: Router) {
     this.cargaEventos();
@@ -289,75 +291,301 @@ export class EventsComponent implements OnInit {
 
     this.event = this.eventService.events[indice]
     this.eventService.eventPaPuntuacion = this.eventService.events[indice];
-
-    if (this.profileService.user != undefined) {
-
-      console.log(this.profileService.user.id_usuario)
-
-      if (this.eventService.terminados == false) {
+    let user2 = this.headerService.user
 
 
-        if (this.eventService.creados == true) {
-          this.mostrar1 = true
-          this.mostrar2 = false
-          this.mostrar3 = true
-          this.mostrar4 = false
+    if (user2 != null || user2 != undefined) {
 
-          this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-          }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          });
+      this.eventService.takeAssist(this.event.id_event, user2.id_usuario).subscribe((data: any) => {
 
+        if (this.profileService.user != undefined) {
+
+          console.log(this.profileService.user.id_usuario)
+
+          if (this.eventService.terminados == false) {
+
+            if (this.eventService.creados == true) {
+              this.mostrar1 = true
+              this.mostrar2 = false
+              this.mostrar3 = true
+              this.mostrar4 = false
+              this.mostrar5 = false
+
+              this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                this.closeResult = `Closed with: ${result}`;
+              }, (reason) => {
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+              });
+
+            }
+            else if (this.eventService.paraAsistir == true) {
+
+              if (data != undefined || data != null) {
+                if (data[0] != null || data[0] != undefined || data[0] != []) {
+
+                  if (this.event.id_creador == this.headerService.user.id_usuario) {
+                    this.mostrar1 = true
+                    this.mostrar2 = false
+                    this.mostrar3 = true
+                    this.mostrar4 = false
+                    this.mostrar5 = false
+
+                    this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                      this.closeResult = `Closed with: ${result}`;
+                    }, (reason) => {
+                      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                    });
+
+
+                  }
+
+                  else {
+                    this.mostrar1 = false
+                    this.mostrar2 = false
+                    this.mostrar3 = false
+                    this.mostrar4 = false
+                    this.mostrar5 = true
+
+                    this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                      this.closeResult = `Closed with: ${result}`;
+                    }, (reason) => {
+                      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                    });
+
+                  }
+
+
+                }
+                else if (this.event.id_creador == this.user.id_usuario) {
+
+                  this.mostrar1 = true
+                  this.mostrar2 = false
+                  this.mostrar3 = true
+                  this.mostrar4 = false
+                  this.mostrar5 = false
+
+                  this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                    this.closeResult = `Closed with: ${result}`;
+                  }, (reason) => {
+                    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                  });
+
+                }
+                else {
+
+                  this.mostrar1 = false
+                  this.mostrar2 = true
+                  this.mostrar3 = false
+                  this.mostrar4 = false
+                  this.mostrar5 = false
+
+                  this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                    this.closeResult = `Closed with: ${result}`;
+                  }, (reason) => {
+                    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                  });
+                }
+              }
+              else if (this.eventService.creadosPublic == true) {
+
+                if (data != undefined) {
+                  if (data[0] != null || data[0] != undefined || data[0] != []) {
+                    this.mostrar1 = false
+                    this.mostrar2 = false
+                    this.mostrar3 = false
+                    this.mostrar4 = false
+                    this.mostrar5 = true
+                    this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                      this.closeResult = `Closed with: ${result}`;
+                    }, (reason) => {
+                      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                    });
+                  }
+                  else {
+                    this.mostrar1 = false
+                    this.mostrar2 = true
+                    this.mostrar3 = false
+                    this.mostrar4 = false
+                    this.mostrar5 = false
+                    this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                      this.closeResult = `Closed with: ${result}`;
+                    }, (reason) => {
+                      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                    });
+                  }
+
+                }
+                else if (this.profileService.user.id_usuario == this.events[indice].id_creador) {
+
+                  this.mostrar1 = true
+                  this.mostrar2 = false
+                  this.mostrar3 = true
+                  this.mostrar4 = false
+                  this.mostrar5 = false
+
+                  this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                    this.closeResult = `Closed with: ${result}`;
+                  }, (reason) => {
+                    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                  });
+                }
+                else {
+
+                  if (data != undefined) {
+                    if (data[0] != null || data[0] != undefined || data[0] != []) {
+                      this.mostrar1 = false
+                      this.mostrar2 = false
+                      this.mostrar3 = false
+                      this.mostrar4 = false
+                      this.mostrar5 = true
+                      this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                        this.closeResult = `Closed with: ${result}`;
+                      }, (reason) => {
+                        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                      });
+                    }
+
+                    else {
+                      this.mostrar1 = false
+                      this.mostrar2 = true
+                      this.mostrar3 = false
+                      this.mostrar4 = false
+                      this.mostrar5 = false
+
+                      this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                        this.closeResult = `Closed with: ${result}`;
+                      }, (reason) => {
+                        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                      });
+                    }
+                  }
+                  else {
+                    this.mostrar1 = false
+                    this.mostrar2 = false
+                    this.mostrar3 = false
+                    this.mostrar4 = true
+                    this.mostrar5 = false
+                    this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                      this.closeResult = `Closed with: ${result}`;
+                    }, (reason) => {
+                      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                    });
+                  }
+                }
+              }
+              else {
+
+                this.mostrar1 = false
+                this.mostrar2 = false
+                this.mostrar3 = false
+                this.mostrar4 = false
+                this.mostrar5 = true
+                this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                  this.closeResult = `Closed with: ${result}`;
+                }, (reason) => {
+                  this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                });
+              }
+            }
+
+            else if (data.length !== 0) {
+
+              if (data != undefined || data != null) {
+
+                if (data[0] != null || data[0] != undefined || data[0] != []) {
+
+                  this.mostrar1 = false
+                  this.mostrar2 = false
+                  this.mostrar3 = false
+                  this.mostrar4 = false
+                  this.mostrar5 = true
+
+                  this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                    this.closeResult = `Closed with: ${result}`;
+                  }, (reason) => {
+                    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                  });
+                }
+                else if (this.event.id_creador == this.user.id_usuario) {
+
+                  this.mostrar1 = true
+                  this.mostrar2 = false
+                  this.mostrar3 = true
+                  this.mostrar4 = false
+                  this.mostrar5 = false
+
+                  this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                    this.closeResult = `Closed with: ${result}`;
+                  }, (reason) => {
+                    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                  });
+
+                }
+
+                else {
+
+                  this.mostrar1 = false
+                  this.mostrar2 = true
+                  this.mostrar3 = false
+                  this.mostrar4 = false
+                  this.mostrar5 = false
+
+                  this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                    this.closeResult = `Closed with: ${result}`;
+                  }, (reason) => {
+                    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                  });
+                }
+
+              }
+              else {
+
+                this.mostrar1 = false
+                this.mostrar2 = true
+                this.mostrar3 = false
+                this.mostrar4 = false
+                this.mostrar5 = false
+
+                this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                  this.closeResult = `Closed with: ${result}`;
+                }, (reason) => {
+                  this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                });
+              }
+            }
+
+            else {
+              this.mostrar1 = false
+              this.mostrar2 = true
+              this.mostrar3 = false
+              this.mostrar4 = false
+              this.mostrar5 = false
+              this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                this.closeResult = `Closed with: ${result}`;
+              }, (reason) => {
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+              });
+            }
+          }
+          else {
+            this.mostrar1 = false
+            this.mostrar2 = false
+            this.mostrar3 = false
+            this.mostrar4 = true
+            this.mostrar5 = false
+            this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+              this.closeResult = `Closed with: ${result}`;
+            }, (reason) => {
+              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            });
+          }
         }
-        else if (this.eventService.paraAsistir == true) {
-
-          this.mostrar1 = false
-          this.mostrar2 = true
-          this.mostrar3 = false
-          this.mostrar4 = false
-
-          this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-          }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          });
-
-        }else if (this.eventService.creadosPublic == true) {
-
-          this.mostrar1 = false
-          this.mostrar2 = true
-          this.mostrar3 = false
-          this.mostrar4 = false
-
-          this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-          }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          });
-
-        }
-        else if (this.profileService.user.id_usuario == this.events[indice].id_creador) {
-
-          this.mostrar1 = true
-          this.mostrar2 = false
-          this.mostrar3 = true
-          this.mostrar4 = false
-
-          this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-          }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          });
-        }
-
         else {
-
           this.mostrar1 = false
-          this.mostrar2 = true
+          this.mostrar2 = false
           this.mostrar3 = false
           this.mostrar4 = false
-
+          this.mostrar5 = false
           this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
           }, (reason) => {
@@ -365,25 +593,8 @@ export class EventsComponent implements OnInit {
           });
 
         }
-
-      }
-
-      else {
-
-        this.mostrar1 = false
-        this.mostrar2 = false
-        this.mostrar3 = false
-        this.mostrar4 = true
-
-        this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
-          this.closeResult = `Closed with: ${result}`;
-        }, (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
-
-      }
+      })
     }
-
 
     else {
 
@@ -391,12 +602,13 @@ export class EventsComponent implements OnInit {
       this.mostrar2 = false
       this.mostrar3 = false
       this.mostrar4 = false
-
+      this.mostrar5 = false
       this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
+
     }
 
   }
@@ -450,11 +662,11 @@ export class EventsComponent implements OnInit {
     }
   }
 
- public limiteFecha(){
-  let fecha = new Date();
-  this.today = fecha.getFullYear()+'-'+(('0'+fecha.getMonth()+1).slice(-2))+'-'+('0'+fecha.getDate()).slice(-2)
-  console.log(this.today)
- } 
+  public limiteFecha() {
+    let fecha = new Date();
+    this.today = fecha.getFullYear() + '-' + (('0' + fecha.getMonth() + 1).slice(-2)) + '-' + ('0' + fecha.getDate()).slice(-2)
+    console.log(this.today)
+  }
 
 
   public editarEvento(titulo: string, lugar: string, fecha: string, hora: string, description: string, categoria: string, imagen: string, max_assist: number, indice: number) {
@@ -473,7 +685,7 @@ export class EventsComponent implements OnInit {
 
     this.eventService.editEvent(evento).subscribe(data => {
       this.event = data;
-      
+
       console.log(this.event)
       if (this.event != null) {
 
@@ -554,7 +766,7 @@ export class EventsComponent implements OnInit {
           });
         }
       }
-    }else{
+    } else {
       Swal.fire({
         html: 'No se puede entrar a un perfil publico sin logear previamente',
         timer: 2000,
@@ -566,6 +778,41 @@ export class EventsComponent implements OnInit {
         }
       })
     }
+
+  }
+
+  public deleteAssit() {
+
+    this.eventService.deleteAssist(this.event.id_event, this.headerService.user.id_usuario).subscribe((data) => {
+
+      if (this.eventService.creadosPublic == true) {
+        this.cargaEventos();
+        if (this.eventService.mostrar == false) {
+          this.eventService.mostrar = true
+        } else {
+          this.eventService.mostrar = false
+        }
+      } else if (this.eventService.paraAsistir == true) {
+        this.cargaEventos();
+        if (this.eventService.mostrar == false) {
+          this.eventService.mostrar = true
+        } else {
+          this.eventService.mostrar = false
+        }
+      }
+      else if(this.eventService.paraAsistir == false && this.eventService.creadosPublic == false && this.eventService.creados == false && this.eventService.terminados == false){
+
+        this.cargaEventos();
+        if (this.eventService.mostrar == false) {
+          this.eventService.mostrar = true
+        } else {
+          this.eventService.mostrar = false
+        }
+
+      }
+    })
+
+    this.modalService.dismissAll('Dismissed after saving data');
 
   }
 

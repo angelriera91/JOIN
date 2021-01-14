@@ -102,12 +102,16 @@
               <button type="submit" class="btn" (click)="assist(indice)">Asistir</button>
             </div>
 
+            <div class="col-3" *ngIf="mostrar5==true;">
+              <button type="submit" class="btn" (click)="noAssist(indice)">Abandonar</button>
+            </div>
+
             <div class="col-3" *ngIf="mostrar4==true;">
               <button type="submit" class="btn" routerLink="score" (click)="puntuar(indice)">Puntuar </button>
             </div>
 
             <div class="col-3" *ngIf="mostrar3==true;">
-              <button type="submit" class="btn" (click)="delete(indice)">Eliminar</button>
+              <button type="submit" class="btn" (click)="deleteAssist()">Eliminar</button>
             </div>
 
           </div>

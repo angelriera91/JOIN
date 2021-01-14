@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Event } from '../model/event/event';
 import { User } from '../model/user/user';
+import { UsuarioEvento } from '../model/usuario_evento/usuario-evento';
 
 
 @Injectable({
@@ -25,6 +26,8 @@ export class EventService {
   private delete_event = "http://localhost:3000/delete/event"
   private edit_Event = "http://localhost:3000/put/event"
   private get_user = "http://localhost:3000/user"
+  private delete_assist = "http://localhost:3000/eventos/noasistir"
+  private take_assist = "http://localhost:3000/evento/checkassist"
 
   constructor(private http: HttpClient) { }
 
@@ -61,6 +64,18 @@ export class EventService {
 
 
     return this.http.get(this.get_user + "/" + id_creador)
+
+  }
+
+  deleteAssist(id_event:number,id_usuario:number){
+
+    return this.http.delete(this.delete_assist + "/" + id_event + "/" + id_usuario)
+
+  }
+
+  takeAssist(id_evento: number, id_usuario:number){
+
+    return this.http.get(this.take_assist + "/" + id_evento + "/" + id_usuario)
 
   }
 
