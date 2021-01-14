@@ -274,6 +274,13 @@ export class EventsComponent implements OnInit {
         } else {
           this.eventService.mostrar = false
         }
+      }else if(this.eventService.paraAsistir == false && this.eventService.creadosPublic == false && this.eventService.creados == false && this.eventService.terminados == false){
+        this.cargaEventos();
+        if (this.eventService.mostrar == false) {
+          this.eventService.mostrar = true
+        } else {
+          this.eventService.mostrar = false
+        }
       }
 
       console.log("evento borrado")

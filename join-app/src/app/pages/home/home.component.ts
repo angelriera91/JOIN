@@ -12,8 +12,8 @@ export class HomeComponent implements OnInit {
   public categorias:string[]= ["Categoria","Conocimiento","Idiomas","Salir","Deportes"];
   public mostrarDatoBuscado:boolean = false;
 
-  constructor(private homeService: HomeService) {
-    homeService.mostrarDatoBuscado = false;
+  constructor(private homeService: HomeService, public eventService:EventService) {
+    homeService.mostrarDatoBuscado = this.eventService.mostrar;
    }
 
 
