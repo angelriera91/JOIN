@@ -6,6 +6,9 @@ import { FollowUserService } from '../../shared/followUserService/follow-user.se
 import { UnfollowUserService } from '../../shared/unfollowUserService/unfollow-user.service';
 import { HeaderService } from 'src/app/shared/headerService/header.service';
 import { HeaderComponent } from '../header/header.component';
+import { ProfileService } from 'src/app/shared/profileService/profile.service';
+import { ProfileComponent } from '../profile/profile.component';
+import { forEach } from '@angular-devkit/schematics';
 
 
 
@@ -18,38 +21,62 @@ import { HeaderComponent } from '../header/header.component';
 export class PublicProfileComponent implements OnInit {
 
   public user:User;
-  public user2: User;
+  public users:User[];
+  public userLog: User;
   public creado:boolean;
   public noEvents:boolean = false;
   public show: boolean;
   public mostrar: boolean;
 
-  constructor(public publicProfileService:PublicProfileService, public eventService:EventService, private followUserService: FollowUserService, private unfollowUserService: UnfollowUserService, public headerService:HeaderService) {
+  constructor(public profileService: ProfileService, public publicProfileService:PublicProfileService, public eventService:EventService, private followUserService: FollowUserService, private unfollowUserService: UnfollowUserService, public headerService:HeaderService) {
     this.user = publicProfileService.userSelected;
-    this.user2 = headerService.user;
+    this.userLog = headerService.user;
     this.show = this.publicProfileService.show;
     this.mostrar = eventService.mostrar;
-
+    this.profileService = this.profileService;
+    //this.users = profile.users;
+   } 
+   ngOnInit(): void {
+    let user_id = this.headerService.user.id_usuario;
+    let followed = false;
+    this.profileService.getdatosUserFav(user_id).subscribe((data:any) => {
+      this.profileService.users = data;
+      this.users = this.profileService.users;
+      for (let i = 0; i < this.users.length; i++)
+      {
+        if (this.users[i].id_usuario === this.user.id_usuario)
+        {
+          followed = true;
+        }
+      }
+      if (followed)
+      {
+        this.show = true;
+      } else
+      {
+        this.show = false;
+      }
+    });    
    }
 
-  
-
- 
-   ngOnInit(): void {
-
-  }
+  // this.profileService.getdatosUserFav(this.userLog.id_usuario).subscribe(
+  //   res => {
+  //     if (res[0] != null)
+  //     {
+  //       this.show = true;
+  //     }
+  //  }
 
   follow() {
 
 
-    this.followUserService.followUser(this.user2.id_usuario, this.user.id_usuario).subscribe(
+    this.followUserService.followUser(this.userLog.id_usuario, this.user.id_usuario).subscribe(
       res => {
         console.log(res);
-        this.show = false;
+        this.show = true;
       },
       err => console.error(err)
     );
-    this.show = false;
 
 
   }
@@ -57,10 +84,10 @@ export class PublicProfileComponent implements OnInit {
   unfollow() {
 
 
-    this.unfollowUserService.unfollowUser(this.user2.id_usuario, this.user.id_usuario).subscribe(
+    this.unfollowUserService.unfollowUser(this.userLog.id_usuario, this.user.id_usuario).subscribe(
       res => {
         console.log(res);
-        this.show = true;
+        this.show = false;
       },
       err => console.error(err)
     );
