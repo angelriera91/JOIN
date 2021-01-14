@@ -495,44 +495,57 @@ export class EventsComponent implements OnInit {
     if (this.headerService.user != undefined) {
       if (this.headerService.user.id_usuario != 0) {
         console.log("esta entrando?")
-  
-        this.eventService.getUsuario(this.event.id_creador).subscribe((data:any) => {
-          
-          this.user = data[0]
-  
-          console.log(this.user)
-          this.publicProfileService.userSelected = this.user;
-          console.log(this.publicProfileService.userSelected)
-          this.eventService.creados = false;
-          this.eventService.paraAsistir = false;
-          this.eventService.terminados = false;
-          this.eventService.creadosPublic = true;
-          this.publicProfileService.show = false;
-  
-          this.headerService.getTotFavs(this.publicProfileService.userSelected.id_usuario).subscribe((data2:any) => {
-            console.log(data2[0])
-            if (data2.length == 0) {
-              this.publicProfileService.userSelected.favoritos = 0;
-            }else{
-              if (data2[0].favoritos == null || data2[0].favoritos == undefined || data2[0] == undefined) {
-                this.publicProfileService.userSelected.favoritos = 0;
-              }else {
-                this.publicProfileService.userSelected.favoritos = data[0].favoritos;
-              }
+
+        if (this.event.id_creador == this.headerService.user.id_usuario) {
+          Swal.fire({
+            html: 'No puede entrar a su propio perfil publico',
+            timer: 1000,
+            timerProgressBar: true,
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('I was closed by the timer')
             }
           })
-          this.profileService.getMediaEventUser(this.publicProfileService.userSelected.id_usuario).subscribe((data3:any) => {
-            if (data3[0].media == null || data3[0] == undefined) {
-              this.publicProfileService.userSelected.media = 0;
-            }else {
-              this.publicProfileService.userSelected.media = data3[0];
-            }
-  
-            this.dismis();
-            this.route.navigate(["perfil/public"]);
-            this.headerService.perfilDesdeEvent == true;
+        }else{
+          this.eventService.getUsuario(this.event.id_creador).subscribe((data:any) => {
+          
+            this.user = data[0]
+    
+            console.log(this.user)
+            this.publicProfileService.userSelected = this.user;
+            console.log(this.publicProfileService.userSelected)
+            this.eventService.creados = false;
+            this.eventService.paraAsistir = false;
+            this.eventService.terminados = false;
+            this.eventService.creadosPublic = true;
+            this.publicProfileService.show = false;
+    
+            this.headerService.getTotFavs(this.publicProfileService.userSelected.id_usuario).subscribe((data2:any) => {
+              console.log(data2[0])
+              if (data2.length == 0) {
+                this.publicProfileService.userSelected.favoritos = 0;
+              }else{
+                if (data2[0].favoritos == null || data2[0].favoritos == undefined || data2[0] == undefined) {
+                  this.publicProfileService.userSelected.favoritos = 0;
+                }else {
+                  this.publicProfileService.userSelected.favoritos = data[0].favoritos;
+                }
+              }
+            })
+            this.profileService.getMediaEventUser(this.publicProfileService.userSelected.id_usuario).subscribe((data3:any) => {
+              if (data3[0].media == null || data3[0] == undefined) {
+                this.publicProfileService.userSelected.media = 0;
+              }else {
+                this.publicProfileService.userSelected.media = data3[0];
+              }
+    
+              this.dismis();
+              this.route.navigate(["perfil/public"]);
+              this.headerService.perfilDesdeEvent == true;
+            });
           });
-        });
+        }
       }
     }else{
       Swal.fire({
