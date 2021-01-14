@@ -642,6 +642,13 @@ export class EventsComponent implements OnInit {
           } else {
             this.eventService.mostrar = false
           }
+        }else if(this.eventService.paraAsistir == false && this.eventService.creadosPublic == false && this.eventService.creados == false && this.eventService.terminados == false){
+          this.cargaEventos();
+          if (this.eventService.mostrar == false) {
+            this.eventService.mostrar = true
+          } else {
+            this.eventService.mostrar = false
+          }
         }
 
       })
@@ -736,10 +743,7 @@ export class EventsComponent implements OnInit {
         }else{
           this.eventService.getUsuario(this.event.id_creador).subscribe((data:any) => {
           
-            this.user = data[0]
-    
-            console.log(this.user)
-            this.publicProfileService.userSelected = this.user;
+            this.publicProfileService.userSelected = data[0];
             console.log(this.publicProfileService.userSelected)
             this.eventService.creados = false;
             this.eventService.paraAsistir = false;
