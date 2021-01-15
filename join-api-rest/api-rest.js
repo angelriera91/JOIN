@@ -305,8 +305,10 @@ app.get("/user/mediaEvents/:id_creador"/* /event/asistir/:id */, function (reque
 app.put("/evento/puntuacion/evento",
     function (request, response) {
         let usuario = [request.body.total_valoracion, request.body.numero_valoracion, request.body.id_event]
+        console.log(usuario)
         let sql = "UPDATE eventos SET total_valoracion = ?, numero_valoracion = ?  WHERE id_event = ? "
         console.log(sql);
+
         connection.query(sql, usuario, function (err, result) {
             if (err)
                 console.log(err);

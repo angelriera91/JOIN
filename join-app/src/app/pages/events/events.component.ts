@@ -790,7 +790,7 @@ export class EventsComponent implements OnInit {
               if (data3[0].media == null || data3[0] == undefined) {
                 this.publicProfileService.userSelected.media = 0;
               }else {
-                this.publicProfileService.userSelected.media = data3[0];
+                this.publicProfileService.userSelected.media = data3[0].media;
               }
     
               this.dismis();

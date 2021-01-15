@@ -25,7 +25,7 @@ export class RateEventService {
     return this.http.post(this.urlevent, puntuacion)
   }
 
-  ChangeEvent(evento: any) 
+  changeEvent(evento: any) 
   {
     return this.http.put(this.urlevent + "/evento", evento)
   }

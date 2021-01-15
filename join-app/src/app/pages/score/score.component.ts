@@ -6,8 +6,9 @@ import { RateEventService } from '../../shared/rateEventService/rate-event.servi
 import { Router, RouterLink } from '@angular/router';
 import { HeaderService } from 'src/app/shared/headerService/header.service';
 import { HeaderComponent } from '../header/header.component';
-import { EventService} from '../../shared/event.service';
+import { EventService } from '../../shared/event.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-score',
@@ -17,11 +18,11 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ScoreComponent implements OnInit {
 
 
-  starRating = 0; 
+  starRating = 0;
   public event: Event;
-  public eventPaPuntuacion: Event; 
+  public eventPaPuntuacion: Event;
   public user: User;
-  
+
 
   constructor(private rateEventService: RateEventService, private modalService: NgbModal, private headerService: HeaderService, private eventService: EventService, private router: Router) {
     this.user = headerService.user;
@@ -29,61 +30,58 @@ export class ScoreComponent implements OnInit {
 
   }
 
-  rate(){
+  rate() {
 
     let puntuacion: UsuarioEvento = this.rateEventService.usuario_evento;
-    let puntuacion2: UsuarioEvento ;
+    let puntuacion2: UsuarioEvento;
     let evento: Event = this.eventService.eventPaPuntuacion;
-    
+
+    if (isNaN(evento.total_valoracion)) {
+      evento.total_valoracion = 0;
+    }
+    if (isNaN(evento.numero_valoracion)) {
+      evento.numero_valoracion = 0;
+    }
+
     puntuacion.puntuacion = this.starRating;
 
     console.log(puntuacion)
 
-    let exists = false;
-
-    this.rateEventService.getRate(puntuacion.id_evento,puntuacion.id_usuario).subscribe(
+    this.rateEventService.getRate(puntuacion.id_evento, puntuacion.id_usuario).subscribe(
       res => {
-        if (res[0] != null)
-        {
-          exists = true;
-        } else 
-        {
-          exists = false;
-        }
 
-        if (exists==true)
-          {          
-          if (res[0].puntuacion == 0) {
-            evento.total_valoracion = evento.total_valoracion + puntuacion.puntuacion;
-          }
+        if (res[0].puntuacion == 0) {
+          evento.total_valoracion = evento.total_valoracion + puntuacion.puntuacion;
+          evento.numero_valoracion = evento.numero_valoracion + 1;
 
-          this.rateEventService.changeRate (puntuacion).subscribe(
+          this.rateEventService.changeRate(puntuacion).subscribe(
             res => {
               console.log(res);
-              
-              this.rateEventService.ChangeEvent(evento).subscribe((data) => {
+
+              this.rateEventService.changeEvent(evento).subscribe((data) => {
                 console.log(data);
+
+                this.router.navigate(["/perfil"])
               })
 
             },
             err => console.error(err)
           );
 
-          } 
-        else 
-          {
-            this.rateEventService.rateEvent(puntuacion).subscribe(
-              res => {
-                console.log(res);
-                evento.total_valoracion = evento.total_valoracion + puntuacion.puntuacion;
-                evento.numero_valoracion = evento.numero_valoracion + 1;
-                this.rateEventService.ChangeEvent(evento).subscribe((data) => {
-                  console.log(data);
-                })
-              },
-              err => console.error(err)
-            );
-          } 
+        } else {
+          
+          Swal.fire({
+            html: 'No puede puntuar dos veces un mismo evento',
+            timer: 2000,
+            timerProgressBar: true,
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('I was closed by the timer')
+            }
+          })
+
+        }
 
       },
       err => console.error(err)
