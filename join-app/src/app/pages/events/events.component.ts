@@ -792,9 +792,9 @@ export class EventsComponent implements OnInit {
 
   }
 
-  public deleteAssit() {
+  public deleteAssist(indice:number) {
 
-    this.eventService.deleteAssist(this.event.id_event, this.headerService.user.id_usuario).subscribe((data) => {
+    this.eventService.deleteAssist(this.events[indice].id_event, this.headerService.user.id_usuario).subscribe(() => {
 
       if (this.eventService.creadosPublic == true) {
         this.cargaEventos();
@@ -803,7 +803,9 @@ export class EventsComponent implements OnInit {
         } else {
           this.eventService.mostrar = false
         }
-      } else if (this.eventService.paraAsistir == true) {
+      } 
+      
+      else if (this.eventService.paraAsistir == true) {
         this.cargaEventos();
         if (this.eventService.mostrar == false) {
           this.eventService.mostrar = true
@@ -811,6 +813,7 @@ export class EventsComponent implements OnInit {
           this.eventService.mostrar = false
         }
       }
+      
       else if(this.eventService.paraAsistir == false && this.eventService.creadosPublic == false && this.eventService.creados == false && this.eventService.terminados == false){
 
         this.cargaEventos();
@@ -821,9 +824,11 @@ export class EventsComponent implements OnInit {
         }
 
       }
+
+      this.modalService.dismissAll('Dismissed after saving data');
     })
 
-    this.modalService.dismissAll('Dismissed after saving data');
+    
 
   }
 

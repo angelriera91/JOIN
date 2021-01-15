@@ -67,9 +67,9 @@ export class EventService {
 
   }
 
-  deleteAssist(id_event:number,id_usuario:number){
+  deleteAssist(id_evento:number,id_usuario:number){
 
-    return this.http.delete(this.delete_assist + "/" + id_event + "/" + id_usuario)
+    return this.http.delete(this.delete_assist + "/" + id_evento + "/" + id_usuario)
 
   }
 
