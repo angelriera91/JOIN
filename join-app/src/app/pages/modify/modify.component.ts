@@ -114,7 +114,10 @@ export class ModifyComponent implements OnInit {
               }else {
                 this.profileService.user.media = data[0].media;
               }
+              
             }
+
+            this.router.navigate(["/perfil"])
 
             Swal.fire({
               html: '¡Tu cuenta ha sido modificada correctamente!',
