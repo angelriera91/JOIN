@@ -243,11 +243,11 @@ app.get("/evento/checkassist/:id_evento/:id_usuario", function (request, respons
 
 app.delete("/eventos/noasistir/:id_evento/:id_usuario", function (request, response) {
 
-    var params = [request.params.id_evento, request.params.id_usuario]
+    
 
-    let sql = 'DELETE * FROM usuario_eventos WHERE id_evento = ? AND id_usuario = ?'
+    let sql = 'DELETE FROM usuario_eventos WHERE id_evento = '+ request.params.id_evento + ' AND id_usuario = ' + request.params.id_usuario
 
-    connection.query(sql, params, function (err, result) {
+    connection.query(sql, function (err, result) {
         if (err) {
             response.send(err);
             console.log(err);
