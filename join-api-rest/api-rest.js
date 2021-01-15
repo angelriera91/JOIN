@@ -579,9 +579,11 @@ app.delete("/delete/event/:id_event", function (request, response) {
 
     let event_id = request.params.id_event
 
-    let delete_event = 'DELETE FROM eventos WHERE id_event = ? '
+    console.log(event_id);
 
-    connection.query(delete_event, event_id, function (err, result) {
+    let delete_event = 'DELETE FROM eventos WHERE id_event = ' + request.params.id_event;
+
+    connection.query(delete_event, function (err, result) {
 
         if (err) {
             console.log(err)

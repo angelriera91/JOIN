@@ -143,7 +143,18 @@ export class HeaderComponent implements OnInit {
 
   crearEvento(titulo: string, lugar: string, fecha: string, hora: string, description: string, categoria: string, imagen: string, max_assist: number) {
 
-    let evento = { "titulo": titulo, "lugar": lugar, "fecha": fecha, "hora": hora, "descripcion": description, "categoria": categoria, "imagen":"../assets/evento.jpg" , "id_creador": this.user.id_usuario, "max_assist": max_assist }
+
+    imagen = imagen.slice(12);
+    console.log(imagen);
+    if (imagen == null || imagen == undefined || imagen == "") {
+      imagen = this.event.imagen;
+    }
+    else {
+      imagen = "../../../assets/" + imagen;
+    }
+
+
+    let evento = { "titulo": titulo, "lugar": lugar, "fecha": fecha, "hora": hora, "descripcion": description, "categoria": categoria, "imagen": imagen, "id_creador": this.user.id_usuario, "max_assist": max_assist }
 
     this.headerService.crearEvento(evento).subscribe(data => {
 

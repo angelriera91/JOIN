@@ -283,6 +283,13 @@ export class EventsComponent implements OnInit {
         } else {
           this.eventService.mostrar = false
         }
+      }else {
+        this.cargaEventos();
+        if (this.eventService.mostrar == false) {
+          this.eventService.mostrar = true
+        } else {
+          this.eventService.mostrar = false
+        }
       }
 
       console.log("evento borrado")
@@ -501,17 +508,33 @@ export class EventsComponent implements OnInit {
 
                 if (data[0] != null || data[0] != undefined || data[0] != []) {
 
-                  this.mostrar1 = false
-                  this.mostrar2 = false
-                  this.mostrar3 = false
-                  this.mostrar4 = false
-                  this.mostrar5 = true
+                  if (this.event.id_creador == this.headerService.user.id_usuario) {
 
-                  this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
-                    this.closeResult = `Closed with: ${result}`;
-                  }, (reason) => {
-                    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-                  });
+                    this.mostrar1 = true
+                    this.mostrar2 = false
+                    this.mostrar3 = true
+                    this.mostrar4 = false
+                    this.mostrar5 = false
+  
+                    this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                      this.closeResult = `Closed with: ${result}`;
+                    }, (reason) => {
+                      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                    });
+  
+                  }else{
+                    this.mostrar1 = false
+                    this.mostrar2 = false
+                    this.mostrar3 = false
+                    this.mostrar4 = false
+                    this.mostrar5 = true
+
+                    this.modalService.open(eventmodal, { backdropClass: 'light-blue-backdrop' }).result.then((result) => {
+                      this.closeResult = `Closed with: ${result}`;
+                    }, (reason) => {
+                      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                    });
+                  }
                 }
                 else if (this.event.id_creador == this.user.id_usuario) {
 
@@ -794,7 +817,7 @@ export class EventsComponent implements OnInit {
 
   public deleteAssist(indice:number) {
 
-    this.eventService.deleteAssist(this.events[indice].id_event, this.headerService.user.id_usuario).subscribe(() => {
+    this.eventService.deleteAssist(this.event.id_event, this.headerService.user.id_usuario).subscribe(() => {
 
       if (this.eventService.creadosPublic == true) {
         this.cargaEventos();
