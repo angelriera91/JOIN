@@ -36,10 +36,10 @@ export class ScoreComponent implements OnInit {
     let puntuacion2: UsuarioEvento;
     let evento: Event = this.eventService.eventPaPuntuacion;
 
-    if (isNaN(evento.total_valoracion)) {
+    if (evento.total_valoracion == undefined) {
       evento.total_valoracion = 0;
     }
-    if (isNaN(evento.numero_valoracion)) {
+    if (evento.numero_valoracion == undefined) {
       evento.numero_valoracion = 0;
     }
 
